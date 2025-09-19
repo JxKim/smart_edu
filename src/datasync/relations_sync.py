@@ -83,11 +83,29 @@ class RelationsSynchronizer:
 
     # 学生-FAVOR->课程
     def sync_student_favor_course(self):
-        pass
+        sql = """
+            select 
+                user_id start_id,
+                course_id end_id,
+                DATE_FORMAT(create_time, '%Y-%m-%d') property
+            from favor_info
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.writer_relations_with_property('FAVOR', 'Student', 'Course', '收藏时间', relations)
+        print('学生-FAVOR->课程同步完成')
 
     # 学生-ANSWER->试题
     def sync_student_answer_question(self):
-        pass
+        sql = """
+            select 
+                user_id start_id,
+                question_id end_id,
+                is_correct property
+            from test_exam_question
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.writer_relations_with_property('ANSWER', 'Student', 'Question', '答题结果', relations)
+        print('学生-ANSWER->试题同步完成')
 
     # 学生-WATCH->章节视频
     def sync_student_watch_video(self):
@@ -159,4 +177,6 @@ if __name__ == '__main__':
     # relations_synchronizer.sync_course_have_knowledge()
     # relations_synchronizer.sync_chapter_have_knowledge()
     # relations_synchronizer.sync_question_have_knowledge()
+    # relations_synchronizer.sync_student_favor_course()
+    relations_synchronizer.sync_student_answer_question()
 
