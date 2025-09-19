@@ -120,6 +120,17 @@ class NodesSynchronizer:
         # print( property)
         self.neo4j_writer.writer_nodes_with_three_properties('Student',property)
 
+    # 知识点
+    def synchronize_knowledge(self):
+        sql = """
+            select 
+                id ,
+                point_txt name
+            from knowledge_point
+        """
+        property = self.mysql_reader.read(sql)
+        self.neo4j_writer.writer_nodes('Knowledge',property)
+
 if __name__ == '__main__':
     nodes_synchronizer = NodesSynchronizer()
     # nodes_synchronizer.synchronize_category()
@@ -133,4 +144,6 @@ if __name__ == '__main__':
     # nodes_synchronizer.synchronize_paper()
     # nodes_synchronizer.synchronize_question()
 
-    nodes_synchronizer.synchronize_student()
+    # nodes_synchronizer.synchronize_student()
+
+    nodes_synchronizer.synchronize_knowledge()
