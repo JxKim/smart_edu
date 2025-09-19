@@ -27,6 +27,13 @@ class Neo4jWriter:
         """
         self.driver.execute_query(cypher, {"batch": properties})
 
+    def writer_nodes_with_three_properties(self,label,properties):
+        cypher = f"""
+            UNWIND $batch AS item
+            MERGE (n:{label} {{id:item.uid,birthday:item.birthday,gender:item.gender}})
+        """
+        self.driver.execute_query(cypher, {"batch": properties})
+
 
 
 
