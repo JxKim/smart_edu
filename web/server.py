@@ -198,13 +198,13 @@ class ChatService:
             """
             prompt = PromptTemplate.from_template(prompt_template)
             chain = prompt | self.llm | StrOutputParser()
-
             best_match = chain.invoke({
                 "question": question,
                 "entity_name": entity_name,
                 "candidate_list": candidate_names
             })
-
+            if candidate_names:
+                print(candidate_names)
             if best_match != "None" and best_match in candidate_names:
                 print(f"Aligned '{entity_name}' to '{best_match}'")
                 aligned_entities.append({
@@ -212,41 +212,17 @@ class ChatService:
                     "entity": best_match
                 })
             else:
+                print(best_match)
                 print(f"Could not reliably align entity '{entity_name}'. Aborting.")
                 return None
 
         return aligned_entities
 
-    def _preprocess_query_result(self, query_result: list) -> list:
-        """
-        Cleans and simplifies the raw Neo4j query result into a more readable format.
-        """
-        if not query_result:
-            return []
-
-        processed_results = []
-        for record in query_result:
-            processed_record = {}
-            for key, value in record.items():
-                if isinstance(value, dict) and 'identity' in value and 'properties' in value:
-                    properties = value.get('properties', {})
-                    display_value = properties.get('name') or properties.get('title') or properties
-                    processed_record[key] = display_value
-                elif isinstance(value, list):
-                    processed_record[key] = [
-                        item.get('properties', {}).get('name') or item.get('properties', {})
-                        for item in value if isinstance(item, dict)
-                    ]
-                else:
-                    processed_record[key] = value
-            processed_results.append(processed_record)
-        return processed_results
-
     def _generate_answer_enhanced(self, question: str, cypher_query: str, query_result: list):
         """
         Generates a natural language answer using the question, the query, and preprocessed results.
         """
-        processed_result_str = json.dumps(query_result, ensure_ascii=False, indent=2)
+        processed_result_str = json.dumps(query_result, ensure_ascii=False, indent=2,default=str)
 
         prompt_template = """
         你是一个智能教学助手。请根据用户问题、用于查询知识图谱的Cypher语句以及查询结果，生成一个友好、自然的中文回答。
@@ -279,15 +255,11 @@ class ChatService:
         })
 
     def chat_enhanced(self, question: str):
-        """
-        The enhanced main chat workflow with improved accuracy and robustness.
-        """
         print(f"\n[User Question]: {question}")
-
         cypher_data = self._generate_cypher_enhanced(question)
         if not cypher_data or "cypher_query" not in cypher_data:
             return "抱歉，我无法理解您的问题来生成一个有效的查询。"
-
+        print(cypher_data)
         cypher = cypher_data['cypher_query']
         entities_to_align = cypher_data['entities_to_align']
         print(f"\n[Generated Cypher]:\n{cypher}")
@@ -300,8 +272,10 @@ class ChatService:
                 return f"抱歉，我在知识库中找不到与 {entity_names} 相关确切信息，请您换个问法试试。"
             print(f"[Aligned Entities]: {aligned_entities}")
         else:
-            aligned_entities = []
-
+            query_result = self.graph.query(cypher)
+            answer = self._generate_answer_enhanced(question, cypher, query_result)
+            print(f"\n[Final Answer]: {answer}")
+            return answer
         try:
             params = {item['param_name']: item['entity'] for item in aligned_entities}
             query_result = self.graph.query(cypher, params=params)
@@ -309,14 +283,9 @@ class ChatService:
         except Exception as e:
             print(f"Error executing Cypher query: {e}")
             return "抱歉，我在查询知识库时遇到了一个问题，暂时无法回答您。"
-
-        processed_result = self._preprocess_query_result(query_result)
-        print(f"\n[Processed Result]:\n{json.dumps(processed_result, indent=2, ensure_ascii=False)}")
-
-        answer = self._generate_answer_enhanced(question, cypher, processed_result)
+        answer = self._generate_answer_enhanced(question, cypher, query_result)
         print(f"\n[Final Answer]: {answer}")
         return answer
-
     def chat(self, question):
         return self.chat_enhanced(question)
 
