@@ -1,2 +1,7 @@
 /.idea
 /.venv
+/logs
+/pretrained
+/checkpoints
+/src/configuration/config.py
+.env
