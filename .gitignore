@@ -1,2 +1,4 @@
 /.idea
 /.venv
+/.configuration
+src/configuration/config.py
