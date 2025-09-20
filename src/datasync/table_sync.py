@@ -1,5 +1,4 @@
 # 同步结构化数据
-from tqdm import tqdm
 
 from utils import Utils
 
@@ -163,11 +162,53 @@ def sync_course_info():
                      messages=["id","course_name","teacher","course_introduce"],
                      result=result)
 
+# 批量同步大部分关系
+def batch_sync_relation():
+    # 批量参数的字典
+    args_dict = [
+        # 用户 - 观看 - 章节
+        ["user_chapter_progress", "user", "chapter", "WATCHED", "user_id", "id"],
+        # 用户 - 发布 - 评论
+        ["comment_info", "user", "comment", "POSTED", "user_id", "id"],
+        # 用户 - 收藏 - 课程
+        ["favor_info", "user", "course", "COLLECTION", "user_id", "course_id"],
+        # 用户 - 评论 - 课程
+        ["comment_info", "user", "course", "RATED", "user_id", "course_id"],
 
+        # 学科 - 属于 - 分类
+        ["base_subject_info", "subject", "category", "BELONGS_TO", "id", "category_id"],
+
+        # 学科 - 包含 - 课程
+        ["course_info", "subject", "course", "HAS_COURSE", "subject_id", "id"],
+
+        # 课程 - 有 - 视频
+        ["video_info", "course", "video", "HAS_VIDEO", "course_id", "id"],
+        # 课程 - 有 - 章节
+        ["chapter_info", "course", "chapter", "HAS_CHAPTER", "course_id", "id"],
+        # 章节 - 有 - 用户观看进度
+        ["user_chapter_progress", "chapter", "chapter_progress", "HAS_CHAPTER", "chapter_id", "user_id"],
+        # 章节 - 有 - 评论
+        ["comment_info", "chapter", "comment", "HAS_COMMENT", "chapter_id", "id"],
+        # 课程 - 有 - 题目
+        ["test_question_info", "course", "question", "HAS_QUESTION", "course_id", "id"],
+        # 题目 - 有 - 选项
+        ["test_question_option", "question", "question_option", "HAS_OPTION", "question_id", "id"],
+        # 试卷 - 有 - 题目
+        ["test_paper_question", "paper", "question", "HAS_QUESTION", "paper_id", "question_id"],
+
+        # 知识点 - 关联 - 题目
+        ["test_point_question", "knowledge_point", "question", "RELATED_TO", "point_id", "question_id"],
+        # 题目 - 属于 - 知识点
+        ["test_point_question", "question", "knowledge_point", "COVERS", "question_id", "point_id"],
+    ]
+
+    for args in args_dict:
+        utils.write_relation(*args)
 
 if __name__=="__main__":
+    batch_sync_relation()
     # 数据处理结束
-    pass
+
     # # 最大分类节点
     # sync_category()
     # # 学科节点
