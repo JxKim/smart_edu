@@ -1,0 +1,303 @@
+CREATE TABLE `base_category_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `category_name` varchar(200) DEFAULT NULL COMMENT '分类名称',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COMMENT='分类'
+CREATE TABLE `base_province` (
+  `id` bigint NOT NULL COMMENT 'id',
+  `name` varchar(20) DEFAULT NULL COMMENT '省名称',
+  `region_id` varchar(20) DEFAULT NULL COMMENT '大区id',
+  `area_code` varchar(20) DEFAULT NULL COMMENT '行政区位码',
+  `iso_code` varchar(20) DEFAULT NULL COMMENT '国际编码',
+  `iso_3166_2` varchar(20) DEFAULT NULL COMMENT 'ISO3166编码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='省份'
+CREATE TABLE `base_source` (
+  `id` bigint NOT NULL,
+  `source_site` varchar(20) DEFAULT NULL,
+  `source_url` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='来源'
+CREATE TABLE `base_subject_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `subject_name` varchar(200) DEFAULT NULL COMMENT '科目名称',
+  `category_id` bigint DEFAULT NULL COMMENT '分类',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COMMENT='学科'
+CREATE TABLE `cart_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `course_name` varchar(200) DEFAULT NULL COMMENT 'sku名称 (冗余)',
+  `cart_price` decimal(10,2) DEFAULT NULL COMMENT '放入购物车时价格',
+  `img_url` varchar(200) DEFAULT NULL COMMENT '图片文件',
+  `session_id` varchar(200) DEFAULT NULL COMMENT '会话id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `deleted` varchar(2) DEFAULT NULL,
+  `sold` varchar(2) DEFAULT NULL COMMENT '是否已售',
+  PRIMARY KEY (`id`),
+  KEY `idx_uid` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4745 DEFAULT CHARSET=utf8mb3 COMMENT='购物车表'
+CREATE TABLE `chapter_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `chapter_name` varchar(200) DEFAULT NULL COMMENT '章节名称',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `video_id` bigint DEFAULT NULL COMMENT '视频id',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `is_free` varchar(2) DEFAULT NULL COMMENT '是否免费',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_cid` (`course_id`),
+  KEY `idx_vid` (`video_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26306 DEFAULT CHARSET=utf8mb3 COMMENT='章节'
+CREATE TABLE `comment_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `chapter_id` bigint DEFAULT NULL COMMENT '章节id',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `comment_txt` varchar(2000) DEFAULT NULL COMMENT '评价内容',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `deleted` varchar(1) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1632 DEFAULT CHARSET=utf8mb3 COMMENT='评论表'
+CREATE TABLE `course_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `course_name` varchar(200) DEFAULT NULL COMMENT '课程名称',
+  `course_slogan` varchar(200) DEFAULT NULL COMMENT '课程标语',
+  `course_cover_url` varchar(200) DEFAULT NULL COMMENT '课程封面',
+  `subject_id` bigint DEFAULT NULL COMMENT '学科id',
+  `teacher` varchar(4000) DEFAULT NULL COMMENT '讲师名称',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `chapter_num` bigint DEFAULT NULL COMMENT '章节数',
+  `origin_price` decimal(16,2) DEFAULT NULL COMMENT '价格',
+  `reduce_amount` decimal(16,2) DEFAULT NULL COMMENT '优惠金额',
+  `actual_price` decimal(16,2) DEFAULT NULL COMMENT '实际价格',
+  `course_introduce` varchar(2000) DEFAULT NULL COMMENT '课程介绍',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=utf8mb3 COMMENT='课程'
+CREATE TABLE `favor_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7294 DEFAULT CHARSET=utf8mb3 COMMENT='收藏'
+CREATE TABLE `knowledge_point` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `point_txt` varchar(4000) DEFAULT NULL COMMENT '知识点内容  ',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=utf8mb3 COMMENT='知识点'
+CREATE TABLE `order_detail` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `course_name` varchar(4000) DEFAULT NULL COMMENT '课程名称',
+  `order_id` bigint DEFAULT NULL COMMENT '订单编号',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `origin_amount` decimal(16,2) DEFAULT NULL COMMENT '原始金额',
+  `coupon_reduce` decimal(16,2) DEFAULT NULL COMMENT '优惠劵减免金额',
+  `final_amount` decimal(16,2) DEFAULT NULL COMMENT '最终金额',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_oid_cid` (`order_id`,`course_id`),
+  KEY `idx_cid` (`course_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17384 DEFAULT CHARSET=utf8mb3 COMMENT='订单明细'
+CREATE TABLE `order_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `origin_amount` decimal(10,2) DEFAULT NULL COMMENT '原始金额',
+  `coupon_reduce` decimal(10,2) DEFAULT NULL COMMENT '优惠券减免',
+  `final_amount` decimal(10,2) DEFAULT NULL COMMENT '最终金额',
+  `order_status` varchar(20) DEFAULT NULL COMMENT '订单状态',
+  `out_trade_no` varchar(50) DEFAULT NULL COMMENT '订单交易编号（第三方支付用)',
+  `trade_body` varchar(200) DEFAULT NULL COMMENT '订单描述(第三方支付用)',
+  `session_id` varchar(100) DEFAULT NULL COMMENT 'session id',
+  `province_id` bigint DEFAULT NULL COMMENT '地区id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `expire_time` datetime DEFAULT NULL COMMENT '失效时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_uid` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16824 DEFAULT CHARSET=utf8mb3 COMMENT='订单表'
+CREATE TABLE `payment_info` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `out_trade_no` varchar(50) DEFAULT NULL COMMENT '对外业务编号',
+  `order_id` bigint DEFAULT NULL COMMENT '订单编号',
+  `alipay_trade_no` varchar(50) DEFAULT NULL COMMENT '支付宝交易编号',
+  `total_amount` decimal(10,0) DEFAULT NULL COMMENT '支付金额',
+  `trade_body` varchar(200) DEFAULT NULL COMMENT '交易内容',
+  `payment_type` varchar(20) DEFAULT NULL,
+  `payment_status` varchar(20) DEFAULT NULL COMMENT '支付状态',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `callback_content` varchar(1000) DEFAULT NULL COMMENT '回调信息',
+  `callback_time` datetime DEFAULT NULL COMMENT '回调时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_oid` (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9315 DEFAULT CHARSET=utf8mb3 COMMENT='支付信息表'
+CREATE TABLE `review_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint DEFAULT NULL COMMENT '用户名称',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `review_txt` varchar(4000) DEFAULT NULL COMMENT '评价内容',
+  `review_stars` bigint DEFAULT NULL COMMENT '评价',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `deleted` varchar(1) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_uid` (`user_id`,`course_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1634 DEFAULT CHARSET=utf8mb3 COMMENT='评价表'
+CREATE TABLE `test_exam` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `paper_id` bigint DEFAULT NULL COMMENT '考卷id',
+  `user_id` bigint DEFAULT NULL COMMENT '课程id',
+  `score` decimal(10,2) DEFAULT NULL COMMENT '分数',
+  `duration_sec` bigint DEFAULT NULL COMMENT '所用时长',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `submit_time` datetime DEFAULT NULL COMMENT '提交时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_pid` (`paper_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1540 DEFAULT CHARSET=utf8mb3 COMMENT='做卷记录'
+CREATE TABLE `test_exam_question` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `exam_id` bigint DEFAULT NULL COMMENT '考试id',
+  `paper_id` bigint DEFAULT NULL COMMENT '试卷id',
+  `question_id` bigint DEFAULT NULL COMMENT '试题id',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `answer` varchar(2000) DEFAULT NULL COMMENT '答案',
+  `is_correct` varchar(2) DEFAULT NULL COMMENT '是否正确',
+  `score` decimal(16,2) DEFAULT NULL COMMENT '本题得分',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_eid` (`exam_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22705 DEFAULT CHARSET=utf8mb3 COMMENT='做题记录'
+CREATE TABLE `test_paper` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `paper_title` varchar(200) DEFAULT NULL COMMENT '试卷名称',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_cid` (`course_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8mb3 COMMENT='试卷'
+CREATE TABLE `test_paper_question` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `paper_id` bigint DEFAULT NULL COMMENT '试卷id',
+  `question_id` bigint DEFAULT NULL COMMENT '题目id',
+  `score` decimal(10,2) DEFAULT NULL COMMENT '得分',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_pid` (`paper_id`,`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3225 DEFAULT CHARSET=utf8mb3 COMMENT='试卷问题关联表'
+CREATE TABLE `test_point_question` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `point_id` bigint DEFAULT NULL COMMENT '知识点id',
+  `question_id` bigint DEFAULT NULL COMMENT '试题id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=utf8mb3 COMMENT='知识点与问题的关联'
+CREATE TABLE `test_question_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `question_txt` varchar(4000) DEFAULT NULL COMMENT '题目内容',
+  `category_id` bigint DEFAULT NULL COMMENT '分类id',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `question_type` bigint DEFAULT NULL COMMENT '题目类型',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_chid` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2609 DEFAULT CHARSET=utf8mb3 COMMENT='题目'
+CREATE TABLE `test_question_option` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `option_txt` varchar(2000) DEFAULT NULL COMMENT '选项内容',
+  `question_id` bigint DEFAULT NULL COMMENT '题目id',
+  `is_correct` varchar(2) DEFAULT NULL COMMENT '是否正确',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_qid` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9118 DEFAULT CHARSET=utf8mb3 COMMENT='题目选项'
+CREATE TABLE `user_chapter_progress` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `chapter_id` bigint DEFAULT NULL COMMENT '章节id',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `position_sec` bigint DEFAULT NULL COMMENT '时长位置',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1691 DEFAULT CHARSET=utf8mb3 COMMENT='用户章节观看进度'
+CREATE TABLE `user_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `login_name` varchar(200) DEFAULT NULL COMMENT '用户名称',
+  `nick_name` varchar(200) DEFAULT NULL COMMENT '用户昵称',
+  `passwd` varchar(200) DEFAULT NULL COMMENT '用户密码',
+  `real_name` varchar(200) DEFAULT NULL COMMENT '用户姓名',
+  `phone_num` varchar(200) DEFAULT NULL COMMENT '手机号',
+  `email` varchar(200) DEFAULT NULL COMMENT '邮箱',
+  `head_img` varchar(200) DEFAULT NULL COMMENT '头像',
+  `user_level` varchar(200) DEFAULT NULL COMMENT '用户级别',
+  `birthday` date DEFAULT NULL COMMENT '用户生日',
+  `gender` varchar(1) DEFAULT NULL COMMENT '性别 M男,F女',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `operate_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` varchar(200) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb3 COMMENT='用户信息表'
+CREATE TABLE `video_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `video_name` varchar(200) DEFAULT NULL COMMENT '视频名称',
+  `during_sec` bigint DEFAULT NULL COMMENT '时长',
+  `video_status` varchar(4000) DEFAULT NULL COMMENT '状态 未上传，上传中，上传完',
+  `video_size` bigint DEFAULT NULL COMMENT '大小',
+  `video_url` varchar(500) DEFAULT NULL COMMENT '视频存储路径',
+  `video_source_id` varchar(200) DEFAULT NULL COMMENT '云端资源编号',
+  `version_id` bigint DEFAULT NULL COMMENT '版本号',
+  `chapter_id` bigint DEFAULT NULL COMMENT '章节id',
+  `course_id` bigint DEFAULT NULL COMMENT '课程id',
+  `publisher_id` bigint DEFAULT NULL COMMENT '发布者id',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` varchar(2) DEFAULT NULL COMMENT '是否删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_chid` (`chapter_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5411 DEFAULT CHARSET=utf8mb3 COMMENT='视频'
+CREATE TABLE `vip_change_detail` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint DEFAULT NULL COMMENT '用户id',
+  `from_vip` bigint DEFAULT NULL COMMENT 'vip(从）',
+  `to_vip` bigint DEFAULT NULL COMMENT 'vip(到）',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9248 DEFAULT CHARSET=utf8mb3 COMMENT='VIP表'

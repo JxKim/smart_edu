@@ -1,0 +1,317 @@
+/**
+ * 在线教育平台数据库 E-R 图定义
+ * 自动生成时间：2025-09-19
+ * 支持 dbdiagram.io 语法
+ */
+
+// ========== 基础信息表 ==========
+Table base_category_info {
+  id bigint [pk, increment, note: '编号']
+  category_name varchar(200) [note: '分类名称']
+
+}
+
+Table base_province {
+  id bigint [pk, note: 'id']
+  name varchar(20) [note: '省名称']
+  region_id varchar(20) [note: '大区id']
+  area_code varchar(20) [note: '行政区位码']
+  iso_code varchar(20) [note: '国际编码']
+  iso_3166_2 varchar(20) [note: 'ISO3166编码']
+}
+
+Table base_source {
+  id bigint [pk, note: '来源ID']
+  source_site varchar(20) [note: '来源站点']
+  source_url varchar(200) [note: '来源URL']
+}
+
+Table base_subject_info {
+  id bigint [pk, increment, note: '编号']
+  subject_name varchar(200) [note: '科目名称']
+  category_id bigint [note: '分类']
+
+}
+
+// ========== 用户与权限 ==========
+Table user_info {
+  id bigint [pk, increment, note: '编号']
+  login_name varchar(200) [note: '用户名称']
+  nick_name varchar(200) [note: '用户昵称']
+  passwd varchar(200) [note: '用户密码']
+  real_name varchar(200) [note: '用户姓名']
+  phone_num varchar(200) [note: '手机号']
+  email varchar(200) [note: '邮箱']
+  user_level varchar(200) [note: '用户级别']
+  birthday date [note: '用户生日']
+  gender varchar(1) [note: '性别 M男,F女']
+
+  status varchar(200) [note: '状态']
+}
+
+Table vip_change_detail {
+  id bigint [pk, increment, note: '编号']
+  user_id bigint [note: '用户id']
+  from_vip bigint [note: 'vip(从）']
+  to_vip bigint [note: 'vip(到）']
+}
+
+// ========== 课程体系 ==========
+Table course_info {
+  id bigint [pk, increment, note: '编号']
+  course_name varchar(200) [note: '课程名称']
+  course_slogan varchar(200) [note: '课程标语']
+  course_cover_url varchar(200) [note: '课程封面']
+  subject_id bigint [note: '学科id']
+  teacher varchar(4000) [note: '讲师名称']
+  publisher_id bigint [note: '发布者id']
+  chapter_num bigint [note: '章节数']
+  origin_price decimal(16,2) [note: '价格']
+  reduce_amount decimal(16,2) [note: '优惠金额']
+  actual_price decimal(16,2) [note: '实际价格']
+  course_introduce varchar(2000) [note: '课程介绍']
+}
+
+Table chapter_info {
+  id bigint [pk, increment, note: '编号']
+  chapter_name varchar(200) [note: '章节名称']
+  course_id bigint [note: '课程id']
+  video_id bigint [note: '视频id']
+  publisher_id bigint [note: '发布者id']
+  is_free varchar(2) [note: '是否免费']
+}
+
+Table video_info {
+  id bigint [pk, increment, note: '编号']
+  video_name varchar(200) [note: '视频名称']
+  during_sec bigint [note: '时长']
+  video_status varchar(4000) [note: '状态 未上传，上传中，上传完']
+  video_size bigint [note: '大小']
+  video_url varchar(500) [note: '视频存储路径']
+  video_source_id varchar(200) [note: '云端资源编号']
+  version_id bigint [note: '版本号']
+  chapter_id bigint [note: '章节id']
+  course_id bigint [note: '课程id']
+  publisher_id bigint [note: '发布者id']
+}
+
+// ========== 用户行为 ==========
+Table cart_info {
+  id bigint [pk, increment, note: '编号']
+  user_id bigint [note: '用户id']
+  course_id bigint [note: '课程id']
+  course_name varchar(200) [note: 'sku名称 (冗余)']
+  cart_price decimal(10,2) [note: '放入购物车时价格']
+  img_url varchar(200) [note: '图片文件']
+  session_id varchar(200) [note: '会话id']
+  deleted varchar(2)
+  sold varchar(2) [note: '是否已售']
+}
+
+Table favor_info {
+  id bigint [pk, increment, note: '编号']
+  course_id bigint [note: '课程id']
+  user_id bigint [note: '用户id']
+}
+
+Table review_info {
+  id bigint [pk, increment, note: '编号']
+  user_id bigint [note: '用户名称']
+  course_id bigint [note: '课程id']
+  review_txt varchar(4000) [note: '评价内容']
+  review_stars bigint [note: '评价']
+}
+
+Table comment_info {
+  id bigint [pk, increment, note: '编号']
+  user_id bigint [note: '用户id']
+  chapter_id bigint [note: '章节id']
+  course_id bigint [note: '课程id']
+  comment_txt varchar(2000) [note: '评价内容']
+}
+
+Table user_chapter_progress {
+  id bigint [pk, increment, note: '编号']
+  course_id bigint [note: '课程id']
+  chapter_id bigint [note: '章节id']
+  user_id bigint [note: '用户id']
+  position_sec bigint [note: '时长位置']
+}
+
+// ========== 订单与支付 ==========
+Table order_info {
+  id bigint [pk, increment, note: '编号']
+  user_id bigint [note: '用户id']
+  origin_amount decimal(10,2) [note: '原始金额']
+  coupon_reduce decimal(10,2) [note: '优惠券减免']
+  final_amount decimal(10,2) [note: '最终金额']
+  order_status varchar(20) [note: '订单状态']
+  out_trade_no varchar(50) [note: '订单交易编号（第三方支付用)']
+  trade_body varchar(200) [note: '订单描述(第三方支付用)']
+  session_id varchar(100) [note: 'session id']
+  province_id bigint [note: '地区id']
+}
+
+Table order_detail {
+  id bigint [pk, increment, note: '编号']
+  order_id bigint [note: '订单编号']
+  course_id bigint [note: '课程id']
+  course_name varchar(4000) [note: '课程名称']
+  user_id bigint [note: '用户id']
+  origin_amount decimal(16,2) [note: '原始金额']
+  coupon_reduce decimal(16,2) [note: '优惠劵减免金额']
+  final_amount decimal(16,2) [note: '最终金额']
+}
+
+Table payment_info {
+  id int [pk, increment, note: '编号']
+  order_id bigint [note: '订单编号']
+  out_trade_no varchar(50) [note: '对外业务编号']
+  alipay_trade_no varchar(50) [note: '支付宝交易编号']
+  total_amount decimal(10,0) [note: '支付金额']
+  trade_body varchar(200) [note: '交易内容']
+  payment_type varchar(20)
+  payment_status varchar(20) [note: '支付状态']
+}
+
+// ========== 题库与考试 ==========
+Table knowledge_point {
+  id bigint [pk, increment, note: '编号']
+  point_txt varchar(4000) [note: '知识点内容  ']
+  publisher_id bigint [note: '发布者id']
+}
+
+Table test_question_info {
+  id bigint [pk, increment, note: '编号']
+  question_txt varchar(4000) [note: '题目内容']
+  category_id bigint [note: '分类id']
+  course_id bigint [note: '课程id']
+  question_type bigint [note: '题目类型']
+
+  publisher_id bigint [note: '发布者id']
+
+}
+
+Table test_question_option {
+  id bigint [pk, increment, note: '编号']
+  question_id bigint [note: '题目id']
+  option_txt varchar(2000) [note: '选项内容']
+  is_correct varchar(2) [note: '是否正确']
+
+}
+
+Table test_paper {
+  id bigint [pk, increment, note: '编号']
+  paper_title varchar(200) [note: '试卷名称']
+  course_id bigint [note: '课程id']
+  publisher_id bigint [note: '发布者id']
+
+}
+
+Table test_paper_question {
+  id bigint [pk, increment, note: '编号']
+  paper_id bigint [note: '试卷id']
+  question_id bigint [note: '试题id']
+  score decimal(10,2) [note: '得分']
+  publisher_id bigint [note: '发布者id']
+}
+
+Table test_exam {
+  id bigint [pk, increment, note: '编号']
+  paper_id bigint [note: '考卷id']
+  user_id bigint [note: '用户id']  // 原注释为“课程id”，应为 user_id
+  score decimal(10,2) [note: '分数']
+  duration_sec bigint [note: '所用时长']
+}
+
+Table test_exam_question {
+  id bigint [pk, increment, note: '编号']
+  exam_id bigint [note: '考试id']
+  paper_id bigint [note: '试卷id']
+  question_id bigint [note: '试题id']
+  user_id bigint [note: '用户id']
+  answer varchar(2000) [note: '答案']
+  is_correct varchar(2) [note: '是否正确']
+  score decimal(16,2) [note: '本题得分']
+}
+
+Table test_point_question {
+  id bigint [pk, increment, note: '编号']
+  point_id bigint [note: '知识点id']
+  question_id bigint [note: '试题id']
+  publisher_id bigint [note: '发布者id']
+}
+
+// ===================================
+// 外键关系定义 (Ref: source > target)
+// ===================================
+
+// 分类与学科
+Ref: base_subject_info.category_id > base_category_info.id
+
+// 学科与课程
+Ref: course_info.subject_id > base_subject_info.id
+
+// 课程与章节、视频
+Ref: chapter_info.course_id > course_info.id
+Ref: chapter_info.publisher_id > user_info.id
+Ref: chapter_info.video_id > video_info.id
+
+Ref: video_info.chapter_id > chapter_info.id
+Ref: video_info.course_id > course_info.id
+Ref: video_info.publisher_id > user_info.id
+
+// 用户相关
+Ref: cart_info.user_id > user_info.id
+Ref: cart_info.course_id > course_info.id
+
+Ref: favor_info.user_id > user_info.id
+Ref: favor_info.course_id > course_info.id
+
+Ref: review_info.user_id > user_info.id
+Ref: review_info.course_id > course_info.id
+
+Ref: comment_info.user_id > user_info.id
+Ref: comment_info.chapter_id > chapter_info.id
+Ref: comment_info.course_id > course_info.id
+
+Ref: user_chapter_progress.user_id > user_info.id
+Ref: user_chapter_progress.course_id > course_info.id
+Ref: user_chapter_progress.chapter_id > chapter_info.id
+
+Ref: vip_change_detail.user_id > user_info.id
+
+// 订单系统
+Ref: order_info.user_id > user_info.id
+Ref: order_info.province_id > base_province.id
+
+Ref: order_detail.order_id > order_info.id
+Ref: order_detail.course_id > course_info.id
+Ref: order_detail.user_id > user_info.id
+
+Ref: payment_info.order_id > order_info.id
+
+// 题库系统
+Ref: test_question_info.category_id > base_category_info.id
+Ref: test_question_info.course_id > course_info.id
+Ref: test_question_info.publisher_id > user_info.id
+
+Ref: test_question_option.question_id > test_question_info.id
+
+Ref: test_paper.course_id > course_info.id
+Ref: test_paper.publisher_id > user_info.id
+
+Ref: test_paper_question.paper_id > test_paper.id
+Ref: test_paper_question.question_id > test_question_info.id
+
+Ref: test_exam.paper_id > test_paper.id
+Ref: test_exam.user_id > user_info.id
+
+Ref: test_exam_question.exam_id > test_exam.id
+Ref: test_exam_question.question_id > test_question_info.id
+Ref: test_exam_question.user_id > user_info.id
+
+Ref: test_point_question.point_id > knowledge_point.id
+Ref: test_point_question.question_id > test_question_info.id
+
+Ref: knowledge_point.publisher_id > user_info.id
