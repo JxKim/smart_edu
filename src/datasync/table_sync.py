@@ -6,7 +6,6 @@ class TableSynchronizer:
         self.mysql_reader = MysqlReader()
         self.neo4j_writer = Neo4jWriter()
 
-        # 用于存储teacher和price的映射关系
         self.teacher_mapping = {}
         self.price_mapping = {}
 
@@ -122,6 +121,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_node("question", properties)
 
     def sync_user(self):
+        #学生
         sql = """
             select  id,
             real_name as name,
@@ -138,6 +138,7 @@ class TableSynchronizer:
         self.neo4j_writer.writeCustomNodeOrRelation(cypher, properties)
 
     def sync_knowledge(self):
+        #知识点
         sql = """
             select  id,
             point_txt as name
@@ -147,6 +148,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_node("knowledge", properties)
 
     def sync_subject_to_category(self):
+        #学科和类别
         sql = """
             select id as start_id,
             category_id as end_id
@@ -156,6 +158,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_relations("subject", "category", "BELONG", relations)
 
     def sync_course_to_subject(self):
+        #课程和学科
         sql = """
             select id as start_id,
             subject_id as end_id
@@ -165,6 +168,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_relations("course", "subject", "BELONG", relations)
 
     def sync_chapter_to_course(self):
+        #章节和课程
         sql = """
             select id as start_id,
             course_id as end_id
@@ -174,6 +178,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_relations("chapter", "course", "BELONG", relations)
 
     def sync_video_to_chapter(self):
+        #视频和章节
         sql = """
             select id as start_id,
             chapter_id as end_id
@@ -183,6 +188,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_relations("video", "chapter", "BELONG", relations)
 
     def sync_paper_to_course(self):
+        #试卷和课程
         sql = """
             select id as start_id,
             course_id as end_id
@@ -192,6 +198,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_relations("paper", "course", "BELONG", relations)
 
     def sync_question_to_paper(self):
+        #试题和试卷
         sql = """
             select id as start_id,
             paper_id as end_id
@@ -201,6 +208,7 @@ class TableSynchronizer:
         self.neo4j_writer.write_relations("question", "paper", "BELONG", relations)
 
     def sync_user_favorite(self):
+        #用户收藏
         sql = """
             SELECT user_id as start_id, 
                    course_id as end_id, 
@@ -208,7 +216,6 @@ class TableSynchronizer:
             FROM favor_info
         """
         relations = self.mysql_reader.read(sql)
-        # 对于带属性的关系，需要自定义写入逻辑
         cypher = """
             UNWIND $batch AS item
             MATCH (start:user{id:item.start_id}), (end:course{id:item.end_id})
@@ -217,6 +224,7 @@ class TableSynchronizer:
         self.neo4j_writer.writeCustomNodeOrRelation(cypher, relations)
 
     def sync_user_answer(self):
+        #用户考试答案
         sql = """
             select user_id as start_id, 
             question_id as end_id, 
@@ -233,6 +241,7 @@ class TableSynchronizer:
         self.neo4j_writer.writeCustomNodeOrRelation(cypher, relations)
 
     def sync_user_chapter_progress(self):
+        #观看进程
         sql = """
             select u.user_id as start_id, 
             v.id as end_id, 
@@ -243,7 +252,6 @@ class TableSynchronizer:
             on u.course_id=v.course_id and u.chapter_id=v.chapter_id
         """
         relations = self.mysql_reader.read(sql)
-        # 带属性的观看关系
         cypher = """
             UNWIND $batch AS item
             MATCH (start:user{id:item.start_id}), (end:video{id:item.end_id})
@@ -252,7 +260,7 @@ class TableSynchronizer:
         self.neo4j_writer.writeCustomNodeOrRelation(cypher, relations)
 
     def sync_course_have_teacher(self):
-        # 同步课程与教师关系
+        #课程和教师
         sql = """
             select c.id as start_id,
                    c.teacher as teacher_name
@@ -261,7 +269,6 @@ class TableSynchronizer:
         """
         courses = self.mysql_reader.read(sql)
 
-        # 构建关系数据
         relations = []
         for course in courses:
             teacher_name = course['teacher_name']
@@ -272,8 +279,6 @@ class TableSynchronizer:
                     'end_id': teacher_id,
                     'teacher_name': teacher_name
                 })
-
-        # 使用自定义Cypher建立HAVE关系
         cypher = """
             UNWIND $batch AS item
             MATCH (start:course{id:item.start_id}), (end:teacher{id:item.end_id})
@@ -282,7 +287,7 @@ class TableSynchronizer:
         self.neo4j_writer.writeCustomNodeOrRelation(cypher, relations)
 
     def sync_course_have_price(self):
-        # 同步课程与价格关系
+        # 同步课程与价格
         sql = """
             select c.id as start_id,
                    c.actual_price as price_value
@@ -291,7 +296,6 @@ class TableSynchronizer:
         """
         courses = self.mysql_reader.read(sql)
 
-        # 构建关系数据
         relations = []
         for course in courses:
             price_value = str(course['price_value'])
@@ -303,7 +307,6 @@ class TableSynchronizer:
                     'price_value': price_value
                 })
 
-        # 使用自定义Cypher建立HAVE关系
         cypher = """
             UNWIND $batch AS item
             MATCH (start:course{id:item.start_id}), (end:price{id:item.end_id})
@@ -311,6 +314,138 @@ class TableSynchronizer:
         """
         self.neo4j_writer.writeCustomNodeOrRelation(cypher, relations)
 
+
+    ##知识点关系
+
+    #课程，知识点
+    def sync_course_to_knowledge(self):
+        sql = """
+            select distinct ci.id as start_id,
+                   kp.id as end_id
+            from course_info ci
+            join knowledge_point kp on ci.course_introduce like concat('%', kp.point_txt, '%')
+            where ci.deleted = '0' and kp.deleted = '0'
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("course", "knowledge", "HAVE", relations)
+
+    #章节，知识点
+    def sync_chapter_to_knowledge(self):
+        sql = """
+            select distinct chi.id as start_id,
+                   kp.id as end_id
+            from chapter_info chi
+            join knowledge_point kp on chi.chapter_name like concat('%', kp.point_txt, '%')
+            where chi.deleted = '0' and kp.deleted = '0'
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("chapter", "knowledge", "HAVE", relations)
+
+    # 从试题内容中抽取的知识点
+    def sync_question_to_knowledge(self):
+
+        sql = """
+            select distinct tqi.id as start_id,
+                   kp.id as end_id
+            from test_question_info tqi
+            join knowledge_point kp on tqi.question_txt like concat('%', kp.point_txt, '%')
+            where tqi.deleted = '0' and kp.deleted = '0'
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("question", "knowledge", "HAVE", relations)
+
+    # 试题与知识点的关系
+    def sync_explicit_question_to_knowledge(self):
+
+        sql = """
+            select tpq.question_id as start_id,
+                   tpq.point_id as end_id
+            from test_point_question tpq
+            join knowledge_point kp on tpq.point_id = kp.id
+            join test_question_info tqi on tpq.question_id = tqi.id
+            where tpq.deleted = '0' and kp.deleted = '0' and tqi.deleted = '0'
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("question", "knowledge", "HAVE", relations)
+
+    def sync_knowledge_need_relation(self):
+        # 知识点之间的先修关系（NEED）
+        #章节顺序知识点的先修
+        sql = """
+            select kp1.knowledge_id as start_id,
+                   kp2.knowledge_id as end_id
+            from (
+                select chi.course_id, chi.id as chapter_id, kp.id as knowledge_id,
+                       row_number() over (partition by chi.course_id order by chi.id) as chapter_order
+                from chapter_info chi
+                join knowledge_point kp on chi.chapter_name like concat('%', kp.point_txt, '%')
+                where chi.deleted = '0' and kp.deleted = '0'
+            ) kp1
+            join (
+                select chi.course_id, chi.id as chapter_id, kp.id as knowledge_id,
+                       row_number() over (partition by chi.course_id order by chi.id) as chapter_order
+                from chapter_info chi
+                join knowledge_point kp on chi.chapter_name like concat('%', kp.point_txt, '%')
+                where chi.deleted = '0' and kp.deleted = '0'
+            ) kp2 on kp1.course_id = kp2.course_id and kp1.chapter_order = kp2.chapter_order - 1
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("knowledge", "knowledge", "NEED", relations)
+
+    def sync_knowledge_belong_relation(self):
+        # 知识点之间的包含关系（BELONG）
+        # 课程-章节
+        sql = """
+            select kp_course.id as start_id,
+                   kp_chapter.id as end_id
+            from (
+                select ci.id as course_id, kp.id, kp.point_txt
+                from course_info ci
+                join knowledge_point kp on ci.course_introduce like concat('%', kp.point_txt, '%')
+                where ci.deleted = '0' and kp.deleted = '0'
+            ) kp_course
+            join (
+                select chi.course_id, kp.id, kp.point_txt
+                from chapter_info chi
+                join knowledge_point kp on chi.chapter_name like concat('%', kp.point_txt, '%')
+                where chi.deleted = '0' and kp.deleted = '0'
+            ) kp_chapter on kp_course.course_id = kp_chapter.course_id
+            and kp_chapter.point_txt like concat('%', kp_course.point_txt, '%')
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("knowledge", "knowledge", "BELONG", relations)
+
+    def sync_knowledge_related_relation(self):
+        # 知识点之间的相关关系（RELATED）
+        # 同一试卷下的试题知识点
+        sql = """
+            select distinct kp1.id as start_id,
+                   kp2.id as end_id
+            from test_paper_question tpq1
+            join test_paper_question tpq2 on tpq1.paper_id = tpq2.paper_id and tpq1.question_id != tpq2.question_id
+            join test_point_question tptq1 on tpq1.question_id = tptq1.question_id
+            join test_point_question tptq2 on tpq2.question_id = tptq2.question_id
+            join knowledge_point kp1 on tptq1.point_id = kp1.id
+            join knowledge_point kp2 on tptq2.point_id = kp2.id
+            where tpq1.deleted = '0' and tpq2.deleted = '0'
+            and tptq1.deleted = '0' and tptq2.deleted = '0'
+            and kp1.deleted = '0' and kp2.deleted = '0'
+            and kp1.id != kp2.id
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("knowledge", "knowledge", "RELATED", relations)
+
+    def sync_video_to_knowledge(self):
+        # 视频与知识点的关系
+        sql = """
+            select distinct vi.id as start_id,
+                   kp.id as end_id
+            from video_info vi
+            join knowledge_point kp on vi.video_name like concat('%', kp.point_txt, '%')
+            where vi.deleted = '0' and kp.deleted = '0'
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.write_relations("video", "knowledge", "HAVE", relations)
 
 if __name__ == '__main__':
     synchronizer = TableSynchronizer()
@@ -339,3 +474,13 @@ if __name__ == '__main__':
     synchronizer.sync_user_chapter_progress()
     synchronizer.sync_course_have_teacher()
     synchronizer.sync_course_have_price()
+
+    #知识点
+    synchronizer.sync_course_to_knowledge()
+    synchronizer.sync_chapter_to_knowledge()
+    synchronizer.sync_question_to_knowledge()
+    synchronizer.sync_explicit_question_to_knowledge()
+    synchronizer.sync_video_to_knowledge()
+    synchronizer.sync_knowledge_need_relation()
+    synchronizer.sync_knowledge_belong_relation()
+    synchronizer.sync_knowledge_related_relation()
