@@ -109,7 +109,21 @@ class RelationsSynchronizer:
 
     # 学生-WATCH->章节视频
     def sync_student_watch_video(self):
-        pass
+        sql = """
+            select 
+                progress.user_id start_id,
+                video.id end_id,
+                CONCAT(ROUND(progress.position_sec / video.during_sec * 100, 2), '%') property1,
+                if (progress.position_sec / video.during_sec >0,
+                    if(progress.update_time is null,progress.create_time,progress.update_time),
+                    if(progress.position_sec / video.during_sec =0,'未观看',progress.create_time)
+                ) property2
+            from user_chapter_progress progress
+            join video_info video on progress.course_id = video.course_id and progress.chapter_id = video.chapter_id
+        """
+        relations = self.mysql_reader.read(sql)
+        self.neo4j_writer.writer_relations_two_property('WATCH', 'Student', 'Video', '观看进度', '最后观看时间', relations)
+        print('学生-WATCH->章节视频同步完成')
 
 
 
@@ -178,5 +192,5 @@ if __name__ == '__main__':
     # relations_synchronizer.sync_chapter_have_knowledge()
     # relations_synchronizer.sync_question_have_knowledge()
     # relations_synchronizer.sync_student_favor_course()
-    relations_synchronizer.sync_student_answer_question()
-
+    # relations_synchronizer.sync_student_answer_question()
+    relations_synchronizer.sync_student_watch_video()

@@ -50,7 +50,13 @@ class Neo4jWriter:
              """
         self.driver.execute_query(cypher, {"batch": relations})
 
-
+    def writer_relations_two_property(self,type,start_node,end_node,property1,property2,relations):
+        cypher = f"""
+            UNWIND $batch AS item
+            MATCH (a:{start_node} {{id:item.start_id}}),(b:{end_node} {{id:item.end_id}})
+            MERGE (a)-[:{type} {{{property1}:item.property1,{property2}: item.property2}}]->(b)
+             """
+        self.driver.execute_query(cypher, {"batch": relations})
 
 
 
