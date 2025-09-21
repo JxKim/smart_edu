@@ -17,7 +17,8 @@ class Predictor:
         inputs=self.tokenizer(text_list,return_tensors='pt',padding=True,truncation=True,is_split_into_words=True)
         inputs={k:v.to(self.device) for k,v in inputs.items()}
         with torch.no_grad():
-            outputs = self.model(**inputs)
+            with torch.autocast(str(self.device),dtype=torch.float16):
+                outputs = self.model(**inputs)
         logits = outputs.logits.argmax(dim=-1)
         logits = [logit[input != self.tokenizer.pad_token_id][1:-1].tolist() for input,logit in zip(inputs['input_ids'],logits)]
         logits=[[self.model.config.id2label[idx] for idx in logit] for logit in logits]
