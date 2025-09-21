@@ -25,9 +25,11 @@ print(chapter_name)
 #创建数据清洗管道
 vocab_cleaner=CharVocabCleaner(vocab_file=config.VOCAB_FILE)
 
+
 with open("chapter_name.txt", "w", encoding="utf-8") as f:
     for item in chapter_name:
-        cleaned_name=vocab_cleaner.clean_text(item['chapter_name'])
+        lower_text = item['chapter_name'].lower()
+        cleaned_name=vocab_cleaner.clean_text(lower_text)
         f.write(cleaned_name + "\n")
 
 # 读取所有章节名
