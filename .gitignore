@@ -1,3 +1,7 @@
-/.idea
-/.venv
-/.data
+/.idea/
+/.venv/
+/data/
+/test/
+/checkpoint/
+/logs/
+/.env
