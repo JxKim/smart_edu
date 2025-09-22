@@ -13,7 +13,7 @@ class Predictor:
         type_text=isinstance(texts, str)
         if type_text :
             texts = [texts]
-        text_list=[list(text.replace(' ','')) for text in texts]
+        text_list=[list(text) for text in texts]
         inputs=self.tokenizer(text_list,return_tensors='pt',padding=True,truncation=True,is_split_into_words=True)
         inputs={k:v.to(self.device) for k,v in inputs.items()}
         with torch.no_grad():
@@ -30,6 +30,7 @@ class Predictor:
         type_text = isinstance(texts, str)
         if type_text:
             texts = [texts]
+        texts=[text.replace(' ','') for text in texts]
         tokens=self.predict(texts)
         final_pred=[]
         for token,text in zip(tokens,texts):
@@ -58,5 +59,6 @@ class Predictor:
 if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     predictor=Predictor(device)
-    res=predictor.extract('15-尚硅谷-Flume进阶-事务')
+    res=predictor.extract('16- 尚 硅 谷 -Flume进阶-架构原理')
     print(res)
+    print(len(res))
