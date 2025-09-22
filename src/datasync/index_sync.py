@@ -18,6 +18,43 @@ class IndexSynchronizer:
         """
         self.graph.query(cypher)
 
+    def _add_embedding(self,label,source_property,embedding_property):
+        cypher = f"""
+            MATCH (n:{label}) RETURN n.{source_property} AS text,id(n) AS id
+        """
+        results = self.graph.query(cypher)
+        docs = [result['text'] for result in results]
+        embeddings = self.embedding_model.embed_documents(docs)
+
+        batch = []
+        for result,embedding in zip(results,embeddings):
+            item =  {
+                "id":result['id'],
+                'embedding':embedding
+            }
+            batch.append(item)
+        cypher = f"""
+                    UNWIND $batch AS item
+                    MATCH (n:{label}) WHERE id(n) = item.id
+                    SET n.{embedding_property} = item.embedding
+                """
+        self.graph.query(cypher, params={'batch': batch})
+        return len(embeddings[0])
+
+    def create_vector_index(self,index_name,label,source_property,embedding_property):
+        embedding_dim = self._add_embedding(label,source_property,embedding_property)
+        cypher = f"""
+                    CREATE VECTOR INDEX {index_name} IF NOT EXISTS
+                        FOR (m:{label})
+                        ON m.{embedding_property}
+                        OPTIONS {{indexConfig: {{
+                          `vector.dimensions`: {embedding_dim},
+                          `vector.similarity_function`: 'cosine'
+                            }}
+                        }}
+                """
+        self.graph.query(cypher)
+
 
 if __name__ == "__main__":
     index_synchronizer = IndexSynchronizer()
@@ -29,7 +66,20 @@ if __name__ == "__main__":
     # index_synchronizer.create_full_index("full_index_chapter", "Chapter", "name")
     # index_synchronizer.create_full_index("full_index_video", "Video", "name")
     # index_synchronizer.create_full_index("full_index_paper", "Paper", "name")
-    # index_synchronizer.create_full_index("full_index_question", "Question", "content")
+    # index_synchronizer.create_full_index("full_index_question", "Question", "name")
     #
     # index_synchronizer.create_full_index("full_index_knowledge", "Knowledge", "name")
-    index_synchronizer.create_full_index("full_index_student", "Student", "id")
+    # index_synchronizer.create_full_index("full_index_student", "Student", "id")
+
+    # 向量索引
+    # index_synchronizer.create_vector_index("vector_index_category", "Category", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_subject", "Subject", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_course", "Course", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_teacher", "Teacher", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_price", "Price", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_chapter", "Chapter", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_video", "Video", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_paper", "Paper", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_question", "Question", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_knowledge", "Knowledge", "name", "embedding")
+    # index_synchronizer.create_vector_index("vector_index_student", "Student", "id", "embedding")
