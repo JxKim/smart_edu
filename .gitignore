@@ -1,2 +1,5 @@
 /.idea
 /.venv
+/.env
+/checkpoint
+/src/config/config.py
