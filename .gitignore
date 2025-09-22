@@ -2,3 +2,7 @@
 /.venv
 /checkpoints/
 /logs/
+
+
+
+/data/
