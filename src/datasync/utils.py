@@ -12,8 +12,8 @@ class MysqlReader:
         self.conn = pymysql.connect(**config.MYSQL_CONFIG)
         self.cursor = self.conn.cursor(DictCursor)
 
-    def read(self,sql):
-        self.cursor.execute(sql)
+    def read(self,sql,arg=None):
+        self.cursor.execute(sql,arg)
         return self.cursor.fetchall()
 
 class Neo4jWriter:
