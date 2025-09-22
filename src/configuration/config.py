@@ -6,6 +6,7 @@ DATA_DIR_PROCESSED = ROOT_DIR / 'data'/'processed'
 LOGS_DIR = ROOT_DIR / 'logs'
 MODEL_DIR = ROOT_DIR / 'model'
 CHECKPOINTS_DIR = ROOT_DIR / 'checkpoints'
+WEB_STATIC_DIR = ROOT_DIR / 'src'/'web'/'static'
 
 LABELS =  ['B','I','O']
 
