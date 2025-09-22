@@ -58,7 +58,22 @@ class Neo4jWriter:
              """
         self.driver.execute_query(cypher, {"batch": relations})
 
+if __name__ == '__main__':
+    sql = """
+        select 
+            *
+        from test_question_info
+        limit 5
+    """
 
-
+    mysql_reader = MysqlReader()
+    data = mysql_reader.read(sql)
+    # print(data)
+    question_txt = [item['question_txt'] for item in data]
+    # print(question_txt)
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(question_txt[1], 'html.parser')
+    print(soup)
+    print(soup.get_text())
 
 
