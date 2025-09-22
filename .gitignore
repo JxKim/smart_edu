@@ -1,2 +1,8 @@
 /.idea
 /.venv
+/checkpoints/
+/logs/
+
+
+
+/data/
