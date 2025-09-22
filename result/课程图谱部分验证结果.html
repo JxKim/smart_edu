@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://0.0.0.0:8888/static/index.html -->
+<html lang="zh-CN" nighteye="disabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商智能客服</title>
+    <script src="./课程图谱部分验证结果_files/marked.min.js.下载"></script>
+    <script src="./课程图谱部分验证结果_files/purify.min.js.下载"></script>
+    <style>
+        :root {
+            --border-radius: 16px;
+            --primary-color: #3b82f6;
+            --background-color: #f8f7f6;
+            --shadow-color: #00000056;
+            --input-box-bg-color: #ffffffcb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Consolas", "微软雅黑", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        #dialog-area {
+            flex: 1;
+            width: 100%;
+            max-width: 900px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-bubble {
+            display: inline-flex;
+            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            line-height: 1.5;
+            word-break: break-word;
+            /* white-space: pre-wrap; */
+        }
+
+        .new-message {
+            animation: messageAppear 0.3s ease;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            align-self: flex-end;
+            color: white;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            color: black;
+        }
+
+        .input-box {
+            width: 100%;
+            max-width: 900px;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px var(--shadow-color);
+            position: sticky;
+            bottom: 16px;
+            transition: all 0.3s ease;
+            background-color: var(--input-box-bg-color);
+            border: 2px solid transparent;
+
+            &:hover {
+                box-shadow: 0 4px 8px var(--primary-color);
+            }
+
+            &:focus-within {
+                border: 2px solid var(--primary-color);
+            }
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+            resize: none;
+            border: none;
+            outline: none;
+            background-color: #ffffff00;
+        }
+
+        #send-btn {
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: auto;
+            display: block;
+            background-color: var(--primary-color);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px var(--shadow-color);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+
+            &:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+        }
+
+        .loading-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .loader {
+            width: 30px;
+            height: 30px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .markdown-content {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .markdown-content br {
+            display: none;
+        }
+
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3 {
+            margin: 1em 0 0.5em;
+            color: var(--primary-color);
+        }
+
+        .markdown-content p {
+            margin: 0.5em 0;
+            line-height: 1.6;
+        }
+
+        .markdown-content ul,
+        .markdown-content ol {
+            margin: 0.5em 0;
+            padding-left: 2em;
+        }
+
+        .markdown-content code {
+            background-color: rgba(192, 192, 192, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+
+        .markdown-content pre {
+            background-color: #f6f8fa;
+            padding: 1em;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+
+        .markdown-content pre code {
+            background: none;
+            padding: 0;
+        }
+    </style>
+<style type="text/css">#_copy{align-items:center;background:#4494d5;border-radius:3px;color:#fff;cursor:pointer;display:flex;font-size:13px;height:30px;justify-content:center;position:absolute;width:60px;z-index:1000}#select-tooltip,#sfModal,.modal-backdrop,div[id^=reader-helper]{display:none!important}.modal-open{overflow:auto!important}._sf_adjust_body{padding-right:0!important}.enable_copy_btns_div{position:fixed;width:154px;left:10px;top:45%;background:#e7f1ff;border:2px solid #4595d5;font-weight:600;border-radius:2px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;z-index:5000}.enable_copy_btns_logo{width:100%;background:#4595d5;text-align:center;font-size:12px;color:#e7f1ff;line-height:30px;height:30px}.enable_copy_btns_btn{display:block;width:128px;height:28px;background:#7f5711;border-radius:4px;color:#fff;font-size:12px;border:0;outline:0;margin:8px auto;font-weight:700;cursor:pointer;opacity:.9}.enable_copy_btns_btn:hover{opacity:.8}.enable_copy_btns_btn:active{opacity:1}</style></head>
+
+<body inmaintabuse="1">
+    <div id="dialog-area">
+        <div class="bot-message message-bubble">您好！我是电商智能客服，请问有什么需要我帮忙的？</div>
+    <div class="message-bubble user-message">哪些用户看了视频，他们都看了哪些视频</div><div class="message-bubble bot-message"><div class="markdown-content"><p>以下是观看了视频的用户及其观看的视频列表：</p>
+<ul>
+<li><strong>艺咏</strong> 观看了：JS高级_复习.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 72、尚硅谷_SpringBoot_结束语.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>雪荣</strong> 观看了：Redis_Jedis_JedisPool.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>阿民</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 062 - Elasticsearch - 面试题.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>彩春</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 第二十二季公开课 CSS3特效实战 2.avi, day20_11复习_总结.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>学祥</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, JS高级_复习.avi</li>
+<li><strong>贞贞</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 01.尚硅谷_AJAX-课程说明.avi, 01.尚硅谷_AJAX-课程说明.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>阿中</strong> 观看了：50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>珍贞</strong> 观看了：67.尚硅谷_css3_规范.avi, 15_尚硅谷_Azkaban_传参.avi, day20_11复习_总结.avi</li>
+<li><strong>行时</strong> 观看了：Spring_集成Struts2.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>娜娜</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, day20_11复习_总结.avi</li>
+<li><strong>茜秋</strong> 观看了：46-尚硅谷-Redis6-新功能介绍.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, day20_11复习_总结.avi, 101、分布式基础篇总结.avi, 178_尚硅谷_MySQL基础_小结.avi</li>
+<li><strong>阿言</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 101、分布式基础篇总结.avi, 178_尚硅谷_MySQL基础_小结.avi</li>
+<li><strong>黛黛</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 15_尚硅谷_Azkaban_传参.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>阿岩</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>育育</strong> 观看了：81-命名空间与类的唯一性.avi, Spring_集成Struts2.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>阿哲</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>真环</strong> 观看了：67.尚硅谷_css3_规范.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>璐璐</strong> 观看了：203-最后寄语.avi, JS基础_JSON.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 17-nginx的原理解析.avi, JS基础_JSON.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 17-nginx的原理解析.avi</li>
+<li><strong>亮政</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>欢欢</strong> 观看了：第二十二季公开课 CSS3特效实战 2.avi, JS高级_复习.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, Spring_集成Struts2.avi</li>
+<li><strong>阿梁</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 178_尚硅谷_MySQL基础_小结.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 101、分布式基础篇总结.avi</li>
+<li><strong>澜澜</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi, 62.总结.avi</li>
+<li><strong>庆磊</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>贵福</strong> 观看了：178_尚硅谷_MySQL基础_小结.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 第二十二季公开课 CSS3特效实战 2.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>馨艺</strong> 观看了：Redis_Jedis_JedisPool.avi, 第二十二季公开课 CSS3特效实战 2.avi, Spring_集成Struts2.avi, 178_尚硅谷_MySQL基础_小结.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 15_尚硅谷_Azkaban_传参.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>阿彪</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi, SpringMVC_SpringMVC对比Struts2.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>阿胜</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi</li>
+<li><strong>婷婷</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, JS基础_JSON.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi</li>
+<li><strong>阿会</strong> 观看了：Java8新特性_重复注解与类型注解.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>亚亚</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, JS高级_复习.avi</li>
+<li><strong>阿磊</strong> 观看了：Maven_查找依赖信息的网站.avi, 300_尚硅谷_中午演唱会_班主任.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 17-nginx的原理解析.avi, 62.总结.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 46-尚硅谷-Redis6-新功能介绍.avi</li>
+<li><strong>凤凤</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, Maven_查找依赖信息的网站.avi, 300_尚硅谷_中午演唱会_班主任.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 203-最后寄语.avi, 062 - Elasticsearch - 面试题.avi</li>
+<li><strong>志义</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 17-nginx的原理解析.avi</li>
+<li><strong>纯纯</strong> 观看了：15_尚硅谷_Azkaban_传参.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, JS基础_JSON.avi, 203-最后寄语.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>伦翔</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>涛昌</strong> 观看了：125-尚硅谷-Hive-案例实操 需求七.avi, Spring_集成Struts2.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 66.尚硅谷_ES11-动态import.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi</li>
+<li><strong>婵婵</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, Redis_Jedis_JedisPool.avi, 178_尚硅谷_MySQL基础_小结.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>竹霭</strong> 观看了：81-命名空间与类的唯一性.avi</li>
+<li><strong>阿俊</strong> 观看了：101、分布式基础篇总结.avi</li>
+<li><strong>信子</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>丽韶</strong> 观看了：66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>磊民</strong> 观看了：103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 81-命名空间与类的唯一性.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi</li>
+<li><strong>芳燕</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi</li>
+<li><strong>坚和</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, Redis_Jedis_JedisPool.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, Java8新特性_重复注解与类型注解.avi, JS高级_复习.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, SpringMVC_SpringMVC对比Struts2.avi, 64_ClickHouse备份_使用clickhouse-backup.avi</li>
+<li><strong>文辉</strong> 观看了：JS基础_JSON.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 67.尚硅谷_css3_规范.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>姬姬</strong> 观看了：66.尚硅谷_ES11-动态import.avi, SpringMVC_SpringMVC对比Struts2.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi</li>
+<li><strong>阿琛</strong> 观看了：103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi</li>
+<li><strong>静静</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 17-nginx的原理解析.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>广志</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi, 15_尚硅谷_Azkaban_传参.avi, Maven_查找依赖信息的网站.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>黛青</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi</li>
+<li><strong>阿启</strong> 观看了：67.尚硅谷_css3_规范.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>怡婵</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi, Redis_Jedis_JedisPool.avi, 66.尚硅谷_ES11-动态import.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, JS基础_JSON.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>阿泰</strong> 观看了：062 - Elasticsearch - 面试题.avi, 48_尚硅谷_h5_html5表单验证.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>阿盛</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, JS高级_复习.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, 62.总结.avi</li>
+<li><strong>华华</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>娟娟</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 300_尚硅谷_中午演唱会_班主任.avi, Java8新特性_重复注解与类型注解.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>士以</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 第二十二季公开课 CSS3特效实战 2.avi, 62.总结.avi</li>
+<li><strong>可可</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>枝思</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 203-最后寄语.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>阿宁</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 15_尚硅谷_Azkaban_传参.avi</li>
+<li><strong>璐娅</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, JS高级_复习.avi, 67.尚硅谷_css3_规范.avi, 300_尚硅谷_中午演唱会_班主任.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 81-命名空间与类的唯一性.avi, JS高级_复习.avi</li>
+<li><strong>顺信</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>竹竹</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>阿家</strong> 观看了：Java8新特性_重复注解与类型注解.avi</li>
+<li><strong>妍妍</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>阿群</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 81-命名空间与类的唯一性.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>华慧</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 062 - Elasticsearch - 面试题.avi, 67.尚硅谷_css3_规范.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>阿晨</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>婵雁</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>风航</strong> 观看了：81-命名空间与类的唯一性.avi, 01.尚硅谷_AJAX-课程说明.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>永健</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>琼勤</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, Spring_集成Struts2.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 17-nginx的原理解析.avi</li>
+<li><strong>阿时</strong> 观看了：8_尚硅谷_Android与H5互调_运行商城案例.avi, Redis_Jedis_JedisPool.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>阿信</strong> 观看了：24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 01.尚硅谷_AJAX-课程说明.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi</li>
+<li><strong>媛艳</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, Spring_集成Struts2.avi, 178_尚硅谷_MySQL基础_小结.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>阿明</strong> 观看了：62.总结.avi</li>
+<li><strong>纯毓</strong> 观看了：Redis_Jedis_JedisPool.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 17-nginx的原理解析.avi, Redis_Jedis_JedisPool.avi, 178_尚硅谷_MySQL基础_小结.avi</li>
+<li><strong>伯宏</strong> 观看了：8_尚硅谷_Android与H5互调_运行商城案例.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>阿翰</strong> 观看了：101、分布式基础篇总结.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>涵予</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 48_尚硅谷_h5_html5表单验证.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>博诚</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, JS高级_复习.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>阿树</strong> 观看了：Maven_查找依赖信息的网站.avi, day20_11复习_总结.avi, 062 - Elasticsearch - 面试题.avi, 48_尚硅谷_h5_html5表单验证.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>阿茂</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>腾楠</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>蓓蓓</strong> 观看了：17-nginx的原理解析.avi</li>
+<li><strong>聪聪</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, Redis_Jedis_JedisPool.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, JS高级_复习.avi, 101、分布式基础篇总结.avi</li>
+<li><strong>家致</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, JS高级_复习.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>薇薇</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, JavaScriptDOM编程_实验之Checkbox全选.avi</li>
+<li><strong>昌成</strong> 观看了：125-尚硅谷-Hive-案例实操 需求七.avi, 300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>昭昭</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 17-nginx的原理解析.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>仪荷</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>平保</strong> 观看了：167_尚硅谷Vue3技术_Suspense组件.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>璧璧</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 62.总结.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>敬震</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 第二十二季公开课 CSS3特效实战 2.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 81-命名空间与类的唯一性.avi, 67.尚硅谷_css3_规范.avi, JS高级_复习.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 062 - Elasticsearch - 面试题.avi</li>
+<li><strong>轮翰</strong> 观看了：JS基础_JSON.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 17-nginx的原理解析.avi, Spring_集成Struts2.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 15_尚硅谷_Azkaban_传参.avi</li>
+<li><strong>宜可</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 66.尚硅谷_ES11-动态import.avi, SpringMVC_SpringMVC对比Struts2.avi, 26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>阿朗</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, Redis_Jedis_JedisPool.avi, 第二十二季公开课 CSS3特效实战 2.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 64_ClickHouse备份_使用clickhouse-backup.avi</li>
+<li><strong>毓毓</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 15_尚硅谷_Azkaban_传参.avi, JS基础_JSON.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 01.尚硅谷_AJAX-课程说明.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>莉桂</strong> 观看了：67.尚硅谷_css3_规范.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>朋斌</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 17-nginx的原理解析.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>韶韶</strong> 观看了：178_尚硅谷_MySQL基础_小结.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, Spring_集成Struts2.avi, 46-尚硅谷-Redis6-新功能介绍.avi</li>
+<li><strong>阿富</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 81-命名空间与类的唯一性.avi</li>
+<li><strong>兰凤</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>亨奇</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi, Redis_Jedis_JedisPool.avi, 第二十二季公开课 CSS3特效实战 2.avi, 89RabbitMQ之FederationExchange实现.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>菲菲</strong> 观看了：66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>琛钧</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>蕊蕊</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, Java8新特性_重复注解与类型注解.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 第二十二季公开课 CSS3特效实战 2.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>阿政</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi, SpringMVC_SpringMVC对比Struts2.avi, 15_尚硅谷_Azkaban_传参.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>雁雁</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>阿豪</strong> 观看了：40-尚硅谷-webpack从入门到精通-总结webpack.avi, 89RabbitMQ之FederationExchange实现.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>爽爽</strong> 观看了：Maven_查找依赖信息的网站.avi, 81-命名空间与类的唯一性.avi, 17-nginx的原理解析.avi, Java8新特性_重复注解与类型注解.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>建家</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi, 81-命名空间与类的唯一性.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 101、分布式基础篇总结.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>丹蓉</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, Spring_集成Struts2.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 01.尚硅谷_AJAX-课程说明.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>武新</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 66.尚硅谷_ES11-动态import.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>娴娴</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>亚宜</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>福生</strong> 观看了：24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>阿平</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 15_尚硅谷_Azkaban_传参.avi</li>
+<li><strong>韶涵</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi</li>
+<li><strong>爱爱</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 67.尚硅谷_css3_规范.avi, 203-最后寄语.avi, Spring_集成Struts2.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>阿光</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>艺艺</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 62.总结.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 101、分布式基础篇总结.avi, 62.总结.avi, day20_11复习_总结.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 101、分布式基础篇总结.avi, 300_尚硅谷_中午演唱会_班主任.avi, 62.总结.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>姬舒</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 203-最后寄语.avi</li>
+<li><strong>彪博</strong> 观看了：day20_11复习_总结.avi</li>
+<li><strong>涵涵</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>星光</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>云莲</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>菁菁</strong> 观看了：Maven_查找依赖信息的网站.avi, 64_ClickHouse备份_使用clickhouse-backup.avi</li>
+<li><strong>承乐</strong> 观看了：66.尚硅谷_ES11-动态import.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>阿义</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>利清</strong> 观看了：Java8新特性_重复注解与类型注解.avi, 48_尚硅谷_h5_html5表单验证.avi, 48_尚硅谷_h5_html5表单验证.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 062 - Elasticsearch - 面试题.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>欣欣</strong> 观看了：17-nginx的原理解析.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 62.总结.avi, 26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>宁贵</strong> 观看了：17-nginx的原理解析.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>晶晶</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, Spring_集成Struts2.avi</li>
+<li><strong>龙元</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi</li>
+<li><strong>翠翠</strong> 观看了：167_尚硅谷Vue3技术_Suspense组件.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 72、尚硅谷_SpringBoot_结束语.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>琼琼</strong> 观看了：89RabbitMQ之FederationExchange实现.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>月月</strong> 观看了：JS基础_JSON.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>芝玉</strong> 观看了：第二十二季公开课 CSS3特效实战 2.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi</li>
+<li><strong>阿伦</strong> 观看了：67.尚硅谷_css3_规范.avi, 101、分布式基础篇总结.avi, JS高级_复习.avi</li>
+<li><strong>寒伊</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi, 178_尚硅谷_MySQL基础_小结.avi</li>
+<li><strong>先敬</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>楠榕</strong> 观看了：81-命名空间与类的唯一性.avi</li>
+<li><strong>玲玲</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi, 72、尚硅谷_SpringBoot_结束语.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>彬富</strong> 观看了：Maven_查找依赖信息的网站.avi, Redis_Jedis_JedisPool.avi, 62.总结.avi, JS高级_复习.avi, day20_11复习_总结.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>健世</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>菊兰</strong> 观看了：203-最后寄语.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi</li>
+<li><strong>阿彬</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 203-最后寄语.avi</li>
+<li><strong>慧慧</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 62.总结.avi, Redis_Jedis_JedisPool.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>致树</strong> 观看了：167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>心邦</strong> 观看了：167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>明永</strong> 观看了：day20_11复习_总结.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>凝凝</strong> 观看了：62.总结.avi</li>
+<li><strong>阿功</strong> 观看了：178_尚硅谷_MySQL基础_小结.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>瑶怡</strong> 观看了：50_尚硅谷_HBase_谷粒微博之测试.avi, 17-nginx的原理解析.avi, 66.尚硅谷_ES11-动态import.avi, 01.尚硅谷_AJAX-课程说明.avi, 178_尚硅谷_MySQL基础_小结.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, 72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>阿松</strong> 观看了：24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 101、分布式基础篇总结.avi, Spring_集成Struts2.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>菁梦</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, SpringMVC_SpringMVC对比Struts2.avi, JavaScriptDOM编程_实验之Checkbox全选.avi</li>
+<li><strong>霞香</strong> 观看了：89RabbitMQ之FederationExchange实现.avi, 62.总结.avi</li>
+<li><strong>阿若</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>可姬</strong> 观看了：第二十二季公开课 CSS3特效实战 2.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>浩亮</strong> 观看了：15_尚硅谷_Azkaban_传参.avi, 89RabbitMQ之FederationExchange实现.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>桂桂</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>善厚</strong> 观看了：46-尚硅谷-Redis6-新功能介绍.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>思思</strong> 观看了：103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 125-尚硅谷-Hive-案例实操 需求七.avi</li>
+<li><strong>壮会</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 48_尚硅谷_h5_html5表单验证.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi</li>
+<li><strong>萍玲</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi</li>
+<li><strong>栋维</strong> 观看了：day20_11复习_总结.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>祥才</strong> 观看了：day20_11复习_总结.avi, 48_尚硅谷_h5_html5表单验证.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, Java8新特性_重复注解与类型注解.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi</li>
+<li><strong>玉萍</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>飞彬</strong> 观看了：JavaScriptDOM编程_实验之Checkbox全选.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 62.总结.avi</li>
+<li><strong>艺欣</strong> 观看了：Redis_Jedis_JedisPool.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 72、尚硅谷_SpringBoot_结束语.avi, 66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>阿善</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>娣叶</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>阿建</strong> 观看了：24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>荔枝</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, Spring_集成Struts2.avi</li>
+<li><strong>元全</strong> 观看了：89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>永健</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>言若</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 67.尚硅谷_css3_规范.avi, day20_11复习_总结.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, JS基础_JSON.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 203-最后寄语.avi</li>
+<li><strong>荣爱</strong> 观看了：8_尚硅谷_Android与H5互调_运行商城案例.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>启克</strong> 观看了：67.尚硅谷_css3_规范.avi, JS基础_JSON.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 81-命名空间与类的唯一性.avi, JS基础_JSON.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>清飞</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>荔荔</strong> 观看了：81-命名空间与类的唯一性.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 01.尚硅谷_AJAX-课程说明.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>阿士</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, Java8新特性_重复注解与类型注解.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>颖露</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>阿震</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>凝晓</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 66.尚硅谷_ES11-动态import.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 66.尚硅谷_ES11-动态import.avi, day20_11复习_总结.avi, 300_尚硅谷_中午演唱会_班主任.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 89RabbitMQ之FederationExchange实现.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 178_尚硅谷_MySQL基础_小结.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>阿辉</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 17-nginx的原理解析.avi, 01.尚硅谷_AJAX-课程说明.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>舒舒</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 17-nginx的原理解析.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 72、尚硅谷_SpringBoot_结束语.avi, 81-命名空间与类的唯一性.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi</li>
+<li><strong>仁波</strong> 观看了：203-最后寄语.avi</li>
+<li><strong>莺莺</strong> 观看了：Maven_查找依赖信息的网站.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 01.尚硅谷_AJAX-课程说明.avi, JS高级_复习.avi, 101、分布式基础篇总结.avi, 66.尚硅谷_ES11-动态import.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, Java8新特性_重复注解与类型注解.avi</li>
+<li><strong>天达</strong> 观看了：JS高级_复习.avi, JS高级_复习.avi, 178_尚硅谷_MySQL基础_小结.avi</li>
+<li><strong>叶璧</strong> 观看了：125-尚硅谷-Hive-案例实操 需求七.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>阿承</strong> 观看了：062 - Elasticsearch - 面试题.avi</li>
+<li><strong>谦亨</strong> 观看了：Spring_集成Struts2.avi</li>
+<li><strong>青青</strong> 观看了：50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>阿厚</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi, 15_尚硅谷_Azkaban_传参.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>凡凡</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>阿坚</strong> 观看了：Redis_Jedis_JedisPool.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 062 - Elasticsearch - 面试题.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>露瑶</strong> 观看了：81-命名空间与类的唯一性.avi, 101、分布式基础篇总结.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, Spring_集成Struts2.avi</li>
+<li><strong>兰兰</strong> 观看了：Redis_Jedis_JedisPool.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, 48_尚硅谷_h5_html5表单验证.avi, 062 - Elasticsearch - 面试题.avi</li>
+<li><strong>斌梁</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>琴琴</strong> 观看了：40-尚硅谷-webpack从入门到精通-总结webpack.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi</li>
+<li><strong>阿和</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 01.尚硅谷_AJAX-课程说明.avi, 203-最后寄语.avi, 300_尚硅谷_中午演唱会_班主任.avi, Maven_查找依赖信息的网站.avi</li>
+<li><strong>阿泽</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, day20_11复习_总结.avi</li>
+<li><strong>春菊</strong> 观看了：JS高级_复习.avi</li>
+<li><strong>奇固</strong> 观看了：062 - Elasticsearch - 面试题.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, Redis_Jedis_JedisPool.avi, 62.总结.avi</li>
+<li><strong>瑾颖</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>阿勇</strong> 观看了：101、分布式基础篇总结.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>眉眉</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>辰士</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>东文</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>雄琛</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi, 101、分布式基础篇总结.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>阿海</strong> 观看了：Java8新特性_重复注解与类型注解.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>河哲</strong> 观看了：101、分布式基础篇总结.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, Java8新特性_重复注解与类型注解.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, Spring_集成Struts2.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>珠珠</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, 17-nginx的原理解析.avi, Maven_查找依赖信息的网站.avi, Maven_查找依赖信息的网站.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>阿行</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi</li>
+<li><strong>豪心</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>芸芸</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 203-最后寄语.avi</li>
+<li><strong>阿航</strong> 观看了：JS基础_JSON.avi, SpringMVC_SpringMVC对比Struts2.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>芝芝</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>阿元</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, Java8新特性_重复注解与类型注解.avi, 48_尚硅谷_h5_html5表单验证.avi, 300_尚硅谷_中午演唱会_班主任.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>彩彩</strong> 观看了：17-nginx的原理解析.avi, 62.总结.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 203-最后寄语.avi, JS高级_复习.avi</li>
+<li><strong>阿致</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi, 46-尚硅谷-Redis6-新功能介绍.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 300_尚硅谷_中午演唱会_班主任.avi, 81-命名空间与类的唯一性.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>友裕</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>美美</strong> 观看了：67.尚硅谷_css3_规范.avi</li>
+<li><strong>希希</strong> 观看了：17-nginx的原理解析.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>新利</strong> 观看了：101、分布式基础篇总结.avi</li>
+<li><strong>纨仪</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi</li>
+<li><strong>阿毅</strong> 观看了：Redis_Jedis_JedisPool.avi, Spring_集成Struts2.avi</li>
+<li><strong>佳嘉</strong> 观看了：Spring_集成Struts2.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>环雪</strong> 观看了：day20_11复习_总结.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 167_尚硅谷Vue3技术_Suspense组件.avi, 72、尚硅谷_SpringBoot_结束语.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi</li>
+<li><strong>光天</strong> 观看了：178_尚硅谷_MySQL基础_小结.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>茗茗</strong> 观看了：66.尚硅谷_ES11-动态import.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi</li>
+<li><strong>倩倩</strong> 观看了：101、分布式基础篇总结.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 第二十二季公开课 CSS3特效实战 2.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>咏咏</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, JS高级_复习.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>勤勤</strong> 观看了：33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>阿克</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 66.尚硅谷_ES11-动态import.avi, SpringMVC_SpringMVC对比Struts2.avi, Redis_Jedis_JedisPool.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>荷丹</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>才发</strong> 观看了：89RabbitMQ之FederationExchange实现.avi, 15_尚硅谷_Azkaban_传参.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, 89RabbitMQ之FederationExchange实现.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, day20_11复习_总结.avi</li>
+<li><strong>君君</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 17-nginx的原理解析.avi, 178_尚硅谷_MySQL基础_小结.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 67.尚硅谷_css3_规范.avi</li>
+<li><strong>泰盛</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>霭霭</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi, 72、尚硅谷_SpringBoot_结束语.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>胜学</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 203-最后寄语.avi, 67.尚硅谷_css3_规范.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi</li>
+<li><strong>梦岚</strong> 观看了：Maven_查找依赖信息的网站.avi</li>
+<li><strong>珍珍</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 72、尚硅谷_SpringBoot_结束语.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>勇毅</strong> 观看了：Redis_Jedis_JedisPool.avi, 72、尚硅谷_SpringBoot_结束语.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 81-命名空间与类的唯一性.avi, Spring_集成Struts2.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>克伦</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>伊亚</strong> 观看了：17-nginx的原理解析.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi</li>
+<li><strong>阿以</strong> 观看了：JS高级_复习.avi</li>
+<li><strong>琬琬</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>岚艺</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 203-最后寄语.avi</li>
+<li><strong>阿志</strong> 观看了：178_尚硅谷_MySQL基础_小结.avi</li>
+<li><strong>乐绍</strong> 观看了：Redis_Jedis_JedisPool.avi</li>
+<li><strong>和彪</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 203-最后寄语.avi</li>
+<li><strong>莎莎</strong> 观看了：15_尚硅谷_Azkaban_传参.avi, 64_ClickHouse备份_使用clickhouse-backup.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>阿庆</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>锦黛</strong> 观看了：40-尚硅谷-webpack从入门到精通-总结webpack.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>珠翠</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>爱妹</strong> 观看了：第二十二季公开课 CSS3特效实战 2.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>阿旭</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, Maven_查找依赖信息的网站.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>群豪</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>昭冰</strong> 观看了：day20_11复习_总结.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>洁洁</strong> 观看了：167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>振壮</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>燕彩</strong> 观看了：203-最后寄语.avi, 10_尚硅谷_Sqoop_脚本调用.avi, 15_尚硅谷_Azkaban_传参.avi, 81-命名空间与类的唯一性.avi</li>
+<li><strong>阿奇</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>媛媛</strong> 观看了：67.尚硅谷_css3_规范.avi</li>
+<li><strong>阿德</strong> 观看了：203-最后寄语.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>霞霞</strong> 观看了：Redis_Jedis_JedisPool.avi, 178_尚硅谷_MySQL基础_小结.avi, day20_11复习_总结.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 72、尚硅谷_SpringBoot_结束语.avi</li>
+<li><strong>政谦</strong> 观看了：Redis_Jedis_JedisPool.avi, 01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>娴瑾</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi</li>
+<li><strong>霄枫</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>薇菁</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>阿钧</strong> 观看了：17-nginx的原理解析.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>玉玉</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>阿策</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>荣荣</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>生龙</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi, SpringMVC_SpringMVC对比Struts2.avi, 26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>飘飘</strong> 观看了：day20_11复习_总结.avi, 26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>阿翔</strong> 观看了：01.尚硅谷_AJAX-课程说明.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>阿乐</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 46-尚硅谷-Redis6-新功能介绍.avi, Maven_查找依赖信息的网站.avi, 300_尚硅谷_中午演唱会_班主任.avi, 26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>爽琬</strong> 观看了：Spring_集成Struts2.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 178_尚硅谷_MySQL基础_小结.avi, 48_尚硅谷_h5_html5表单验证.avi</li>
+<li><strong>诚先</strong> 观看了：Maven_查找依赖信息的网站.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>阿学</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi</li>
+<li><strong>邦承</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>达安</strong> 观看了：64_ClickHouse备份_使用clickhouse-backup.avi, 01.尚硅谷_AJAX-课程说明.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>绍功</strong> 观看了：103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>秀秀</strong> 观看了：178_尚硅谷_MySQL基础_小结.avi, 48_尚硅谷_h5_html5表单验证.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi</li>
+<li><strong>阿良</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>荷荷</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>阿安</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>阿峰</strong> 观看了：67.尚硅谷_css3_规范.avi</li>
+<li><strong>翠雅</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, 66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>月莺</strong> 观看了：203-最后寄语.avi</li>
+<li><strong>惠珠</strong> 观看了：17-nginx的原理解析.avi, JS基础_JSON.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>阿壮</strong> 观看了：15_尚硅谷_Azkaban_传参.avi</li>
+<li><strong>阿进</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 26_尚硅谷_Shell_企业真题讲解.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi, 062 - Elasticsearch - 面试题.avi</li>
+<li><strong>香香</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi, 第二十二季公开课 CSS3特效实战 2.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi, JS基础_JSON.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>阿贵</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>阿伟</strong> 观看了：103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 203-最后寄语.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi, 15_尚硅谷_Azkaban_传参.avi</li>
+<li><strong>瑾瑾</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 62.总结.avi</li>
+<li><strong>阿平</strong> 观看了：210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi, 15_尚硅谷_Azkaban_传参.avi</li>
+<li><strong>叶叶</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>振壮</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>阿文</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 15_尚硅谷_Azkaban_传参.avi, 66.尚硅谷_ES11-动态import.avi, 64_ClickHouse备份_使用clickhouse-backup.avi</li>
+<li><strong>阿刚</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi, 48_尚硅谷_h5_html5表单验证.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>策腾</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 72、尚硅谷_SpringBoot_结束语.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>阿诚</strong> 观看了：JS基础_JSON.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, SpringMVC_SpringMVC对比Struts2.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, Redis_Jedis_JedisPool.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi</li>
+<li><strong>倩婷</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, Maven_查找依赖信息的网站.avi, 10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>珊珊</strong> 观看了：67.尚硅谷_css3_规范.avi, 17-nginx的原理解析.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>阿达</strong> 观看了：33.尚硅谷_jQuery_点击圆点翻页.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 67.尚硅谷_css3_规范.avi, Spring_集成Struts2.avi, 10_尚硅谷_HadoopHA_HDFS联邦概述.avi</li>
+<li><strong>馥筠</strong> 观看了：143_尚硅谷_Scala_泛型（三）_上下限.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>阿固</strong> 观看了：89RabbitMQ之FederationExchange实现.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>毅俊</strong> 观看了：Maven_查找依赖信息的网站.avi, 01.尚硅谷_AJAX-课程说明.avi, 101、分布式基础篇总结.avi</li>
+<li><strong>蓉蓉</strong> 观看了：66.尚硅谷_ES11-动态import.avi, 300_尚硅谷_中午演唱会_班主任.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>寒寒</strong> 观看了：62.总结.avi, 17-nginx的原理解析.avi, day20_11复习_总结.avi, 50_尚硅谷_HBase_谷粒微博之测试.avi, Maven_查找依赖信息的网站.avi, SpringMVC_SpringMVC对比Struts2.avi, 062 - Elasticsearch - 面试题.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>超浩</strong> 观看了：JS高级_复习.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>全国</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi, 062 - Elasticsearch - 面试题.avi, 66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>阿绍</strong> 观看了：62.总结.avi, Java8新特性_重复注解与类型注解.avi, day20_11复习_总结.avi, 143_尚硅谷_Scala_泛型（三）_上下限.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>育滢</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>鹏泽</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>颖颖</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 062 - Elasticsearch - 面试题.avi, 72、尚硅谷_SpringBoot_结束语.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>兴良</strong> 观看了：101、分布式基础篇总结.avi, 01.尚硅谷_AJAX-课程说明.avi, SpringMVC_SpringMVC对比Struts2.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, JavaScriptDOM编程_实验之Checkbox全选.avi</li>
+<li><strong>柔柔</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>波宁</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 178_尚硅谷_MySQL基础_小结.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, Redis_Jedis_JedisPool.avi</li>
+<li><strong>阿博</strong> 观看了：SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>莎锦</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 076_尚硅谷_Python定制篇_apt软件包管理.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>露露</strong> 观看了：Redis_Jedis_JedisPool.avi</li>
+<li><strong>茂进</strong> 观看了：062 - Elasticsearch - 面试题.avi, 103.尚硅谷_HTML&amp;CSS基础_图片整合.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 72、尚硅谷_SpringBoot_结束语.avi, day20_11复习_总结.avi</li>
+<li><strong>晓欢</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>欢霄</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>阿天</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, day20_11复习_总结.avi, 48_尚硅谷_h5_html5表单验证.avi</li>
+<li><strong>秋珊</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi, JS基础_JSON.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi</li>
+<li><strong>云云</strong> 观看了：101、分布式基础篇总结.avi</li>
+<li><strong>阿风</strong> 观看了：15_尚硅谷_Azkaban_传参.avi, 125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>维启</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi, 167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>淑淑</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 01.尚硅谷_AJAX-课程说明.avi, Spring_集成Struts2.avi</li>
+<li><strong>德行</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 10_尚硅谷_Sqoop_脚本调用.avi, day20_11复习_总结.avi, 44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>阿康</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi</li>
+<li><strong>冰冰</strong> 观看了：Java8新特性_重复注解与类型注解.avi, 34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, SpringMVC_SpringMVC对比Struts2.avi, 01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>阿国</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>婉婉</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>阿河</strong> 观看了：40、尚硅谷-SpringBoot高级-监管-自定义HealthIndicator.avi, 81-命名空间与类的唯一性.avi, 26_尚硅谷_Shell_企业真题讲解.avi</li>
+<li><strong>霭凝</strong> 观看了：34_尚硅谷_Docker_CentOS7安装Docker（补充知识）.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>卿聪</strong> 观看了：66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>良海</strong> 观看了：182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 46-尚硅谷-Redis6-新功能介绍.avi</li>
+<li><strong>婉婉</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 125-尚硅谷-Hive-案例实操 需求七.avi</li>
+<li><strong>阿弘</strong> 观看了：48_尚硅谷_h5_html5表单验证.avi</li>
+<li><strong>义兴</strong> 观看了：103.尚硅谷_HTML&amp;CSS基础_图片整合.avi</li>
+<li><strong>阿之</strong> 观看了：JavaScriptDOM编程_实验之Checkbox全选.avi, 75_尚硅谷_Vue__vuex_vuex相关概念总结.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi</li>
+<li><strong>莲莲</strong> 观看了：JS高级_复习.avi</li>
+<li><strong>阿子</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi, 62.总结.avi, Java8新特性_重复注解与类型注解.avi, 64_ClickHouse备份_使用clickhouse-backup.avi</li>
+<li><strong>雪雪</strong> 观看了：125_尚硅谷_react教程_扩展10_ErrorBoundary.avi</li>
+<li><strong>厚庆</strong> 观看了：41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>馥馥</strong> 观看了：46-尚硅谷-Redis6-新功能介绍.avi</li>
+<li><strong>阿林</strong> 观看了：10_尚硅谷_Sqoop_脚本调用.avi</li>
+<li><strong>榕风</strong> 观看了：第二十二季公开课 CSS3特效实战 2.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, day20_11复习_总结.avi, 62.总结.avi</li>
+<li><strong>嘉琼</strong> 观看了：81-命名空间与类的唯一性.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi</li>
+<li><strong>妹霞</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi, 26_尚硅谷_Shell_企业真题讲解.avi, JS基础_JSON.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi</li>
+<li><strong>羽羽</strong> 观看了：26_尚硅谷_Shell_企业真题讲解.avi, 101、分布式基础篇总结.avi</li>
+<li><strong>茜茜</strong> 观看了：JS基础_JSON.avi</li>
+<li><strong>珊莎</strong> 观看了：062 - Elasticsearch - 面试题.avi</li>
+<li><strong>会思</strong> 观看了：36-尚硅谷-GitHub与码云-删除仓库.avi, 48_尚硅谷_h5_html5表单验证.avi</li>
+<li><strong>伊伊</strong> 观看了：8_尚硅谷_Android与H5互调_运行商城案例.avi, 101、分布式基础篇总结.avi, 178_尚硅谷_MySQL基础_小结.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>阿栋</strong> 观看了：day20_11复习_总结.avi, 203-最后寄语.avi</li>
+<li><strong>阿鸣</strong> 观看了：81-命名空间与类的唯一性.avi, Java8新特性_重复注解与类型注解.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>宁宁</strong> 观看了：8_尚硅谷_Android与H5互调_运行商城案例.avi, 125-尚硅谷-Hive-案例实操 需求七.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>德行</strong> 观看了：72、尚硅谷_SpringBoot_结束语.avi, 10_尚硅谷_Sqoop_脚本调用.avi, day20_11复习_总结.avi</li>
+<li><strong>思丽</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 01.尚硅谷_AJAX-课程说明.avi</li>
+<li><strong>飘育</strong> 观看了：076_尚硅谷_Python定制篇_apt软件包管理.avi, 178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi</li>
+<li><strong>阿武</strong> 观看了：Maven_查找依赖信息的网站.avi</li>
+<li><strong>康星</strong> 观看了：46-尚硅谷-Redis6-新功能介绍.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi</li>
+<li><strong>伟刚</strong> 观看了：50_尚硅谷_HBase_谷粒微博之测试.avi</li>
+<li><strong>阿飞</strong> 观看了：JS基础_JSON.avi, 40-尚硅谷-webpack从入门到精通-总结webpack.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>盛雄</strong> 观看了：JS高级_复习.avi, Redis_Jedis_JedisPool.avi, 8_尚硅谷_Android与H5互调_运行商城案例.avi, Maven_查找依赖信息的网站.avi, 第二十二季公开课 CSS3特效实战 2.avi</li>
+<li><strong>琬茗</strong> 观看了：300_尚硅谷_中午演唱会_班主任.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi</li>
+<li><strong>希宁</strong> 观看了：17-nginx的原理解析.avi, 10_尚硅谷_Sqoop_脚本调用.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 01.尚硅谷_AJAX-课程说明.avi, SpringMVC_SpringMVC对比Struts2.avi</li>
+<li><strong>阿龙</strong> 观看了：76.尚硅谷_MyBatis_运行原理_查询实现.avi</li>
+<li><strong>娣娣</strong> 观看了：75_尚硅谷_Vue__vuex_vuex相关概念总结.avi</li>
+<li><strong>航弘</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 103. 尚硅谷_佟刚_JavaWEB_国际化之 fmt 标签及小结.avi, 182 尚硅谷-云计算-Linux系统管理-日志管理-自己的日志加入轮替.avi, 81-命名空间与类的唯一性.avi, 203-最后寄语.avi, 41-尚硅谷-Flume监控-Ganglia使用.avi, 66.尚硅谷_ES11-动态import.avi</li>
+<li><strong>柔竹</strong> 观看了：10_尚硅谷_HadoopHA_HDFS联邦概述.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi</li>
+<li><strong>国胜</strong> 观看了：66.尚硅谷_ES11-动态import.avi, 210 - 尚硅谷 - SparkStreaming - 总结 - 课件梳理.avi, JavaScriptDOM编程_实验之Checkbox全选.avi, 24__尚硅谷_Kafka_与Flume对比及集成.avi, 300_尚硅谷_中午演唱会_班主任.avi</li>
+<li><strong>影荔</strong> 观看了：62.总结.avi, 36-尚硅谷-GitHub与码云-删除仓库.avi</li>
+<li><strong>阿伯</strong> 观看了：167_尚硅谷Vue3技术_Suspense组件.avi</li>
+<li><strong>阿天</strong> 观看了：44_尚硅谷_Git_GitLab_IDEA集成GitLab.avi</li>
+<li><strong>阿轮</strong> 观看了：24__尚硅谷_Kafka_与Flume对比及集成.avi</li>
+<li><strong>海山</strong> 观看了：17-nginx的原理解析.avi, 24. 尚硅谷_佟刚_JDBC_调用函数&amp;存储过程.avi, Spring_集成Struts2.avi, JS高级_复习.avi</li>
+<li><strong>茗羽</strong> 观看了：125-尚硅谷-Hive-案例实操 需求七.avi, Java8新特性_重复注解与类型注解.avi</li>
+<li><strong>毓悦</strong> 观看了：8_尚硅谷_Android与H5互调_运行商城案例.avi, 76.尚硅谷_MyBatis_运行原理_查询实现.avi</li>
+<li><strong>佳佳</strong> 观看了：178_尚硅谷_Hadoop_源码解析_Hadoop源码编译.avi, 33.尚硅谷_jQuery_点击圆点翻页.avi, 89RabbitMQ之FederationExchange实现.avi</li>
+<li><strong>惠惠</strong> 观看了：101、分布式基础篇总结.avi</li>
+<li><strong>朗伯</strong> 观看了：46_尚硅谷_zk_源码_客户端启动源码.avi</li>
+<li><strong>阿岩</strong> 观看了：JavaScriptDOM编程_实验之Checkbox全选.avi, 10_尚硅谷_Sqoop_脚本调用.avi</li>
+</ul>
+</div></div><div class="message-bubble user-message">哪些用户参与了考试，考试情况怎么样</div><div class="message-bubble bot-message"><div class="markdown-content"><p>抱歉，我在查询知识库时遇到了一个问题，暂时无法回答您。</p>
+</div></div><div class="message-bubble user-message">哪些用户参与了考试，考试情况怎么样</div><div class="message-bubble bot-message"><div class="markdown-content"><p>抱歉，我在查询知识库时遇到了一个问题，暂时无法回答您。</p>
+</div></div><div class="message-bubble user-message">哪些用户参与了考试，考试情况怎么样</div><div class="message-bubble bot-message"><div class="markdown-content"><p>系统暂时无法响应，请稍后再试😥</p>
+</div></div><div class="message-bubble user-message">哪些用户参与了考试，考试情况怎么样</div><div class="message-bubble bot-message"><div class="markdown-content"><p>以下是用户参与考试的详细情况：</p>
+<ul>
+<li><p><strong>艺艺</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷_JVM从入门到精通-JVM中篇测试》，成绩为 58.1 分，提交时间是 2021年04月23日 21点56分，用时 20分钟5秒。</li>
+</ul>
+</li>
+<li><p><strong>峰强</strong> 参与了以下考试：</p>
+<ul>
+<li>《Docker核心技术测试》，成绩为 25.0 分，提交时间是 2021年04月23日 00点53分，用时 15分钟0秒。</li>
+</ul>
+</li>
+<li><p><strong>芸菲</strong> 参与了以下考试：</p>
+<ul>
+<li>《Docker核心技术测试》，成绩为 25.0 分，提交时间是 2021年04月23日 09点26分，用时 8分钟50秒。</li>
+<li>《尚硅谷Webpack教程(webpack从入门到精通)测试》，成绩为 50.0 分，提交时间是 2021年04月23日 22点18分，用时 9分钟57秒。</li>
+</ul>
+</li>
+<li><p><strong>言若</strong> 参与了以下考试：</p>
+<ul>
+<li>《Docker核心技术测试》，成绩为 50.0 分，提交时间是 2021年04月23日 22点40分，用时 20分钟21秒。</li>
+<li>《大数据技术之Hive（2020版）测试》，成绩为 65.0 分，提交时间是 2021年04月23日 11点38分，用时 17分钟39秒。</li>
+</ul>
+</li>
+<li><p><strong>欣欣</strong> 参与了以下考试：</p>
+<ul>
+<li>《Docker核心技术测试》，成绩为 75.0 分，提交时间是 2021年04月23日 21点31分，用时 18分钟34秒。</li>
+</ul>
+</li>
+<li><p><strong>巧巧</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Shell测试》，成绩为 41.5 分，提交时间是 2021年04月23日 12点01分，用时 20分钟17秒。</li>
+</ul>
+</li>
+<li><p><strong>昭昭</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Shell测试》，成绩为 41.5 分，提交时间是 2021年04月23日 12点10分，用时 12分钟30秒。</li>
+</ul>
+</li>
+<li><p><strong>明永</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Shell测试》，成绩为 41.5 分，提交时间是 2021年04月23日 10点49分，用时 23分钟14秒。</li>
+</ul>
+</li>
+<li><p><strong>磊民</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spark测试》，成绩为 50.0 分，提交时间是 2021年04月23日 17点18分，用时 14分钟25秒。</li>
+</ul>
+</li>
+<li><p><strong>阿克</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spark测试》，成绩为 60.0 分，提交时间是 2021年04月23日 15点48分，用时 8分钟28秒。</li>
+<li>《Maven测试》，成绩为 60.0 分，提交时间是 2021年04月23日 20点28分，用时 13分钟32秒。</li>
+</ul>
+</li>
+<li><p><strong>阿震</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spark测试》，成绩为 65.0 分，提交时间是 2021年04月23日 11点21分，用时 22分钟48秒。</li>
+<li>《谷粒商城--微服务分布式电商项目-分布式基础测试》，成绩为 60.0 分，提交时间是 2021年04月23日 22点31分，用时 11分钟25秒。</li>
+</ul>
+</li>
+<li><p><strong>阿富</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据项目之电商数仓2.0测试》，成绩为 50.1 分，提交时间是 2021年04月23日 16点01分，用时 21分钟57秒。</li>
+</ul>
+</li>
+<li><p><strong>琳素</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据项目之电商数仓2.0测试》，成绩为 83.5 分，提交时间是 2021年04月23日 18点31分，用时 12分钟10秒。</li>
+</ul>
+</li>
+<li><p><strong>凝晓</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据项目之电商数仓2.0测试》，成绩为 66.8 分，提交时间是 2021年04月23日 18点22分，用时 19分钟9秒。</li>
+</ul>
+</li>
+<li><p><strong>雅芝</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据项目之电商数仓2.0测试》，成绩为 50.1 分，提交时间是 2021年04月23日 10点49分，用时 9分钟29秒。</li>
+<li>《尚硅谷Nginx教程测试》，成绩为 50.1 分，提交时间是 2021年04月23日 19点50分，用时 21分钟12秒。</li>
+</ul>
+</li>
+<li><p><strong>阿宏</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据项目之电商数仓2.0测试》，成绩为 66.8 分，提交时间是 2021年04月23日 08点38分，用时 6分钟57秒。</li>
+</ul>
+</li>
+<li><p><strong>华华</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Hive（2020版）测试》，成绩为 30.0 分，提交时间是 2021年04月23日 11点40分，用时 21分钟31秒。</li>
+<li>《Vue技术全家桶测试》，成绩为 40.0 分，提交时间是 2021年04月23日 08点51分，用时 20分钟37秒。</li>
+</ul>
+</li>
+<li><p><strong>姣姣</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Hive（2020版）测试》，成绩为 60.0 分，提交时间是 2021年04月23日 16点52分，用时 22分钟18秒。</li>
+<li>《尚硅谷大数据技术之HBase测试》，成绩为 40.0 分，提交时间是 2021年04月23日 19点40分，用时 13分钟14秒。</li>
+<li>《尚硅谷Webpack教程(webpack从入门到精通)测试》，成绩为 50.0 分，提交时间是 2021年04月23日 08点27分，用时 15分钟0秒。</li>
+</ul>
+</li>
+<li><p><strong>珠珠</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Hive（2020版）测试》，成绩为 45.0 分，提交时间是 2021年04月23日 22点29分，用时 9分钟47秒。</li>
+</ul>
+</li>
+<li><p><strong>伊亚</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Hive（2020版）测试》，成绩为 70.0 分，提交时间是 2021年04月23日 21点32分，用时 23分钟47秒。</li>
+</ul>
+</li>
+<li><p><strong>茗茗</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Hive（2020版）测试》，成绩为 65.0 分，提交时间是 2021年04月23日 19点22分，用时 18分钟11秒。</li>
+</ul>
+</li>
+<li><p><strong>凝凝</strong> 参与了以下考试：</p>
+<ul>
+<li>《2021 React全家桶测试》，成绩为 65.0 分，提交时间是 2021年04月23日 16点19分，用时 7分钟50秒。</li>
+</ul>
+</li>
+<li><p><strong>阿志</strong> 参与了以下考试：</p>
+<ul>
+<li>《2021 React全家桶测试》，成绩为 55.0 分，提交时间是 2021年04月23日 09点52分，用时 10分钟52秒。</li>
+</ul>
+</li>
+<li><p><strong>毅俊</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之HadoopHA测试》，成绩为 56.7 分，提交时间是 2021年04月23日 07点47分，用时 8分钟9秒。</li>
+</ul>
+</li>
+<li><p><strong>震振</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之HadoopHA测试》，成绩为 75.6 分，提交时间是 2021年04月23日 18点28分，用时 24分钟22秒。</li>
+<li>《JDBC测试》，成绩为 65.0 分，提交时间是 2021年04月23日 18点56分，用时 5分钟45秒。</li>
+</ul>
+</li>
+<li><p><strong>荔荔</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Kafka测试》，成绩为 60.0 分，提交时间是 2021年04月23日 18点36分，用时 14分钟16秒。</li>
+</ul>
+</li>
+<li><p><strong>咏咏</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Kafka测试》，成绩为 45.0 分，提交时间是 2021年04月23日 21点57分，用时 16分钟36秒。</li>
+</ul>
+</li>
+<li><p><strong>永健</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之HBase测试》，成绩为 50.0 分，提交时间是 2021年04月23日 00点37分，用时 23分钟13秒。</li>
+</ul>
+</li>
+<li><p><strong>信子</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Sqoop测试》，成绩为 60.0 分，提交时间是 2021年04月23日 11点59分，用时 16分钟6秒。</li>
+</ul>
+</li>
+<li><p><strong>诚先</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Sqoop测试》，成绩为 70.0 分，提交时间是 2021年04月23日 21点20分，用时 22分钟6秒。</li>
+</ul>
+</li>
+<li><p><strong>生龙</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Sqoop测试》，成绩为 60.0 分，提交时间是 2021年04月23日 23点00分，用时 7分钟17秒。</li>
+</ul>
+</li>
+<li><p><strong>风航</strong> 参与了以下考试：</p>
+<ul>
+<li>《Java基础测试》，成绩为 40.0 分，提交时间是 2021年04月23日 23点09分，用时 15分钟50秒。</li>
+</ul>
+</li>
+<li><p><strong>翠雅</strong> 参与了以下考试：</p>
+<ul>
+<li>《Maven测试》，成绩为 50.0 分，提交时间是 2021年04月23日 11点16分，用时 15分钟0秒。</li>
+<li>《IDE中快速配置Maven与Git测试》，成绩为 33.4 分，提交时间是 2021年04月23日 16点34分，用时 15分钟36秒。</li>
+</ul>
+</li>
+<li><p><strong>阿梁</strong> 参与了以下考试：</p>
+<ul>
+<li>《MyBatis测试》，成绩为 50.0 分，提交时间是 2021年04月23日 06点10分，用时 5分钟38秒。</li>
+</ul>
+</li>
+<li><p><strong>欢霄</strong> 参与了以下考试：</p>
+<ul>
+<li>《MyBatis测试》，成绩为 45.0 分，提交时间是 2021年04月23日 17点55分，用时 19分钟59秒。</li>
+</ul>
+</li>
+<li><p><strong>学祥</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Hadoop3.x测试》，成绩为 40.0 分，提交时间是 2021年04月23日 19点17分，用时 14分钟48秒。</li>
+</ul>
+</li>
+<li><p><strong>环雪</strong> 参与了以下考试：</p>
+<ul>
+<li>《Redis测试》，成绩为 58.1 分，提交时间是 2021年04月23日 07点37分，用时 5分钟11秒。</li>
+</ul>
+</li>
+<li><p><strong>彪博</strong> 参与了以下考试：</p>
+<ul>
+<li>《Redis测试》，成绩为 49.8 分，提交时间是 2021年04月23日 22点31分，用时 19分钟1秒。</li>
+</ul>
+</li>
+<li><p><strong>梦岚</strong> 参与了以下考试：</p>
+<ul>
+<li>《Redis测试》，成绩为 74.7 分，提交时间是 2021年04月23日 21点29分，用时 12分钟46秒。</li>
+</ul>
+</li>
+<li><p><strong>霭霭</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷_Linux系统管理教程（Linux运维+云计算学科发布）测试》，成绩为 45.0 分，提交时间是 2021年04月23日 10点15分，用时 21分钟4秒。</li>
+</ul>
+</li>
+<li><p><strong>亮政</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spring4.0测试》，成绩为 60.0 分，提交时间是 2021年04月23日 09点19分，用时 16分钟28秒。</li>
+</ul>
+</li>
+<li><p><strong>涵涵</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spring4.0测试》，成绩为 35.0 分，提交时间是 2021年04月23日 21点37分，用时 7分钟45秒。</li>
+</ul>
+</li>
+<li><p><strong>黛黛</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据Scala入门到精通（新版）测试》，成绩为 60.0 分，提交时间是 2021年04月23日 14点43分，用时 17分钟30秒。</li>
+</ul>
+</li>
+<li><p><strong>燕彩</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据Scala入门到精通（新版）测试》，成绩为 55.0 分，提交时间是 2021年04月23日 17点14分，用时 23分钟40秒。</li>
+<li>《尚硅谷Nginx教程测试》，成绩为 33.4 分，提交时间是 2021年04月23日 13点16分，用时 12分钟26秒。</li>
+</ul>
+</li>
+<li><p><strong>阿政</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据Scala入门到精通（新版）测试》，成绩为 50.0 分，提交时间是 2021年04月23日 17点09分，用时 13分钟37秒。</li>
+<li>《JavaScript高级测试》，成绩为 45.0 分，提交时间是 2021年04月23日 22点58分，用时 6分钟26秒。</li>
+</ul>
+</li>
+<li><p><strong>阿群</strong> 参与了以下考试：</p>
+<ul>
+<li>《SpringMVC测试》，成绩为 60.0 分，提交时间是 2021年04月23日 12点12分，用时 23分钟58秒。</li>
+</ul>
+</li>
+<li><p><strong>华慧</strong> 参与了以下考试：</p>
+<ul>
+<li>《Elasticsearch7.8.0测试》，成绩为 21.3 分，提交时间是 2021年04月23日 07点20分，用时 16分钟52秒。</li>
+</ul>
+</li>
+<li><p><strong>菁梦</strong> 参与了以下考试：</p>
+<ul>
+<li>《Elasticsearch7.8.0测试》，成绩为 35.5 分，提交时间是 2021年04月23日 21点19分，用时 8分钟21秒。</li>
+</ul>
+</li>
+<li><p><strong>柔竹</strong> 参与了以下考试：</p>
+<ul>
+<li>《Elasticsearch7.8.0测试》，成绩为 56.8 分，提交时间是 2021年04月24日 00点13分，用时 19分钟37秒。</li>
+<li>《HTML5核心测试》，成绩为 45.0 分，提交时间是 2021年04月23日 09点14分，用时 10分钟52秒。</li>
+</ul>
+</li>
+<li><p><strong>聪聪</strong> 参与了以下考试：</p>
+<ul>
+<li>《2021最新Redis 6教程分布式锁，秒杀实战测试》，成绩为 30.0 分，提交时间是 2021年04月23日 17点43分，用时 10分钟58秒。</li>
+</ul>
+</li>
+<li><p><strong>竹竹</strong> 参与了以下考试：</p>
+<ul>
+<li>《2021最新Redis 6教程分布式锁，秒杀实战测试》，成绩为 40.0 分，提交时间是 2021年04月23日 21点36分，用时 21分钟10秒。</li>
+<li>《css3测试》，成绩为 45.0 分，提交时间是 2021年04月23日 21点15分，用时 6分钟21秒。</li>
+</ul>
+</li>
+<li><p><strong>阿彪</strong> 参与了以下考试：</p>
+<ul>
+<li>《GitGitHubGitee码云GitLab（IDEA版，基于git 2.31.1）测试》，成绩为 50.0 分，提交时间是 2021年04月23日 23点23分，用时 17分钟32秒。</li>
+</ul>
+</li>
+<li><p><strong>莎锦</strong> 参与了以下考试：</p>
+<ul>
+<li>《GitGitHubGitee码云GitLab（IDEA版，基于git 2.31.1）测试》，成绩为 50.0 分，提交时间是 2021年04月23日 16点24分，用时 7分钟36秒。</li>
+<li>《Spring Boot视频教程（下）整合篇测试》，成绩为 50.0 分，提交时间是 2021年04月23日 18点32分，用时 6分钟25秒。</li>
+</ul>
+</li>
+<li><p><strong>桂桂</strong> 参与了以下考试：</p>
+<ul>
+<li>《HTML+CSS基础测试》，成绩为 80.0 分，提交时间是 2021年04月23日 21点40分，用时 9分钟16秒。</li>
+</ul>
+</li>
+<li><p><strong>颖颖</strong> 参与了以下考试：</p>
+<ul>
+<li>《JavaScript基础测试》，成绩为 50.0 分，提交时间是 2021年04月23日 11点15分，用时 21分钟39秒。</li>
+</ul>
+</li>
+<li><p><strong>邦承</strong> 参与了以下考试：</p>
+<ul>
+<li>《JavaScript基础测试》，成绩为 50.0 分，提交时间是 2021年04月23日 20点47分，用时 12分钟46秒。</li>
+</ul>
+</li>
+<li><p><strong>平保</strong> 参与了以下考试：</p>
+<ul>
+<li>《前端Vue技术全家桶丨涵盖Vue3.x新特性测试》，成绩为 45.0 分，提交时间是 2021年04月23日 20点49分，用时 16分钟26秒。</li>
+<li>《IDE中快速配置Maven与Git测试》，成绩为 66.8 分，提交时间是 2021年04月23日 12点57分，用时 10分钟8秒。</li>
+</ul>
+</li>
+<li><p><strong>文辉</strong> 参与了以下考试：</p>
+<ul>
+<li>《前端Vue技术全家桶丨涵盖Vue3.x新特性测试》，成绩为 40.0 分，提交时间是 2021年04月23日 13点13分，用时 21分钟19秒。</li>
+<li>《Vue技术全家桶测试》，成绩为 40.0 分，提交时间是 2021年04月23日 16点38分，用时 15分钟24秒。</li>
+</ul>
+</li>
+<li><p><strong>阿功</strong> 参与了以下考试：</p>
+<ul>
+<li>《前端Vue技术全家桶丨涵盖Vue3.x新特性测试》，成绩为 55.0 分，提交时间是 2021年04月23日 09点27分，用时 19分钟28秒。</li>
+</ul>
+</li>
+<li><p><strong>阿清</strong> 参与了以下考试：</p>
+<ul>
+<li>《JavaScript DOM测试》，成绩为 50.4 分，提交时间是 2021年04月23日 21点40分，用时 6分钟23秒。</li>
+</ul>
+</li>
+<li><p><strong>启克</strong> 参与了以下考试：</p>
+<ul>
+<li>《jQuery测试》，成绩为 65.0 分，提交时间是 2021年04月23日 12点27分，用时 7分钟37秒。</li>
+<li>《尚硅谷AJAX技术测试》，成绩为 55.0 分，提交时间是 2021年04月23日 19点10分，用时 16分钟49秒。</li>
+</ul>
+</li>
+<li><p><strong>敬震</strong> 参与了以下考试：</p>
+<ul>
+<li>《jQuery测试》，成绩为 35.0 分，提交时间是 2021年04月23日 21点20分，用时 17分钟42秒。</li>
+</ul>
+</li>
+<li><p><strong>毓毓</strong> 参与了以下考试：</p>
+<ul>
+<li>《jQuery测试》，成绩为 35.0 分，提交时间是 2021年04月23日 21点18分，用时 14分钟41秒。</li>
+</ul>
+</li>
+<li><p><strong>栋维</strong> 参与了以下考试：</p>
+<ul>
+<li>《从0到1掌握大数据ClickHouse测试》，成绩为 25.0 分，提交时间是 2021年04月23日 23点29分，用时 9分钟31秒。</li>
+</ul>
+</li>
+<li><p><strong>筠柔</strong> 参与了以下考试：</p>
+<ul>
+<li>《JDBC测试》，成绩为 60.0 分，提交时间是 2021年04月23日 11点57分，用时 9分钟53秒。</li>
+</ul>
+</li>
+<li><p><strong>福生</strong> 参与了以下考试：</p>
+<ul>
+<li>《JavaWeb从入门到精通测试》，成绩为 50.0 分，提交时间是 2021年04月23日 06点47分，用时 9分钟0秒。</li>
+</ul>
+</li>
+<li><p><strong>育育</strong> 参与了以下考试：</p>
+<ul>
+<li>《JavaWeb从入门到精通测试》，成绩为 45.0 分，提交时间是 2021年04月23日 06点58分，用时 10分钟27秒。</li>
+</ul>
+</li>
+<li><p><strong>豪心</strong> 参与了以下考试：</p>
+<ul>
+<li>《JavaScript高级测试》，成绩为 45.0 分，提交时间是 2021年04月23日 15点44分，用时 9分钟21秒。</li>
+</ul>
+</li>
+<li><p><strong>琼勤</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Flume1.9测试》，成绩为 50.4 分，提交时间是 2021年04月23日 07点32分，用时 24分钟23秒。</li>
+</ul>
+</li>
+<li><p><strong>芸芸</strong> 参与了以下考试：</p>
+<ul>
+<li>《大数据技术之Flume1.9测试》，成绩为 39.2 分，提交时间是 2021年04月23日 13点03分，用时 8分钟5秒。</li>
+</ul>
+</li>
+<li><p><strong>淑淑</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷大数据技术之Azkaban测试》，成绩为 0.0 分，提交时间是 2021年04月23日 09点47分，用时 12分钟6秒。</li>
+</ul>
+</li>
+<li><p><strong>枝思</strong> 参与了以下考试：</p>
+<ul>
+<li>《MySQL核心技术测试》，成绩为 33.4 分，提交时间是 2021年04月23日 21点00分，用时 6分钟19秒。</li>
+</ul>
+</li>
+<li><p><strong>伊伊</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷Nginx教程测试》，成绩为 66.8 分，提交时间是 2021年04月23日 21点38分，用时 13分钟27秒。</li>
+</ul>
+</li>
+<li><p><strong>士以</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷Nginx教程测试》，成绩为 33.4 分，提交时间是 2021年04月23日 06点20分，用时 9分钟12秒。</li>
+</ul>
+</li>
+<li><p><strong>兴良</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷Nginx教程测试》，成绩为 83.5 分，提交时间是 2021年04月23日 08点35分，用时 9分钟9秒。</li>
+</ul>
+</li>
+<li><p><strong>阿文</strong> 参与了以下考试：</p>
+<ul>
+<li>《CSS3特效实战测试》，成绩为 44.8 分，提交时间是 2021年04月23日 21点22分，用时 17分钟44秒。</li>
+</ul>
+</li>
+<li><p><strong>娜静</strong> 参与了以下考试：</p>
+<ul>
+<li>《CSS3特效实战测试》，成绩为 50.4 分，提交时间是 2021年04月23日 12点00分，用时 8分钟5秒。</li>
+</ul>
+</li>
+<li><p><strong>予予</strong> 参与了以下考试：</p>
+<ul>
+<li>《CSS3特效实战测试》，成绩为 39.2 分，提交时间是 2021年04月23日 18点09分，用时 22分钟14秒。</li>
+</ul>
+</li>
+<li><p><strong>春菊</strong> 参与了以下考试：</p>
+<ul>
+<li>《css3测试》，成绩为 35.0 分，提交时间是 2021年04月23日 09点46分，用时 17分钟43秒。</li>
+<li>《Android与H5互调测试》，成绩为 44.1 分，提交时间是 2021年04月23日 11点32分，用时 14分钟20秒。</li>
+</ul>
+</li>
+<li><p><strong>枝枝</strong> 参与了以下考试：</p>
+<ul>
+<li>《css3测试》，成绩为 65.0 分，提交时间是 2021年04月23日 15点33分，用时 13分钟25秒。</li>
+</ul>
+</li>
+<li><p><strong>阿子</strong> 参与了以下考试：</p>
+<ul>
+<li>《HTML5核心测试》，成绩为 45.0 分，提交时间是 2021年04月23日 15点16分，用时 9分钟0秒。</li>
+</ul>
+</li>
+<li><p><strong>予馨</strong> 参与了以下考试：</p>
+<ul>
+<li>《HTML5核心测试》，成绩为 50.0 分，提交时间是 2021年04月23日 10点38分，用时 15分钟34秒。</li>
+</ul>
+</li>
+<li><p><strong>卿聪</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷_JVM从入门到精通-JVM上篇测试》，成绩为 40.0 分，提交时间是 2021年04月23日 22点50分，用时 15分钟36秒。</li>
+</ul>
+</li>
+<li><p><strong>宁贵</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷Webpack教程(webpack从入门到精通)测试》，成绩为 50.0 分，提交时间是 2021年04月23日 16点50分，用时 21分钟23秒。</li>
+</ul>
+</li>
+<li><p><strong>阿伯</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷Webpack教程(webpack从入门到精通)测试》，成绩为 75.0 分，提交时间是 2021年04月23日 18点13分，用时 10分钟33秒。</li>
+</ul>
+</li>
+<li><p><strong>善厚</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷Webpack教程(webpack从入门到精通)测试》，成绩为 25.0 分，提交时间是 2021年04月23日 10点40分，用时 9分钟29秒。</li>
+</ul>
+</li>
+<li><p><strong>丹蓉</strong> 参与了以下考试：</p>
+<ul>
+<li>《Linux教程(流传广泛，2018精彩升级)测试》，成绩为 56.7 分，提交时间是 2021年04月23日 14点15分，用时 12分钟48秒。</li>
+</ul>
+</li>
+<li><p><strong>菊兰</strong> 参与了以下考试：</p>
+<ul>
+<li>《IDE中快速配置Maven与Git测试》，成绩为 50.1 分，提交时间是 2021年04月23日 22点11分，用时 7分钟4秒。</li>
+</ul>
+</li>
+<li><p><strong>绍功</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spring Boot视频教程（下）整合篇测试》，成绩为 80.0 分，提交时间是 2021年04月23日 22点07分，用时 23分钟12秒。</li>
+</ul>
+</li>
+<li><p><strong>阿士</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spring Boot视频教程（下）整合篇测试》，成绩为 70.0 分，提交时间是 2021年04月23日 12点26分，用时 8分钟19秒。</li>
+</ul>
+</li>
+<li><p><strong>先敬</strong> 参与了以下考试：</p>
+<ul>
+<li>《Spring Boot视频教程（下）整合篇测试》，成绩为 50.0 分，提交时间是 2021年04月23日 12点34分，用时 6分钟53秒。</li>
+<li>《ES6教程-涵盖ES6-ES11测试》，成绩为 50.0 分，提交时间是 2021年04月23日 08点04分，用时 7分钟40秒。</li>
+</ul>
+</li>
+<li><p><strong>阿豪</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷AJAX技术测试》，成绩为 55.0 分，提交时间是 2021年04月23日 23点44分，用时 12分钟51秒。</li>
+</ul>
+</li>
+<li><p><strong>冰冰</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷AJAX技术测试》，成绩为 55.0 分，提交时间是 2021年04月23日 02点07分，用时 13分钟17秒。</li>
+</ul>
+</li>
+<li><p><strong>坚和</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷AJAX技术测试》，成绩为 40.0 分，提交时间是 2021年04月23日 12点56分，用时 17分钟35秒。</li>
+</ul>
+</li>
+<li><p><strong>健世</strong> 参与了以下考试：</p>
+<ul>
+<li>《尚硅谷AJAX技术测试》，成绩为 40.0 分，提交时间是 2021年04月23日 10点10分，用时 12分钟33秒。</li>
+</ul>
+</li>
+<li><p><strong>倩倩</strong> 参与了以下考试：</p>
+<ul>
+<li>《Android与H5互调测试》，成绩为 50.4 分，提交时间是 2021年04月23日 19点19分，用时 13分钟8秒。</li>
+</ul>
+</li>
+<li><p><strong>丽韶</strong> 参与了以下考试：</p>
+<ul>
+<li>《Android与H5互调测试》，成绩为 63.0 分，提交时间是 2021年04月23日 09点11分，用时 9分钟11秒。</li>
+</ul>
+</li>
+<li><p><strong>寒寒</strong> 参与了以下考试：</p>
+<ul>
+<li>《Android与H5互调测试》，成绩为 69.3 分，提交时间是 2021年04月23日 15点09分，用时 15分钟24秒。</li>
+</ul>
+</li>
+<li><p><strong>思思</strong> 参与了以下考试：</p>
+<ul>
+<li>《Vue技术全家桶测试》，成绩为 50.0 分，提交时间是 2021年04月23日 18点39分，用时 15分钟56秒。</li>
+</ul>
+</li>
+<li><p><strong>阿朋</strong> 参与了以下考试：</p>
+<ul>
+<li>《Vue技术全家桶测试》，成绩为 60.0 分，提交时间是 2021年04月23日 22点39分，用时 11分钟30秒。</li>
+</ul>
+</li>
+</ul>
+</div></div><div class="message-bubble user-message">java有哪些课程</div><div class="message-bubble bot-message"><div class="markdown-content"><p>您好！关于Java相关的课程，我为您整理了以下内容：</p>
+<ul>
+<li>Java 编程基础 + AI 思维启蒙</li>
+<li>单体架构生态核心 （SpringBoot+SSM)</li>
+<li>基于电商/医疗业务的企业级微服务从开发到部署</li>
+<li>数据库与前端核心</li>
+</ul>
+<p>此外，还有一些与AI相关的课程，如AI基础与开发工具链、基于Python+Langchain的Agent智能体开发、基于大型音视频/教育业务的大模型应用工程化落地实战，这些课程也可能与Java开发有所结合或作为扩展学习。</p>
+</div></div><div class="message-bubble user-message">机器学习有哪些内容</div><div class="message-bubble bot-message"><div class="markdown-content"><p>机器学习涵盖的内容非常丰富，主要包括以下几个方面：</p>
+<p>首先，它涉及<strong>核心概念</strong>，如机器学习本身的基本原理和<strong>数据分析</strong>；其次，需要扎实的<strong>数学基础</strong>，例如<strong>高等数学</strong>、<strong>线性代数</strong>和<strong>概率论</strong>；再者，会学习到各种<strong>算法</strong>，比如<strong>线性回归</strong>、<strong>逻辑回归</strong>和<strong>KNN算法</strong>，以及<strong>距离计算</strong>等具体技术；最后，还包括<strong>算法实现</strong>和<strong>问题解决</strong>的能力培养。</p>
+</div></div><div class="message-bubble user-message">寒寒解答了哪些问题，答题情况怎么样</div><div class="message-bubble bot-message"><div class="markdown-content"><p>寒寒一共解答了16个问题。其中，有11个问题回答正确，5个问题回答错误。</p>
+<p>以下是寒寒解答的具体问题和答题情况：</p>
+<ul>
+<li>“MyISAM和InnoDB区别中错误的一项是？”：回答正确</li>
+<li>“什么情况下会导致索引失效？（多选）”：回答正确</li>
+<li>“MyISAM引擎的索引底层结构是？”：回答错误</li>
+<li>“一个表中A、B、C三个字段创建组合索引，那查询情况索引不起作用？”：回答正确</li>
+<li>“有关于mysql视图错误的选项是？”：回答错误</li>
+<li>“性能下降SQL慢、执行时间和等待时间长解决方式不正确的一项是？”：回答正确</li>
+<li>“哪种情况不要创建索引？”：回答正确</li>
+<li>“可以在创建表时用(   )来创建唯一索引，也可以用(   )来创建唯一索引”：回答正确</li>
+<li>“Mysql默认支持事务的引擎为？”：回答正确</li>
+<li>“关于SQL优化，以下说明哪个是错误的是”：回答正确</li>
+<li>“慢查询日志有关错误的选项是？”：回答错误</li>
+<li>“哪种情况需要创建索引？”：回答正确</li>
+<li>“性能下降SQL慢、执行时间和等待时间长解决方式不正确的一项是？”：回答错误</li>
+<li>“删除用户账号命令是哪个？”：回答正确</li>
+<li>“Explain能干什么？（多选）”：回答正确</li>
+<li>“有关于mysql主从复制错误的选项是？”：回答错误</li>
+</ul>
+</div></div><div class="message-bubble user-message">寒寒解答了哪些问题，答题情况怎么样,我还想知道他写的答案是什么</div><div class="message-bubble bot-message"><div class="markdown-content"><p>寒寒一共回答了16个问题，其中有11个回答正确，5个回答错误。</p>
+<p>以下是寒寒回答的具体情况：</p>
+<ul>
+<li>问题：MyISAM和InnoDB区别中错误的一项是？
+寒寒的回答情况：正确
+正确答案是：MyISAM不支持事务 InnoDB也不支持事务</li>
+<li>问题：什么情况下会导致索引失效？（多选）
+寒寒的回答情况：正确
+正确答案是：is not null；like以通配符开头；使用不等于</li>
+<li>问题：MyISAM引擎的索引底层结构是？
+寒寒的回答情况：错误
+正确答案是：B+树</li>
+<li>问题：一个表中A、B、C三个字段创建组合索引，那查询情况索引不起作用？
+寒寒的回答情况：正确
+正确答案是：查询BC</li>
+<li>问题：有关于mysql视图错误的选项是？
+寒寒的回答情况：错误
+正确答案是：视图保存sql逻辑和查询结果</li>
+<li>问题：性能下降SQL慢、执行时间和等待时间长解决方式不正确的一项是？
+寒寒的回答情况：正确
+正确答案是：使用分组查询</li>
+<li>问题：哪种情况不要创建索引？
+寒寒的回答情况：正确
+正确答案是：过滤性不好的时候</li>
+<li>问题：可以在创建表时用(   )来创建唯一索引，也可以用(   )来创建唯一索引
+寒寒的回答情况：正确
+正确答案是：设置主键约束，Create index</li>
+<li>问题：Mysql默认支持事务的引擎为？
+寒寒的回答情况：正确
+正确答案是：InnoDB存储引擎 </li>
+<li>问题：关于SQL优化，以下说明哪个是错误的是
+寒寒的回答情况：正确
+正确答案是：通常情况下，join的性能比较差，建议改造成子查询写法</li>
+<li>问题：慢查询日志有关错误的选项是？
+寒寒的回答情况：错误
+正确答案是：默认情况下，MySQL数据库是开启慢查询日志</li>
+<li>问题：哪种情况需要创建索引？
+寒寒的回答情况：正确
+正确答案是：查询中统计或者分组字段</li>
+<li>问题：性能下降SQL慢、执行时间和等待时间长解决方式不正确的一项是？
+寒寒的回答情况：错误
+正确答案是：使用分组查询</li>
+<li>问题：删除用户账号命令是哪个？
+寒寒的回答情况：正确
+正确答案是：DROP USER</li>
+<li>问题：Explain能干什么？（多选）
+寒寒的回答情况：正确
+正确答案是：查看sql执行时间；查看表之间的引用；查看索引使用</li>
+<li>问题：有关于mysql主从复制错误的选项是？
+寒寒的回答情况：错误
+正确答案是：slave将master的relay log 拷贝到它的中继日志（binary log events）</li>
+</ul>
+</div></div><div class="message-bubble user-message">编程有哪些分支</div><div class="message-bubble bot-message"><div class="markdown-content"><p>编程领域有很多分支，主要包括：</p>
+<ul>
+<li><strong>AI智能运维</strong>：结合人工智能技术进行系统运维。</li>
+<li><strong>j2ee学科</strong>：专注于Java企业级应用开发。</li>
+<li><strong>人工智能大模型</strong>：研究和开发大型人工智能模型。</li>
+<li><strong>前端学科</strong>：负责网站和应用的用户界面开发。</li>
+<li><strong>大数据学科</strong>：处理和分析海量数据。</li>
+<li><strong>嵌入式物联网</strong>：开发嵌入式系统和物联网设备。</li>
+<li><strong>JAVA全端开发</strong>：涵盖Java后端和前端的全面开发。</li>
+</ul>
+</div></div></div>
+    <div class="input-box">
+        <textarea id="user-input" placeholder="需要我做什么？" style="height: auto;"></textarea>
+        <button id="send-btn" onclick="sendMessage()">发送</button>
+    </div>
+
+    <script>
+        const dialogArea = document.getElementById('dialog-area');
+        const input = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const loadingBubble = createLoadingBubble();
+        marked.setOptions({
+            breaks: false,
+            highlight: function (code) {
+                return hljs.highlightAuto(code).value;
+            }
+        });
+
+        // 发送消息
+        async function sendMessage() {
+            // 获取用户输入
+            const message = input.value.trim();
+            if (!message) return;
+            // 禁用发送按钮
+            sendBtn.disabled = true;
+            // 发送消息
+            addMessage(message, true);
+            // 清空输入框并恢复高度
+            input.value = '';
+            input.style.height = 'auto';
+            // 添加加载状态
+            dialogArea.appendChild(loadingBubble);
+            window.scrollTo(0, document.body.scrollHeight);
+            // 获取回复
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                const data = await response.json();
+                responseContent = data.message;
+            } catch (error) {
+                responseContent = '系统暂时无法响应，请稍后再试😥';
+            }
+            // 移除加载状态
+            loadingBubble.remove();
+            // 发送回复消息
+            if (responseContent != null) {
+                addMessage(responseContent, false);
+            }
+            // 启用发送按钮
+            sendBtn.disabled = false;
+        }
+
+        // 自动调整输入框高度
+        document.getElementById('user-input').addEventListener('input', () => {
+            input.style.height = 'auto';
+            input.style.height = Math.min(input.scrollHeight, 200) + 'px';
+        });
+
+        // 监听回车键
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // 创建加载状态的气泡
+        function createLoadingBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('message-bubble', 'bot-message', 'new-message');
+            const loadingContainer = document.createElement('div');
+            loadingContainer.className = 'loading-container';
+            const loader = document.createElement('div');
+            loader.className = 'loader';
+            loadingContainer.appendChild(loader);
+            loadingContainer.appendChild(document.createTextNode('正在思索中...'));
+            bubble.appendChild(loadingContainer);
+            return bubble;
+        }
+
+        // 添加消息气泡
+        function addMessage(content, isUser) {
+            const bubble = document.createElement('div');
+            // 设置气泡样式
+            bubble.classList.add('message-bubble', isUser ? 'user-message' : 'bot-message', 'new-message');
+            // 如果传入的是字符串则创建文本
+            if (!isUser) {
+                // 机器人回复转换为markdown格式
+                const markdownContainer = document.createElement('div');
+                markdownContainer.className = 'markdown-content';
+                const dirty = marked.parse(content.toString());
+                markdownContainer.innerHTML = DOMPurify.sanitize(dirty, {
+                    ADD_TAGS: ["iframe"],
+                    ADD_ATTR: ["allowfullscreen"]
+                });
+                bubble.appendChild(markdownContainer);
+            } else {
+                bubble.textContent = content;
+            }
+            // 添加气泡动态效果
+            bubble.addEventListener('animationend', function handler() {
+                this.classList.remove('new-message');
+                this.removeEventListener('animationend', handler);
+            });
+            // 对话框添加气泡
+            dialogArea.appendChild(bubble);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+    </script>
+
+
+<deepl-input-controller translate="no"><template shadowrootmode="open"><link rel="stylesheet" href="chrome-extension://cofdbpoegempjloogbagkncekinflcnj/build/content.css"><div dir="ltr" style="visibility: initial !important;"><div class="dl-input-translation-container svelte-95aucy"><div></div></div></div></template></deepl-input-controller><script src="chrome-extension://onepmapfbjohnegdmfhndpefjkppbjkm/sm.bundle.js" data-pname="supercopy-v3" data-asset-path="https://spc4.s3.ap-east-1.amazonaws.com"></script></body></html>
