@@ -1,0 +1,2065 @@
+[
+{
+  "text": "01-尚硅谷-Flume-课程介绍",
+  "id": 3082,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 5,
+  "created_at": "2025-09-21T09:04:43.211626Z",
+  "updated_at": "2025-09-21T09:05:20.569266Z",
+  "lead_time": 9.199
+},
+{
+  "text": "02-尚硅谷-Flume-学习任务",
+  "id": 3083,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 6,
+  "created_at": "2025-09-21T09:04:46.828860Z",
+  "updated_at": "2025-09-21T09:11:53.058300Z",
+  "lead_time": 7.388
+},
+{
+  "text": "03-尚硅谷-Flume-概念",
+  "id": 3084,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 7,
+  "created_at": "2025-09-21T09:04:48.992749Z",
+  "updated_at": "2025-09-21T09:11:56.163919Z",
+  "lead_time": 3.648
+},
+{
+  "text": "06-尚硅谷-Flume官网案例-需求说明",
+  "id": 3085,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 8,
+  "created_at": "2025-09-21T09:04:51.869799Z",
+  "updated_at": "2025-09-21T09:11:59.124950Z",
+  "lead_time": 4.308
+},
+{
+  "text": "04-尚硅谷-Flume-架构",
+  "id": 3086,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 9,
+  "created_at": "2025-09-21T09:04:55.115138Z",
+  "updated_at": "2025-09-21T09:12:03.554051Z",
+  "lead_time": 4.4030000000000005
+},
+{
+  "text": "05-尚硅谷-Flume-安装",
+  "id": 3087,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 10,
+  "created_at": "2025-09-21T09:04:57.327068Z",
+  "updated_at": "2025-09-21T09:12:08.189156Z",
+  "lead_time": 3.566
+},
+{
+  "text": "08-尚硅谷-Flume官网案例-案例测试",
+  "id": 3088,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 11,
+  "created_at": "2025-09-21T09:05:00.227107Z",
+  "updated_at": "2025-09-21T09:12:11.860795Z",
+  "lead_time": 4.614000000000001
+},
+{
+  "text": "07-尚硅谷-Flume官网案例 -配置信息",
+  "id": 3089,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 12,
+  "created_at": "2025-09-21T09:05:03.143102Z",
+  "updated_at": "2025-09-21T09:12:14.797878Z",
+  "lead_time": 4.164
+},
+{
+  "text": "10-尚硅谷-Flume监控本地文件上传HDFS-案例测试",
+  "id": 3090,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 13,
+  "created_at": "2025-09-21T09:05:32.801141Z",
+  "updated_at": "2025-09-21T09:05:32.801141Z",
+  "lead_time": 5.258
+},
+{
+  "text": "11-尚硅谷-Flume监控目录中新文件-配置&测试",
+  "id": 3091,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 14,
+  "created_at": "2025-09-21T09:05:35.796868Z",
+  "updated_at": "2025-09-21T09:05:35.796868Z",
+  "lead_time": 2.501
+},
+{
+  "text": "12-尚硅谷-Flume动态监控多目录多文件-需求说明&配置信息",
+  "id": 3092,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 15,
+  "created_at": "2025-09-21T09:05:38.770938Z",
+  "updated_at": "2025-09-21T09:05:38.770938Z",
+  "lead_time": 2.526
+},
+{
+  "text": "09-尚硅谷-Flume监控本地文件上传HDFS-配置信息",
+  "id": 3093,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 16,
+  "created_at": "2025-09-21T09:05:42.622702Z",
+  "updated_at": "2025-09-21T09:05:42.622702Z",
+  "lead_time": 3.297
+},
+{
+  "text": "15-尚硅谷-Flume进阶-事务",
+  "id": 3094,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 17,
+  "created_at": "2025-09-21T09:05:45.453306Z",
+  "updated_at": "2025-09-21T09:05:45.453306Z",
+  "lead_time": 2.348
+},
+{
+  "text": "13-尚硅谷-Flume动态监控多目录多文件-测试&问题提出",
+  "id": 3095,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 18,
+  "created_at": "2025-09-21T09:05:49.069646Z",
+  "updated_at": "2025-09-21T09:05:49.069646Z",
+  "lead_time": 3.173
+},
+{
+  "text": "16-尚硅谷-Flume进阶-架构原理",
+  "id": 3096,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 19,
+  "created_at": "2025-09-21T09:05:52.259194Z",
+  "updated_at": "2025-09-21T09:05:52.259194Z",
+  "lead_time": 2.706
+},
+{
+  "text": "14-尚硅谷-Flume动态监控多目录多文件-修改源码",
+  "id": 3097,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 20,
+  "created_at": "2025-09-21T09:05:54.915923Z",
+  "updated_at": "2025-09-21T09:05:54.915923Z",
+  "lead_time": 2.163
+},
+{
+  "text": "17-尚硅谷-Flume进阶-拓扑结构",
+  "id": 3098,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 21,
+  "created_at": "2025-09-21T09:05:58.943302Z",
+  "updated_at": "2025-09-21T09:05:58.943302Z",
+  "lead_time": 3.549
+},
+{
+  "text": "19-尚硅谷-Flume-课程回顾2",
+  "id": 3099,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 22,
+  "created_at": "2025-09-21T09:06:01.557501Z",
+  "updated_at": "2025-09-21T09:06:01.557501Z",
+  "lead_time": 2.151
+},
+{
+  "text": "18-尚硅谷-Flume-课程回顾",
+  "id": 3100,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 23,
+  "created_at": "2025-09-21T09:06:04.705551Z",
+  "updated_at": "2025-09-21T09:06:04.705551Z",
+  "lead_time": 2.685
+},
+{
+  "text": "20-尚硅谷-Flume副本机制channel选择器-需求分析",
+  "id": 3101,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 24,
+  "created_at": "2025-09-21T09:06:11.387182Z",
+  "updated_at": "2025-09-21T09:06:11.387182Z",
+  "lead_time": 6.203
+},
+{
+  "text": "23-尚硅谷-Flume故障转移案例-需求分析",
+  "id": 3102,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 25,
+  "created_at": "2025-09-21T09:06:14.371315Z",
+  "updated_at": "2025-09-21T09:06:14.371315Z",
+  "lead_time": 2.522
+},
+{
+  "text": "22-尚硅谷-Flume副本机制channel选择器-案例测试",
+  "id": 3103,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 26,
+  "created_at": "2025-09-21T09:06:17.523386Z",
+  "updated_at": "2025-09-21T09:06:17.523386Z",
+  "lead_time": 2.675
+},
+{
+  "text": "21-尚硅谷-Flume副本机制channel选择器-配置信息",
+  "id": 3104,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 27,
+  "created_at": "2025-09-21T09:06:20.524489Z",
+  "updated_at": "2025-09-21T09:06:20.524489Z",
+  "lead_time": 2.525
+},
+{
+  "text": "26-尚硅谷-Flume聚合案例-需求分析",
+  "id": 3105,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 28,
+  "created_at": "2025-09-21T09:06:23.684047Z",
+  "updated_at": "2025-09-21T09:06:23.684047Z",
+  "lead_time": 2.688
+},
+{
+  "text": "24-尚硅谷-Flume故障转移案例-案例实操",
+  "id": 3106,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 29,
+  "created_at": "2025-09-21T09:06:26.252217Z",
+  "updated_at": "2025-09-21T09:06:26.252217Z",
+  "lead_time": 2.099
+},
+{
+  "text": "28-尚硅谷-Flume自定义拦截器-需求分析",
+  "id": 3107,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 30,
+  "created_at": "2025-09-21T09:06:28.900599Z",
+  "updated_at": "2025-09-21T09:06:28.900599Z",
+  "lead_time": 2.193
+},
+{
+  "text": "25-尚硅谷-Flume负载均衡案例-案例实操",
+  "id": 3108,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 12,
+      "end": 16,
+      "text": "负载均衡",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 31,
+  "created_at": "2025-09-21T09:06:42.285341Z",
+  "updated_at": "2025-09-21T09:06:42.285341Z",
+  "lead_time": 12.904
+},
+{
+  "text": "27-尚硅谷-Flume聚合案例-案例实操",
+  "id": 3109,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 32,
+  "created_at": "2025-09-21T09:07:06.231496Z",
+  "updated_at": "2025-09-21T09:07:06.231496Z",
+  "lead_time": 23.445
+},
+{
+  "text": "29-尚硅谷-Flume自定义拦截器-多路复用选择器介绍）",
+  "id": 3110,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 19,
+      "end": 23,
+      "text": "多路复用",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 33,
+  "created_at": "2025-09-21T09:07:22.197677Z",
+  "updated_at": "2025-09-21T09:07:22.197677Z",
+  "lead_time": 15.522
+},
+{
+  "text": "30-尚硅谷-Flume自定义拦截器-编码",
+  "id": 3111,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 34,
+  "created_at": "2025-09-21T09:07:25.353481Z",
+  "updated_at": "2025-09-21T09:07:25.355483Z",
+  "lead_time": 2.644
+},
+{
+  "text": "32-尚硅谷-Flume自定义拦截器-案例测试",
+  "id": 3112,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 35,
+  "created_at": "2025-09-21T09:07:28.861944Z",
+  "updated_at": "2025-09-21T09:07:28.861944Z",
+  "lead_time": 2.897
+},
+{
+  "text": "31-尚硅谷-Flume自定义拦截器-打包&配置信息",
+  "id": 3113,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 36,
+  "created_at": "2025-09-21T09:07:36.201668Z",
+  "updated_at": "2025-09-21T09:07:36.201668Z",
+  "lead_time": 6.795
+},
+{
+  "text": "33-尚硅谷-Flume自定义Source-需求分析",
+  "id": 3114,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 37,
+  "created_at": "2025-09-21T09:07:39.187597Z",
+  "updated_at": "2025-09-21T09:07:39.187597Z",
+  "lead_time": 2.475
+},
+{
+  "text": "34-尚硅谷-Flume自定义Source-代码编写",
+  "id": 3115,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 38,
+  "created_at": "2025-09-21T09:07:43.317522Z",
+  "updated_at": "2025-09-21T09:07:43.317522Z",
+  "lead_time": 3.652
+},
+{
+  "text": "35-尚硅谷-Flume自定义Source-打包测试",
+  "id": 3116,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 39,
+  "created_at": "2025-09-21T09:07:46.646544Z",
+  "updated_at": "2025-09-21T09:07:46.646544Z",
+  "lead_time": 2.828
+},
+{
+  "text": "37-尚硅谷-Flume自定义Sink-打包测试",
+  "id": 3117,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 40,
+  "created_at": "2025-09-21T09:07:49.307692Z",
+  "updated_at": "2025-09-21T09:07:49.308693Z",
+  "lead_time": 2.185
+},
+{
+  "text": "36-尚硅谷-Flume自定义Sink-代码编写",
+  "id": 3118,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 41,
+  "created_at": "2025-09-21T09:07:52.828686Z",
+  "updated_at": "2025-09-21T09:07:52.828686Z",
+  "lead_time": 3.049
+},
+{
+  "text": "38-尚硅谷-Flume-事务源码",
+  "id": 3119,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 42,
+  "created_at": "2025-09-21T09:07:56.401401Z",
+  "updated_at": "2025-09-21T09:07:56.401401Z",
+  "lead_time": 3.146
+},
+{
+  "text": "40-尚硅谷-Flume监控-Ganglia启动",
+  "id": 3120,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 43,
+  "created_at": "2025-09-21T09:08:01.303959Z",
+  "updated_at": "2025-09-21T09:08:01.303959Z",
+  "lead_time": 4.427
+},
+{
+  "text": "39-尚硅谷-Flume监控-Ganglia安装&配置",
+  "id": 3121,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 44,
+  "created_at": "2025-09-21T09:08:04.697486Z",
+  "updated_at": "2025-09-21T09:08:04.697486Z",
+  "lead_time": 2.876
+},
+{
+  "text": "42-尚硅谷-Flume监控-测试WindowsNet8IP成功）",
+  "id": 3122,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 45,
+  "created_at": "2025-09-21T09:08:18.026840Z",
+  "updated_at": "2025-09-21T09:08:18.026840Z",
+  "lead_time": 12.8
+},
+{
+  "text": "41-尚硅谷-Flume监控-Ganglia使用",
+  "id": 3123,
+  "label": [
+    {
+      "start": 7,
+      "end": 12,
+      "text": "Flume",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 46,
+  "created_at": "2025-09-21T09:08:21.615781Z",
+  "updated_at": "2025-09-21T09:08:21.615781Z",
+  "lead_time": 3.129
+},
+{
+  "text": "本课程为Java语言入门级教学，涵盖Java语法基础、面向对象编程、集合框架、异常处理等内容。通过大量实例讲解帮助学员快速掌握Java开发的基本技能。",
+  "id": 3124,
+  "label": [
+    {
+      "start": 4,
+      "end": 8,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 31,
+      "text": "面向对象",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 34,
+      "end": 38,
+      "text": "集合框架",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 43,
+      "text": "异常处理",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 47,
+  "created_at": "2025-09-21T09:08:38.835919Z",
+  "updated_at": "2025-09-21T09:08:38.835919Z",
+  "lead_time": 16.752
+},
+{
+  "text": "讲解Maven项目构建工具的核心使用方法，包括依赖管理、项目结构、插件配置、多模块项目构建等内容，提升Java项目的开发效率与规范性。",
+  "id": 3125,
+  "label": [
+    {
+      "start": 2,
+      "end": 7,
+      "text": "Maven",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 23,
+      "end": 27,
+      "text": "依赖管理",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 48,
+  "created_at": "2025-09-21T09:09:07.189483Z",
+  "updated_at": "2025-09-21T09:09:07.189483Z",
+  "lead_time": 27.874
+},
+{
+  "text": "深入讲解MyBatis持久层框架的使用，包括XML配置、注解方式、动态SQL、缓存机制等，实现数据库操作的灵活控制。",
+  "id": 3126,
+  "label": [
+    {
+      "start": 4,
+      "end": 11,
+      "text": "MyBatis",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 33,
+      "end": 38,
+      "text": "动态SQL",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 43,
+      "text": "缓存机制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 27,
+      "text": "XML配置",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "注解方式",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 49,
+  "created_at": "2025-09-21T09:09:32.786115Z",
+  "updated_at": "2025-09-21T09:09:32.786115Z",
+  "lead_time": 24.97
+},
+{
+  "text": "从零开始系统讲解Redis数据类型、持久化机制、事务、发布订阅、集群部署等核心知识点，并结合电商秒杀场景进行实战演练。",
+  "id": 3127,
+  "label": [
+    {
+      "start": 8,
+      "end": 13,
+      "text": "Redis",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 24,
+      "end": 26,
+      "text": "事务",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 32,
+      "end": 36,
+      "text": "集群部署",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 18,
+      "end": 23,
+      "text": "持久化机制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 31,
+      "text": "发布订阅",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 50,
+  "created_at": "2025-09-21T09:09:56.554729Z",
+  "updated_at": "2025-09-21T09:09:56.554729Z",
+  "lead_time": 23.243
+},
+{
+  "text": "全面讲解Spring框架核心功能，包括IoC容器、AOP编程、事务管理、整合其他组件等，奠定Java企业级开发基础。",
+  "id": 3128,
+  "label": [
+    {
+      "start": 4,
+      "end": 10,
+      "text": "Spring",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 19,
+      "end": 24,
+      "text": "IoC容器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 25,
+      "end": 30,
+      "text": "AOP编程",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "事务管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 46,
+      "end": 50,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 51,
+  "created_at": "2025-09-21T09:10:11.403661Z",
+  "updated_at": "2025-09-21T09:10:11.403661Z",
+  "lead_time": 14.228
+},
+{
+  "text": "深入解析SpringMVC框架，涵盖控制器、视图解析器、数据绑定、拦截器、文件上传等功能，构建Web应用的核心技术。",
+  "id": 3129,
+  "label": [
+    {
+      "start": 4,
+      "end": 13,
+      "text": "SpringMVC",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 18,
+      "end": 21,
+      "text": "控制器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 24,
+      "end": 27,
+      "text": "解析器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 33,
+      "end": 36,
+      "text": "拦截器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 47,
+      "end": 52,
+      "text": "Web应用",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "数据绑定",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 52,
+  "created_at": "2025-09-21T09:10:34.743333Z",
+  "updated_at": "2025-09-21T09:10:34.743333Z",
+  "lead_time": 22.854
+},
+{
+  "text": "系统讲解Java8引入的新特性，如Lambda表达式、Stream API、新的日期时间API等，提升代码简洁性与可读性。",
+  "id": 3130,
+  "label": [
+    {
+      "start": 4,
+      "end": 9,
+      "text": "Java8",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 26,
+      "text": "Lambda表达式",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 37,
+      "text": "Stream API",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 53,
+  "created_at": "2025-09-21T09:10:53.512126Z",
+  "updated_at": "2025-09-21T09:10:53.512126Z",
+  "lead_time": 18.259
+},
+{
+  "text": "讲解网页开发的基础知识，包括HTML标签结构、CSS样式布局，帮助学员快速上手前端页面设计。",
+  "id": 3131,
+  "label": [
+    {
+      "start": 2,
+      "end": 6,
+      "text": "网页开发",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 14,
+      "end": 18,
+      "text": "HTML",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 23,
+      "end": 30,
+      "text": "CSS样式布局",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 41,
+      "text": "前端",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 54,
+  "created_at": "2025-09-21T09:11:20.131043Z",
+  "updated_at": "2025-09-21T09:11:20.131043Z",
+  "lead_time": 26.101
+},
+{
+  "text": "从变量、函数、对象、DOM操作等基础知识入手，帮助学员掌握JavaScript编程基础。",
+  "id": 3132,
+  "label": [
+    {
+      "start": 1,
+      "end": 3,
+      "text": "变量",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 6,
+      "text": "函数",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 7,
+      "end": 9,
+      "text": "对象",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 10,
+      "end": 13,
+      "text": "DOM",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 29,
+      "end": 39,
+      "text": "JavaScript",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 55,
+  "created_at": "2025-09-21T09:12:49.230525Z",
+  "updated_at": "2025-09-21T09:12:49.230525Z",
+  "lead_time": 10.759
+},
+{
+  "text": "深入讲解JavaScript中DOM操作，包括节点增删改查、事件绑定、表单验证等实用技巧。",
+  "id": 3133,
+  "label": [
+    {
+      "start": 4,
+      "end": 14,
+      "text": "JavaScript",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 15,
+      "end": 18,
+      "text": "DOM",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 56,
+  "created_at": "2025-09-21T09:13:00.000632Z",
+  "updated_at": "2025-09-21T09:13:00.000632Z",
+  "lead_time": 8.939
+},
+{
+  "text": "讲解jQuery库的使用，简化DOM操作、事件处理、动画效果和AJAX请求，提升前端开发效率。",
+  "id": 3134,
+  "label": [
+    {
+      "start": 2,
+      "end": 8,
+      "text": "jQuery",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 15,
+      "end": 18,
+      "text": "DOM",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "AJAX",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 40,
+      "end": 42,
+      "text": "前端",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 57,
+  "created_at": "2025-09-21T09:13:18.310275Z",
+  "updated_at": "2025-09-21T09:13:18.310275Z",
+  "lead_time": 16.696
+},
+{
+  "text": "讲解Java数据库连接（JDBC）的使用方法，包括数据库连接、CRUD操作、事务管理、连接池配置等。",
+  "id": 3135,
+  "label": [
+    {
+      "start": 2,
+      "end": 6,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 12,
+      "end": 16,
+      "text": "JDBC",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 25,
+      "end": 28,
+      "text": "数据库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 6,
+      "end": 9,
+      "text": "数据库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "CRUD",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 38,
+      "end": 42,
+      "text": "事务管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 43,
+      "end": 48,
+      "text": "连接池配置",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 58,
+  "created_at": "2025-09-21T09:14:23.142953Z",
+  "updated_at": "2025-09-21T09:14:23.142953Z",
+  "lead_time": 44.739999999999995
+},
+{
+  "text": "讲解RabbitMQ消息队列的使用，包括交换机类型、死信队列、延迟队列、可靠性投递、幂等性等核心概念。",
+  "id": 3173,
+  "label": [
+    {
+      "start": 2,
+      "end": 10,
+      "text": "RabbitMQ",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 20,
+      "end": 23,
+      "text": "交换机",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 26,
+      "end": 30,
+      "text": "死信队列",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "延迟队列",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 42,
+      "end": 45,
+      "text": "幂等性",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 36,
+      "end": 39,
+      "text": "可靠性",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 59,
+  "created_at": "2025-09-21T09:15:52.575644Z",
+  "updated_at": "2025-09-21T09:15:52.575644Z",
+  "lead_time": 37.2
+},
+{
+  "text": "<p>&lt;p&gt;&lt;strong&gt;下面哪些函数是public void aMethod(){...}的重载函数?&lt;\/strong&gt;&lt;\/p&gt;<\/p>",
+  "id": 3174,
+  "label": [
+    {
+      "start": 60,
+      "end": 64,
+      "text": "重载函数",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 60,
+  "created_at": "2025-09-21T09:16:03.423961Z",
+  "updated_at": "2025-09-21T09:16:03.423961Z",
+  "lead_time": 8.389
+},
+{
+  "text": "<p>10<\/p>",
+  "id": 3191,
+  "annotator": 1,
+  "annotation_id": 62,
+  "created_at": "2025-09-21T09:16:31.530669Z",
+  "updated_at": "2025-09-21T09:16:31.530669Z",
+  "lead_time": 0.612
+},
+{
+  "text": "<p>main方法是Java程序执行的入口点，关于main方法的方法描述，以下哪项是合法的<\/p>",
+  "id": 3192,
+  "label": [
+    {
+      "start": 10,
+      "end": 14,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 61,
+  "created_at": "2025-09-21T09:16:25.613111Z",
+  "updated_at": "2025-09-21T09:16:25.613111Z",
+  "lead_time": 5.408
+},
+{
+  "text": "<p>下列选项中不属于Java语言平台的是（）<\/p>",
+  "id": 3193,
+  "label": [
+    {
+      "start": 11,
+      "end": 15,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 63,
+  "created_at": "2025-09-21T09:16:45.203417Z",
+  "updated_at": "2025-09-21T09:16:45.203417Z",
+  "lead_time": 2.308
+},
+{
+  "text": "<p>在进行 Java 代码编译和运行的过程中，哪种格式的文件可以被编译成字节码文件（）<\/p>",
+  "id": 3194,
+  "label": [
+    {
+      "start": 7,
+      "end": 11,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 37,
+      "end": 40,
+      "text": "字节码",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 64,
+  "created_at": "2025-09-21T09:16:55.623303Z",
+  "updated_at": "2025-09-21T09:16:55.623303Z",
+  "lead_time": 8.797
+},
+{
+  "text": "<p>表单中的数据要提交到哪里处理,由表单的属性指定( )<\/p>",
+  "id": 3195,
+  "label": [
+    {
+      "start": 3,
+      "end": 5,
+      "text": "表单",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 65,
+  "created_at": "2025-09-21T09:17:19.931713Z",
+  "updated_at": "2025-09-21T09:17:19.931713Z",
+  "lead_time": 22.71
+},
+{
+  "text": "<p>页面中需要增加链接a标签，正确的HTML代码是( )<\/p>",
+  "id": 3196,
+  "label": [
+    {
+      "start": 10,
+      "end": 12,
+      "text": "链接",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 66,
+  "created_at": "2025-09-21T09:17:44.337883Z",
+  "updated_at": "2025-09-21T09:17:44.338884Z",
+  "lead_time": 6.351
+},
+{
+  "text": "<p>下面不是CSS选择器的( )<\/p>",
+  "id": 3198,
+  "label": [
+    {
+      "start": 7,
+      "end": 10,
+      "text": "CSS",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 67,
+  "created_at": "2025-09-21T09:17:54.600638Z",
+  "updated_at": "2025-09-21T09:18:02.340984Z",
+  "lead_time": 5.763
+},
+{
+  "text": "<p>以下创建javascript方法声明的正确格式为( )<\/p>",
+  "id": 3200,
+  "label": [
+    {
+      "start": 7,
+      "end": 17,
+      "text": "javascript",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 68,
+  "created_at": "2025-09-21T09:18:15.366645Z",
+  "updated_at": "2025-09-21T09:18:15.366645Z",
+  "lead_time": 8.202
+},
+{
+  "text": "<p>下面不是document对象的方法是( )<\/p>",
+  "id": 3201,
+  "label": [
+    {
+      "start": 7,
+      "end": 15,
+      "text": "document",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 69,
+  "created_at": "2025-09-21T09:18:19.306627Z",
+  "updated_at": "2025-09-21T09:18:19.306627Z",
+  "lead_time": 2.475
+},
+{
+  "text": "<p>对于id为\"name\"的文本框，判断其不为空的正确javaScript代码是( )<\/p>",
+  "id": 3202,
+  "label": [
+    {
+      "start": 28,
+      "end": 38,
+      "text": "javaScript",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 70,
+  "created_at": "2025-09-21T09:18:24.911375Z",
+  "updated_at": "2025-09-21T09:18:24.911375Z",
+  "lead_time": 4.177
+},
+{
+  "text": "<p>以下用来获取DOM元素中最后一个元素的是：( )<\/p>",
+  "id": 3203,
+  "label": [
+    {
+      "start": 9,
+      "end": 12,
+      "text": "DOM",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 71,
+  "created_at": "2025-09-21T09:18:28.809594Z",
+  "updated_at": "2025-09-21T09:18:28.809594Z",
+  "lead_time": 2.357
+},
+{
+  "text": "<p>jQuery中下面哪个实现用来追加到指定元素的末尾的方法？<\/p>",
+  "id": 3204,
+  "label": [
+    {
+      "start": 3,
+      "end": 9,
+      "text": "jQuery",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 72,
+  "created_at": "2025-09-21T09:18:36.046836Z",
+  "updated_at": "2025-09-21T09:18:36.046836Z",
+  "lead_time": 4.897
+},
+{
+  "text": "<p>jquery中从DOM中删除所有匹配的元素，下面哪个可以实现？<\/p>",
+  "id": 3205,
+  "label": [
+    {
+      "start": 3,
+      "end": 9,
+      "text": "jquery",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 11,
+      "end": 14,
+      "text": "DOM",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 73,
+  "created_at": "2025-09-21T09:18:41.411397Z",
+  "updated_at": "2025-09-21T09:18:41.411397Z",
+  "lead_time": 3.856
+},
+{
+  "text": "<p>jquery中如何选取class=’myClass’属性的所有元素？<\/p>",
+  "id": 3206,
+  "label": [
+    {
+      "start": 3,
+      "end": 9,
+      "text": "jquery",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 74,
+  "created_at": "2025-09-21T09:18:48.183910Z",
+  "updated_at": "2025-09-21T09:18:48.183910Z",
+  "lead_time": 3.726
+},
+{
+  "text": "<p>当DOM加载完成后要执行的函数，下面哪个是正确的？<\/p>",
+  "id": 3207,
+  "label": [
+    {
+      "start": 4,
+      "end": 7,
+      "text": "DOM",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 75,
+  "created_at": "2025-09-21T09:18:58.344729Z",
+  "updated_at": "2025-09-21T09:18:58.344729Z",
+  "lead_time": 5.619
+},
+{
+  "text": "<p>下面哪种不是jQuery的选择器？<\/p>",
+  "id": 3208,
+  "label": [
+    {
+      "start": 9,
+      "end": 15,
+      "text": "jQuery",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 76,
+  "created_at": "2025-09-21T09:19:03.009283Z",
+  "updated_at": "2025-09-21T09:19:03.009283Z",
+  "lead_time": 3.146
+},
+{
+  "text": "<p>JQuery中，属于鼠标事件方法的选项是()<\/p>",
+  "id": 3209,
+  "label": [
+    {
+      "start": 3,
+      "end": 9,
+      "text": "JQuery",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 13,
+      "end": 17,
+      "text": "鼠标事件",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 77,
+  "created_at": "2025-09-21T09:19:09.066548Z",
+  "updated_at": "2025-09-21T09:19:09.066548Z",
+  "lead_time": 4.43
+},
+{
+  "text": "<p>下面关于HTML描述正确的是( )<\/p>",
+  "id": 3210,
+  "label": [
+    {
+      "start": 7,
+      "end": 11,
+      "text": "HTML",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 78,
+  "created_at": "2025-09-21T09:19:13.477843Z",
+  "updated_at": "2025-09-21T09:19:13.477843Z",
+  "lead_time": 2.816
+},
+{
+  "text": "<p>以下javascript创建函数声明格式不正确的( )<\/p>",
+  "id": 3212,
+  "label": [
+    {
+      "start": 5,
+      "end": 15,
+      "text": "javascript",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 79,
+  "created_at": "2025-09-21T09:20:19.814954Z",
+  "updated_at": "2025-09-21T09:20:19.814954Z",
+  "lead_time": 2.541
+},
+{
+  "text": "<p>下面哪些是jQuery的选择器？<\/p>",
+  "id": 3213,
+  "label": [
+    {
+      "start": 8,
+      "end": 14,
+      "text": "jQuery",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 80,
+  "created_at": "2025-09-21T09:20:24.238406Z",
+  "updated_at": "2025-09-21T09:20:24.238406Z",
+  "lead_time": 2.697
+},
+{
+  "text": "<p>以下关于jQuery的描述正确的是（ ）<\/p>",
+  "id": 3214,
+  "label": [
+    {
+      "start": 7,
+      "end": 13,
+      "text": "jQuery",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 81,
+  "created_at": "2025-09-21T09:20:28.103885Z",
+  "updated_at": "2025-09-21T09:20:28.103885Z",
+  "lead_time": 2.476
+},
+{
+  "text": "<p>下列Java语言中可用的注释符，其中错误的是（）<\/p>",
+  "id": 3216,
+  "label": [
+    {
+      "start": 5,
+      "end": 9,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 82,
+  "created_at": "2025-09-21T09:20:34.567296Z",
+  "updated_at": "2025-09-21T09:20:34.567296Z",
+  "lead_time": 2.311
+},
+{
+  "text": "<p>Java 程序经过编译后生成的文件的后缀名是（）<\/p>",
+  "id": 3217,
+  "label": [
+    {
+      "start": 3,
+      "end": 8,
+      "text": "Java ",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 12,
+      "end": 14,
+      "text": "编译",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 83,
+  "created_at": "2025-09-21T09:20:40.814321Z",
+  "updated_at": "2025-09-21T09:20:40.814321Z",
+  "lead_time": 5.033
+},
+{
+  "text": "<p>关于jdk，jre，jvm三者关系正确的是？<\/p>",
+  "id": 3219,
+  "label": [
+    {
+      "start": 5,
+      "end": 8,
+      "text": "jdk",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 9,
+      "end": 12,
+      "text": "jre",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 13,
+      "end": 16,
+      "text": "jvm",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 84,
+  "created_at": "2025-09-21T09:20:56.927272Z",
+  "updated_at": "2025-09-21T09:20:56.927272Z",
+  "lead_time": 12.086
+},
+{
+  "text": "<p>关于Java标识符的特点说法正确的是（）<\/p>",
+  "id": 3220,
+  "label": [
+    {
+      "start": 5,
+      "end": 9,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 9,
+      "end": 12,
+      "text": "标识符",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 85,
+  "created_at": "2025-09-21T09:21:15.877735Z",
+  "updated_at": "2025-09-21T09:21:15.877735Z",
+  "lead_time": 17.327
+},
+{
+  "text": "<p>&nbsp;下列哪个是 short 类型的值的范围？（）<\/p>",
+  "id": 3222,
+  "label": [
+    {
+      "start": 15,
+      "end": 20,
+      "text": "short",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 86,
+  "created_at": "2025-09-21T09:21:24.800921Z",
+  "updated_at": "2025-09-21T09:21:24.800921Z",
+  "lead_time": 4.419
+},
+{
+  "text": "<p>下列选项中不能进行自动类型提升的是&nbsp;()<\/p>",
+  "id": 3224,
+  "label": [
+    {
+      "start": 12,
+      "end": 16,
+      "text": "自动类型",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 87,
+  "created_at": "2025-09-21T09:21:31.588534Z",
+  "updated_at": "2025-09-21T09:21:31.588534Z",
+  "lead_time": 3.589
+},
+{
+  "text": "<p>下列选项中不能进行自动类型提升的是&nbsp;()<\/p>",
+  "id": 3225,
+  "label": [
+    {
+      "start": 12,
+      "end": 16,
+      "text": "自动类型",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 88,
+  "created_at": "2025-09-21T09:21:36.655850Z",
+  "updated_at": "2025-09-21T09:21:36.655850Z",
+  "lead_time": 3.634
+},
+{
+  "text": "<p>&nbsp;double型基本数据在内存中占的字节数是()<\/p>",
+  "id": 3227,
+  "label": [
+    {
+      "start": 9,
+      "end": 15,
+      "text": "double",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 21,
+      "end": 23,
+      "text": "内存",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 89,
+  "created_at": "2025-09-21T09:21:49.874712Z",
+  "updated_at": "2025-09-21T09:21:49.874712Z",
+  "lead_time": 8.9
+},
+{
+  "text": "<p>代码中括号内填写什么类型可以使代码编译通过<\/p><p><br><\/p><p>public static void main(String[] args) {<\/p><p>int a=1;<\/p><p>byte b=2;<\/p><p>short C= 3;<\/p><p>double d = 4;<\/p><p>() e = a*3-4*b*c\/d+a+c*4;<\/p><p><br><\/p><p>}<\/p>",
+  "id": 3229,
+  "annotator": 1,
+  "annotation_id": 90,
+  "created_at": "2025-09-21T09:22:10.787225Z",
+  "updated_at": "2025-09-21T09:22:10.787225Z",
+  "lead_time": 2.694
+},
+{
+  "text": "<p>下列程序执行的结果是<\/p><p>public static void main(String[] args) {<\/p><p>int x = 5;<\/p><p>System.out.println(x*=5);<\/p><p>}&nbsp;<\/p>",
+  "id": 3230,
+  "annotator": 1,
+  "annotation_id": 91,
+  "created_at": "2025-09-21T09:22:12.578216Z",
+  "updated_at": "2025-09-21T09:22:12.578216Z",
+  "lead_time": 0.576
+}
+]
