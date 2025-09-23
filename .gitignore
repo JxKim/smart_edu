@@ -1,5 +1,5 @@
 /.idea
 /.venv
-/.checkpoint
-/.data
-/.src/configuration/
+/checkpoint
+/data
+/src/configuration
