@@ -30,7 +30,7 @@ class TextSync:
         # print(course_desc)
         ids = [item['id'] for item in course_desc]
         descs = [item['course_introduce'] for item in course_desc]
-        tags_list = self.extractor.extract(descs)
+        tags_list = self.extractor.extract(descs)  ##🔥🔥🔥这里可使用uie模型直接抽取
 
         tag_properties = []
         relations = []
