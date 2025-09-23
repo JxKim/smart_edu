@@ -35,12 +35,12 @@ class Neo4jWriter:
             """
         self.driver.execute_query(cypher, batch=properties)
 
-    def write_price(self, label: str, properties: list[dict]):
-        cypher = f"""
-            UNWIND $batch AS item
-            MERGE (n:{label} {{id:item.id,name:item.name}})
-            """
-        self.driver.execute_query(cypher, batch=properties)
+    # def write_price(self, label: str, properties: list[dict]):
+    #     cypher = f"""
+    #         UNWIND $batch AS item
+    #         MERGE (n:{label} {{id:item.id,name:item.name}})
+    #         """
+    #     self.driver.execute_query(cypher, batch=properties)
 
     def write_user(self, label: str, properties: list[dict]):
         cypher = f"""
@@ -76,13 +76,13 @@ class Neo4jWriter:
             """
         self.driver.execute_query(cypher, batch=relations)
 
-    def write_course_to_price_relations(self, type: str, start_label, end_label, relations: list[dict]):
-        cypher = f"""
-                UNWIND $batch AS item
-                MATCH (start:{start_label} {{id:item.start_id}}),(end:{end_label} {{name:item.end_id}})
-                MERGE (start)-[:{type}]->(end)
-            """
-        self.driver.execute_query(cypher, batch=relations)
+    # def write_course_to_price_relations(self, type: str, start_label, end_label, relations: list[dict]):
+    #     cypher = f"""
+    #             UNWIND $batch AS item
+    #             MATCH (start:{start_label} {{id:item.start_id}}),(end:{end_label} {{name:item.end_id}})
+    #             MERGE (start)-[:{type}]->(end)
+    #         """
+    #     self.driver.execute_query(cypher, batch=relations)
 
 
 

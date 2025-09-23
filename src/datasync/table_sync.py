@@ -42,6 +42,25 @@ class TableSynchronizer:
         properties = self.mysql_reader.read(sql)
         self.neo4j_writer.write_name('Teacher', properties)
 
+    # def sync_price(self):
+    #     sql = """
+    #             select id, cast(origin_price as char) name
+    #              from course_info;
+    #              """
+    #     properties = self.mysql_reader.read(sql)
+    #     # properties_set = set()
+    #     # for item in properties:
+    #     #     properties_set.add(item["name"])
+    #     # properties_list = list(properties_set)
+    #     # properties = [{"id": index + 1, "name": str(value)} for index, value in enumerate(properties_list)]
+    #
+    #     self.neo4j_writer.write_nodes("Price", properties)
+
+
+
+
+
+
     def sync_price(self):
         sql = """
                 SELECT 
@@ -50,7 +69,7 @@ class TableSynchronizer:
                 FROM course_info
                 """
         properties = self.mysql_reader.read(sql)
-        self.neo4j_writer.write_price('Price', properties)
+        self.neo4j_writer.write_nodes('Price', properties)
 
     def sync_chapter(self):
         sql = """
@@ -155,11 +174,11 @@ class TableSynchronizer:
     def sync_course_to_price(self):
         sql = """
                     select id start_id,
-                           cast(origin_price as char)     end_id
+                           id    end_id
                     from course_info
                     """
         relations = self.mysql_reader.read(sql)
-        self.neo4j_writer.write_course_to_price_relations("Have", "Course", "Price", relations)
+        self.neo4j_writer.write_relations("Have", "Course", "Price", relations)
 
     def sync_user(self):
         sql = """
