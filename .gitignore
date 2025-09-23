@@ -1,8 +1,8 @@
 /.idea
 /.venv
 /.env
-./src/models/uie_pytorch/checkpoints
-./src/models/uie_pytorch/uie_base_torch
+./src/models/uie_pytorch/checkpoint
+./src/models/uie_pytorch/uie_base_pytorch
 ./src/models/uie_pytorch/data
 /.data
 /.logs
