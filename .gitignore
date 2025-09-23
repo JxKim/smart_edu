@@ -2,4 +2,4 @@
 /.venv
 /.checkpoint
 /.data
-/.configuration
+/.src /.configuration

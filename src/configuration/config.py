@@ -6,6 +6,7 @@ DATA_DIR = ROOT_DIR / 'data'
 MODEL_NAME = 'google-bert/bert-base-chinese'
 CHECKPOINT_DIR = ROOT_DIR / 'checkpoints'
 LOG_DIR = ROOT_DIR / 'logs'
+WEB_STATIC_DIR = ROOT_DIR / 'src' /'web' / 'static'
 
 LABELS = ['B', 'I', 'O']
 
@@ -22,5 +23,5 @@ NEO4J_CONFIG = {
     'auth': ('neo4j', 'zct123456')
 }
 
-API_KEY = 'sk-14cc2af6046445088df3b8c928038b9c'
+API_KEY = 'sk-3dac1d9773aa4add8af5902b701416fc'
 BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
