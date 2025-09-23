@@ -26,60 +26,42 @@ class ChatServer:
                         encode_kwargs={'normalize_embeddings': True},
                         )
         self.stores={
-            'Trademark':Neo4jVector.from_existing_index(
+            'Base_category':Neo4jVector.from_existing_index(
                         self.embed_model,
                         url=config.NEO4J_CONFIG['uri'],
                         username=config.NEO4J_CONFIG['auth'][0],
                         password=config.NEO4J_CONFIG['auth'][1],
-                        index_name='Trademark_v',
-                        keyword_index_name='Trademark_f',
+                        index_name='Base_category_v',
+                        keyword_index_name='Base_category_f',
                         search_type=SearchType.HYBRID,
                         ),
-            'SKU': Neo4jVector.from_existing_index(
+            'Course': Neo4jVector.from_existing_index(
                 self.embed_model,
                 url=config.NEO4J_CONFIG['uri'],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='SKU_v',
-                keyword_index_name='SKU_f',
+                index_name='Course_v',
+                keyword_index_name='Course_f',
                 search_type=SearchType.HYBRID,
             ),
-            'SPU': Neo4jVector.from_existing_index(
+            'Base_subject': Neo4jVector.from_existing_index(
                 self.embed_model,
                 url=config.NEO4J_CONFIG['uri'],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='SPU_v',
-                keyword_index_name='SPU_f',
+                index_name='Base_subject_v',
+                keyword_index_name='Base_subject_f',
                 search_type=SearchType.HYBRID,
             ),
-            'Category1': Neo4jVector.from_existing_index(
+            'Test_paper': Neo4jVector.from_existing_index(
                 self.embed_model,
                 url=config.NEO4J_CONFIG['uri'],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='Category1_v',
-                keyword_index_name='Category1_f',
+                index_name='Test_paper_v',
+                keyword_index_name='Test_paper_f',
                 search_type=SearchType.HYBRID,
-            ),
-            'Category2': Neo4jVector.from_existing_index(
-                self.embed_model,
-                url=config.NEO4J_CONFIG['uri'],
-                username=config.NEO4J_CONFIG['auth'][0],
-                password=config.NEO4J_CONFIG['auth'][1],
-                index_name='Category2_v',
-                keyword_index_name='Category2_f',
-                search_type=SearchType.HYBRID,
-            ),
-            'Category3':Neo4jVector.from_existing_index(
-                        self.embed_model,
-                        url=config.NEO4J_CONFIG['uri'],
-                        username=config.NEO4J_CONFIG['auth'][0],
-                        password=config.NEO4J_CONFIG['auth'][1],
-                        index_name='Category3_v',
-                        keyword_index_name='Category3_f',
-                        search_type=SearchType.HYBRID,
-                        )
+            )
         }
 
 
@@ -96,6 +78,8 @@ class ChatServer:
                     1. 生成参数化Cypher查询语句，用param_0, param_1等代替具体值
                     2. 识别需要对齐的实体
                     3. 必须严格使用以下JSON格式输出结果
+                    4. 注意关系的方向，和知识图谱结构信息中的The relationships保持一致，不要写反，
+                    比如(:Base_subject)<-[:Belong]-(:Course)合法，(:Base_subject)-[:Belong]->(:Course)非法
                     {{
                       "cypher": "生成的Cypher语句",
                       "parameter_list": [
@@ -118,13 +102,21 @@ class ChatServer:
 
         # print(params)
         # print(cypher)
+        # cypher='''MATCH(bc: Base_category{name: $param_0}) <-[: Belong]-(bs:Base_subject) <-[: Belong]-(c:Course) <-[: Belong]-(ch:Chapter) - [: Have]->(ck:Chapter_knowledge)
+        # RETURN
+        # DISTINCT
+        # ck.name
+        # AS
+        # knowledge_point'''
+        # print(cypher)
+
         query_res=self.graph.query(cypher,params=params)
-        # print(query_res)
+        print(query_res)
         return self._generate_answer(query_res,question)
 
     def _generate_answer(self,query_res,question):
         template=PromptTemplate.from_template(template="""
-        你是一个电商智能客服，根据用户问题，以及数据库查询结果生成一段简洁、准确的自然语言回答。
+        你是一个Ai智教客服，根据用户问题，以及数据库查询结果生成一段简洁、准确的自然语言回答。
                 用户问题: {question}
                 数据库返回结果: {query_res}
         """)
@@ -133,7 +125,7 @@ class ChatServer:
 
 if __name__ == '__main__':
     server=ChatServer()
-    print(server.chat('请列出属于xiaomi的产品'))
+    print(server.chat('编程技术包含了哪些知识点'))
 
 
 

@@ -1,8 +1,10 @@
 from decimal import Decimal
-
+import html2text
 import pymysql
+from pandas._libs import properties
 from pymysql.cursors import DictCursor
 from neo4j import GraphDatabase
+
 
 from configuration import config
 
@@ -74,24 +76,40 @@ class Neo4jWriter:
 if __name__ == '__main__':
     reader = MySqlReader()
     writer = Neo4jWriter()
-
-    sql = '''
-        select id,category_name as name
-        from base_category_info
+    # 去除question的html标识
+    cypher="match (n:Test_question) return n.id as id,n.name as name"
+    driver = GraphDatabase.driver(**config.NEO4J_CONFIG)
+    h= html2text.HTML2Text()
+    results=driver.execute_query(cypher).records
+    properties=[{'id':result['id'],'name':h.handle(result['name'])}for result in results]
+    cypher='''
+            unwind $properties as properties
+            match (n:Test_question{id:properties.id})
+            set n.name=properties.name
         '''
-    properties = reader.read(sql)
-    writer.write_nodes('Base_category', properties)
+    driver.execute_query(cypher,properties=properties)
 
-    sql = '''
-            select id,subject_name as name
-            from base_subject_info
-            '''
-    properties = reader.read(sql)
-    writer.write_nodes('Base_subject', properties)
 
-    sql = '''
-                select a.id as start_id,b.id as end_id
-                from base_subject_info as a join base_category_info as b on a.category_id = b.id 
-                '''
-    relations = reader.read(sql)
-    writer.write_relations('Belong','Base_subject','Base_category',relations)
+
+
+    #
+    # sql = '''
+    #     select id,category_name as name
+    #     from base_category_info
+    #     '''
+    # properties = reader.read(sql)
+    # writer.write_nodes('Base_category', properties)
+    #
+    # sql = '''
+    #         select id,subject_name as name
+    #         from base_subject_info
+    #         '''
+    # properties = reader.read(sql)
+    # writer.write_nodes('Base_subject', properties)
+    #
+    # sql = '''
+    #             select a.id as start_id,b.id as end_id
+    #             from base_subject_info as a join base_category_info as b on a.category_id = b.id
+    #             '''
+    # relations = reader.read(sql)
+    # writer.write_relations('Belong','Base_subject','Base_category',relations)
