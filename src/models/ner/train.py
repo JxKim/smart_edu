@@ -6,7 +6,7 @@ from transformers import (AutoTokenizer, BertForTokenClassification, TrainingArg
                           DataCollatorForTokenClassification, EarlyStoppingCallback, AutoModel, AutoModelForTokenClassification)
 from transformers import Trainer
 
-from configuration import config
+from src.configuration import config
 
 if __name__ == '__main__':
     id2label={idx:label for idx,label in enumerate(config.LABELS)}

@@ -3,7 +3,7 @@ from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_neo4j.vectorstores.neo4j_vector import SearchType
 from langchain_openai import OpenAIEmbeddings
 
-from configuration import config
+from src.configuration import config
 
 
 class IndexUtili:
