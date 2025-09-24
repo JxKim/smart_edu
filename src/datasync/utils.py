@@ -1,7 +1,6 @@
 from decimal import Decimal
 import html2text
 import pymysql
-from pandas._libs import properties
 from pymysql.cursors import DictCursor
 from neo4j import GraphDatabase
 

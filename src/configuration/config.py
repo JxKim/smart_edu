@@ -17,7 +17,12 @@ MYSQL_CONFIG={
     'db':'ai_edu',
 }
 
+# NEO4J_CONFIG={
+#     'uri':'bolt://localhost:7687',
+#     'auth':('neo4j','18706875572.')
+# }
+
 NEO4J_CONFIG={
-    'uri':'bolt://localhost:7687',
+    'uri':'bolt://host.docker.internal:7687',
     'auth':('neo4j','18706875572.')
 }

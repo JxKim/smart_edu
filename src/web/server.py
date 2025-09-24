@@ -6,7 +6,7 @@ from langchain_neo4j.vectorstores.neo4j_vector import SearchType
 from langchain_openai import ChatOpenAI
 from langchain_neo4j import Neo4jGraph, Neo4jVector
 
-from configuration import config
+from src.configuration import config
 
 dotenv.load_dotenv()
 
@@ -22,7 +22,7 @@ class ChatServer:
                    )
         self.embed_model = HuggingFaceEmbeddings(
                         model_name="BAAI/bge-base-zh-v1.5",
-                        model_kwargs={'device': 'cuda'},
+                        model_kwargs={'device': 'cpu'},
                         encode_kwargs={'normalize_embeddings': True},
                         )
         self.stores={

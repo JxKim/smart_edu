@@ -1,11 +1,19 @@
+import sys
+from pathlib import Path
+project_root = Path(__file__).parent.parent.parent
+sys.path.append(str(project_root))
+src_root=Path(__file__).parent.parent
+sys.path.append(str(src_root))
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse,RedirectResponse
 
-from configuration import config
-from web.schema import Question, Answer
-from web.server import ChatServer
+from src.configuration import config
+from src.web.schema import Question, Answer
+from src.web.server import ChatServer
+
 
 app=FastAPI()
 
@@ -17,7 +25,7 @@ app.mount(
 server=ChatServer()
 @app.get("/")
 def root():
-    return RedirectResponse('/static/index.html')
+    return FileResponse(config.WEB_STATIC_DIR/'index.html')
 
 @app.post("/api/chat")
 def serve(question:Question):
@@ -25,6 +33,6 @@ def serve(question:Question):
     return Answer(message=answer)
 
 if __name__=="__main__":
-    uvicorn.run('web.app:app', host="127.0.0.1", port=9000)
+    uvicorn.run('web.app:app', host="0.0.0.0", port=9000)
 
 

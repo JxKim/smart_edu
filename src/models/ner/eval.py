@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, BertForTokenClassification, TrainingArgu
     DataCollatorForTokenClassification, EarlyStoppingCallback, AutoModel, AutoModelForTokenClassification
 from transformers import Trainer
 
-from configuration import config
+from src.configuration import config
 
 if __name__ == '__main__':
     model=AutoModelForTokenClassification.from_pretrained(config.CHECKPOINT_DIR/'ner'/'best_model')

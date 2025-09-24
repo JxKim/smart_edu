@@ -3,7 +3,7 @@ from datasets import load_dataset,Features,Value,Sequence
 import transformers
 from datasets import load_from_disk
 
-from configuration import config
+from src.configuration import config
 
 
 def export_txt():
