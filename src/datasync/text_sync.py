@@ -1,6 +1,6 @@
 import torch
 from neo4j import GraphDatabase
-from tenacity import sleep_using_event
+
 from transformers import AutoModelForTokenClassification, AutoTokenizer
 
 from configuration import config

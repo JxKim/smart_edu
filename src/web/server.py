@@ -4,72 +4,129 @@ from langchain_deepseek import ChatDeepSeek
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_neo4j import Neo4jVector, Neo4jGraph
 from neo4j_graphrag.types import SearchType
-from langchain.llms import OpenAI
+from langchain_openai import ChatOpenAI
 
 from configuration import config
 
 
 class ChatService:
     def __init__(self):
-        self.llm = OpenAI(model_name="gpt-3.5-turbo-instruct",api_key=config.API_KEY)
+        self.llm = ChatOpenAI(model_name="gpt-4o-mini",openai_api_key="sk-tU7FI6TWAbh2x8HVysdoQmf8L1qK6q6cVKPWJlQBHGTA3Zq7",base_url="https://api.openai-proxy.org/v1")
         self.embedding_model = HuggingFaceEmbeddings(model_name='BAAI/bge-base-zh-v1.5',
                                                      encode_kwargs={'normalize_embeddings': True})
+        from langchain_community.vectorstores.neo4j_vector import Neo4jVector, SearchType
+
+        # 在 ChatService 的 __init__ 方法中配置
         self.neo4j_vectors = {
-            'Trademark': Neo4jVector.from_existing_index(
+            # 1. 分类表（base_category_info）- 无专属向量索引，用【仅关键词检索】
+            'base_category_info': Neo4jVector.from_existing_index(
                 self.embedding_model,
                 url=config.NEO4J_CONFIG["uri"],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='trademark_vector_index',
-                keyword_index_name='trademark_full_text_index',
+                keyword_index_name='base_category_full_text_index',  # 专属关键词索引
+                index_name='base_category_vector_index',
                 search_type=SearchType.HYBRID,
+                node_label='base_category_info'  # 明确节点标签，避免歧义
             ),
-            'SPU': Neo4jVector.from_existing_index(
+
+            # 2. 省份表（base_province）- 无专属向量索引，用【仅关键词检索】
+            'base_province': Neo4jVector.from_existing_index(
                 self.embedding_model,
                 url=config.NEO4J_CONFIG["uri"],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='spu_vector_index',
-                keyword_index_name='spu_full_text_index',
+                keyword_index_name='base_province_full_text_index',  # 专属关键词索引
+                index_name='base_province_vector_index',
                 search_type=SearchType.HYBRID,
+                node_label='base_province'
             ),
-            'SKU': Neo4jVector.from_existing_index(
+
+            # 3. 学科表（base_subject_info）- 无专属向量索引，用【仅关键词检索】
+            'base_subject_info': Neo4jVector.from_existing_index(
                 self.embedding_model,
                 url=config.NEO4J_CONFIG["uri"],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='sku_vector_index',
-                keyword_index_name='sku_full_text_index',
+                keyword_index_name='base_subject_full_text_index',  # 专属关键词索引
+                index_name='base_subject_placeholder_vector_index',
                 search_type=SearchType.HYBRID,
+                node_label='base_subject_info'
             ),
-            'Category1': Neo4jVector.from_existing_index(
+
+            # 4. 课程表（course_info）- 有2个向量索引，按需选择（示例用“课程名称向量”+混合检索）
+            'course_info': Neo4jVector.from_existing_index(
                 self.embedding_model,
                 url=config.NEO4J_CONFIG["uri"],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='category1_vector_index',
-                keyword_index_name='category1_full_text_index',
-                search_type=SearchType.HYBRID,
+                index_name='course_vector_index',  # 专属向量索引（基于课程名称）
+                keyword_index_name='course_info_full_text_index',  # 专属关键词索引
+                search_type=SearchType.HYBRID,  # 可选混合检索（标签均为 course_info，无匹配问题）
+                node_label='course_info'
             ),
-            'Category2': Neo4jVector.from_existing_index(
+
+            # # 5. 视频表（video_info）- 无专属向量索引，用【仅关键词检索】
+            # 'video_info': Neo4jVector.from_existing_index(
+            #     self.embedding_model,
+            #     url=config.NEO4J_CONFIG["uri"],
+            #     username=config.NEO4J_CONFIG['auth'][0],
+            #     password=config.NEO4J_CONFIG['auth'][1],
+            #     keyword_index_name='video_info_full_text_index',  # 专属关键词索引
+            #     index_name='',
+            #     search_type=SearchType.HYBRID,
+            #     node_label='video_info'
+            # ),
+
+            # 6. 题目表（test_question_info）- 有专属向量索引，支持混合/仅向量检索
+            'test_question_info': Neo4jVector.from_existing_index(
                 self.embedding_model,
                 url=config.NEO4J_CONFIG["uri"],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='category2_vector_index',
-                keyword_index_name='category2_full_text_index',
-                search_type=SearchType.HYBRID,
+                index_name='test_question_vector_index',  # 专属向量索引（基于题目内容）
+                keyword_index_name='test_question_full_text_index',  # 专属关键词索引
+                search_type=SearchType.VECTOR,  # 不强制混合，用仅向量检索（也可改 HYBRID）
+                node_label='test_question_info'
             ),
-            'Category3': Neo4jVector.from_existing_index(
+
+            # # 7. 用户表（user_info）- 无专属向量索引，用【仅关键词检索】
+            # 'user_info': Neo4jVector.from_existing_index(
+            #     self.embedding_model,
+            #     url=config.NEO4J_CONFIG["uri"],
+            #     username=config.NEO4J_CONFIG['auth'][0],
+            #     password=config.NEO4J_CONFIG['auth'][1],
+            #     keyword_index_name='user_info_full_text_index',  # 专属关键词索引
+            #     index_name='',
+            #     search_type=SearchType.HYBRID,
+            #     node_label='user_info'
+            # ),
+
+            # 8. 知识点表（knowledge_point）- 有专属向量索引，支持混合/仅向量检索
+            'knowledge_point': Neo4jVector.from_existing_index(
                 self.embedding_model,
                 url=config.NEO4J_CONFIG["uri"],
                 username=config.NEO4J_CONFIG['auth'][0],
                 password=config.NEO4J_CONFIG['auth'][1],
-                index_name='category3_vector_index',
-                keyword_index_name='category3_full_text_index',
-                search_type=SearchType.HYBRID,
+                index_name='knowledge_point_vector_index',  # 专属向量索引（基于知识点内容）
+                keyword_index_name='knowledge_point_full_text_index',  # 专属关键词索引
+                search_type=SearchType.VECTOR,  # 仅向量检索（也可改 HYBRID，标签一致）
+                node_label='knowledge_point'
+            ),
+
+            # 9. 评论表（comment_info）- 有专属向量索引，支持混合/仅向量检索
+            'comment_info': Neo4jVector.from_existing_index(
+                self.embedding_model,
+                url=config.NEO4J_CONFIG["uri"],
+                username=config.NEO4J_CONFIG['auth'][0],
+                password=config.NEO4J_CONFIG['auth'][1],
+                index_name='comment_vector_index',  # 专属向量索引（基于评论内容）
+                # 若后续创建评论关键词索引，可补充 keyword_index_name，此处暂用仅向量
+                search_type=SearchType.VECTOR,
+                node_label='comment_info'
             )
         }
+
         self.graph = Neo4jGraph(url=config.NEO4J_CONFIG["uri"],
                                 username=config.NEO4J_CONFIG['auth'][0],
                                 password=config.NEO4J_CONFIG['auth'][1])
@@ -84,7 +141,7 @@ class ChatService:
                     知识图谱结构信息：{schema_info}
 
                     要求：
-                    1. 生成参数化Cypher查询语句，用param_0, param_1等代替具体值
+                    1. 生成参数化Cypher查询语句，用param_0, param_1等代替具体值,参数前需要加上$符号表示引用
                     2. 识别需要对齐的实体
                     3. 必须严格使用以下JSON格式输出结果
                     {{
@@ -133,6 +190,7 @@ class ChatService:
 
     def _execute_query(self, cypher, aligned_entities):
         params = {aligned_entity['param_name']: aligned_entity['entity'] for aligned_entity in aligned_entities}
+        print(params)
         return self.graph.query(cypher, params=params)
 
     def _generate_answer(self, question, query_result):
@@ -148,4 +206,4 @@ class ChatService:
 
 if __name__ == '__main__':
     chat_service = ChatService()
-    chat_service.chat("Apple都有哪些产品？")
+    chat_service.chat("魏教师教了哪些课程")

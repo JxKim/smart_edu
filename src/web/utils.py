@@ -80,13 +80,13 @@ if __name__ == '__main__':
     index_util = IndexUtil()
     print("初始化完成")
 
+
     # # 1. 分类表（base_category_info）- 按分类名称检索
     # index_util.create_full_text_index(
     #     index_name="base_category_full_text_index",  # 索引名（唯一）
     #     label="base_category_info",  # 节点标签（表名）
     #     property="category_name"  # 检索字段（分类名称）
     # )
-    #
     # # 2. 省份表（base_province）- 按省份名称检索
     # index_util.create_full_text_index(
     #     index_name="base_province_full_text_index",
@@ -129,14 +129,14 @@ if __name__ == '__main__':
     #     property="nick_name"  # 优先用昵称检索，也可选择"login_name"
     # )
     #
-    # 8. 知识点表（knowledge_point）- 按知识点内容检索
-    index_util.create_full_text_index(
-        index_name="knowledge_point_full_text_index",
-        label="knowledge_point",
-        property="point_txt"
-    )
-
-    # 1. 课程表（course_info）- 基于课程名称生成向量，用于“相似课程推荐”
+    # # 8. 知识点表（knowledge_point）- 按知识点内容检索
+    # index_util.create_full_text_index(
+    #     index_name="knowledge_point_full_text_index",
+    #     label="knowledge_point",
+    #     property="point_txt"
+    # )
+    #
+    # # 1. 课程表（course_info）- 基于课程名称生成向量，用于“相似课程推荐”
     # index_util.create_vector_index(
     #     index_name="course_vector_index",  # 向量索引名（唯一）
     #     label="course_info",  # 节点标签
@@ -152,14 +152,14 @@ if __name__ == '__main__':
     #     embedding_property="question_embedding"
     # )
     #
-    # 3. 知识点表（knowledge_point）- 基于知识点内容生成向量，用于“相似知识点关联”
-    index_util.create_vector_index(
-        index_name="knowledge_point_vector_index",
-        label="knowledge_point",
-        source_property="point_txt",
-        embedding_property="point_embedding"
-    )
-    #
+    # # 3. 知识点表（knowledge_point）- 基于知识点内容生成向量，用于“相似知识点关联”
+    # index_util.create_vector_index(
+    #     index_name="knowledge_point_vector_index",
+    #     label="knowledge_point",
+    #     source_property="point_txt",
+    #     embedding_property="point_embedding"
+    # )
+    # #
     # # 4. 课程介绍（course_info）- 基于课程详情生成向量（如需更精准的课程语义匹配）
     # index_util.create_vector_index(
     #     index_name="course_intro_vector_index",
@@ -175,9 +175,9 @@ if __name__ == '__main__':
     #     source_property="comment_txt",
     #     embedding_property="comment_embedding"
     # )
-
-
-    # 查询索引
+    #
+    #
+    # # 查询索引
     # index_name = "trademark_vector_index"  # default index name
     # keyword_index_name = "trademark_full_text_index"  # default keyword index name
     #
@@ -194,3 +194,24 @@ if __name__ == '__main__':
     # )
     #
     # print(store.similarity_search("Apple", k=1)[0].page_content)
+    # 在创建索引的代码中，新增分类表的占位向量索引
+    # index_util.create_vector_index(
+    #     index_name="base_category_vector_index",  # 分类表专属占位向量索引
+    #     label="base_category_info",  # 与关键词索引的标签一致
+    #     source_property="category_name",  # 可使用相同的文本字段
+    #     embedding_property="category_embedding"  # 占位字段（无需实际生成向量）
+    # )
+    #
+    # # 同理，为省份表创建占位向量索引
+    # index_util.create_vector_index(
+    #     index_name="base_province_vector_index",
+    #     label="base_province",
+    #     source_property="name",
+    #     embedding_property="province_embedding"
+    # )
+    index_util.create_vector_index(
+        index_name="base_subject_placeholder_vector_index",  # 索引名（唯一标识）
+        label="base_subject_info",  # 节点标签：必须与学科表的关键词索引标签一致
+        source_property="subject_name",  # 源文本字段（与关键词索引的检索字段一致）
+        embedding_property="subject_placeholder_embedding"  # 占位向量字段（无需实际生成向量值）
+    )

@@ -18,7 +18,7 @@ class Predictor:
 
         tokens_list = [list(input) for input in inputs]
         inputs_tensor = self.tokenizer(tokens_list, is_split_into_words=True, truncation=True, padding=True,
-                                       return_tensors='pt')
+                                       return_tensors='pt',max_length=512)
         inputs_tensor = {k: v.to(self.device) for k, v in inputs_tensor.items()}
         with torch.no_grad():
             outputs = self.model(**inputs_tensor)
