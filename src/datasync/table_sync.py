@@ -20,12 +20,12 @@ class TableSync:
         self.neo4j_writer.write_nodes('CourseCategory', properties)
 
     # 2.学科节点
-    def sync_subject_id(self):
+    def sync_subject(self):
         sql = """
         select id,subject_name as name from base_subject_info
         """
         properties = self.mysql_reader.read(sql)
-        self.neo4j_writer.write_nodes('SubjectId', properties)
+        self.neo4j_writer.write_nodes('Subject', properties)
 
     # 3.课程节点
     def sync_course(self):
@@ -100,7 +100,7 @@ class TableSync:
         '''
         relations = self.mysql_reader.read(sql)
         # import pdb;pdb.set_trace()
-        self.neo4j_writer.write_relations('BELONG', 'Course', 'SubjectId', relations)
+        self.neo4j_writer.write_relations('BELONG', 'Course', 'Subject', relations)
         print('🍉课程 --belong--> 学科')
     # 学科 belong 课程分类
     def sync_subject_id_belong_category(self):
@@ -109,7 +109,7 @@ class TableSync:
         from base_subject_info
         '''
         relations = self.mysql_reader.read(sql)
-        self.neo4j_writer.write_relations('BELONG', 'SubjectId', 'CourseCategory', relations)
+        self.neo4j_writer.write_relations('BELONG', 'Subject', 'CourseCategory', relations)
         print('🍉学科 --belong--> 课程分类')
 
     # 2.视频 belong 章节
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     #❗创建节点
     #🍅课程数据资料--节点
     table_sync.sync_category()
-    table_sync.sync_subject_id()
+    table_sync.sync_subject()
     table_sync.sync_course()
     table_sync.sync_teacher()
     table_sync.sync_price()

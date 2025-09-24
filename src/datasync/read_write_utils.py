@@ -34,7 +34,7 @@ class MysqlReader:
 class Neo4jWriter:
     def __init__(self):
         self.driver = GraphDatabase.driver(**config.NEO4J_CONFIG)
-        self.driver.execute_query('MATCH (n) DETACH DELETE n') #❗强制删除所有节点
+        # self.driver.execute_query('MATCH (n) DETACH DELETE n') #❗强制删除所有节点
 
     def write_nodes(self, label: str, properties: list[dict]):
         # 动态生成属性匹配的 Cypher 语句
