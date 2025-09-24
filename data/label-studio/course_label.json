@@ -1,0 +1,1519 @@
+[
+{
+  "text": "本课程为Java语言入门级教学，涵盖Java语法基础、面向对象编程、集合框架、异常处理等内容。通过大量实例讲解帮助学员快速掌握Java开发的基本技能。",
+  "id": 3243,
+  "label": [
+    {
+      "start": 27,
+      "end": 31,
+      "text": "面向对象",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 34,
+      "end": 38,
+      "text": "集合框架",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 43,
+      "text": "异常处理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 8,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 63,
+      "end": 67,
+      "text": "Java",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 18,
+      "end": 26,
+      "text": "Java语法基础",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 92,
+  "created_at": "2025-09-21T13:58:08.685952Z",
+  "updated_at": "2025-09-22T00:50:39.001972Z",
+  "lead_time": 79.473
+},
+{
+  "text": "讲解Maven项目构建工具的核心使用方法，包括依赖管理、项目结构、插件配置、多模块项目构建等内容，提升Java项目的开发效率与规范性。",
+  "id": 3244,
+  "label": [
+    {
+      "start": 23,
+      "end": 27,
+      "text": "依赖管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "项目结构",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 33,
+      "end": 37,
+      "text": "插件配置",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 2,
+      "end": 7,
+      "text": "Maven",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 38,
+      "end": 45,
+      "text": "多模块项目构建",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 93,
+  "created_at": "2025-09-21T13:58:50.549956Z",
+  "updated_at": "2025-09-22T00:51:05.824272Z",
+  "lead_time": 43.169
+},
+{
+  "text": "深入讲解MyBatis持久层框架的使用，包括XML配置、注解方式、动态SQL、缓存机制等，实现数据库操作的灵活控制。",
+  "id": 3245,
+  "label": [
+    {
+      "start": 39,
+      "end": 43,
+      "text": "缓存机制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 16,
+      "text": "MyBatis持久层框架",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 27,
+      "text": "XML配置",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "注解方式",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 33,
+      "end": 38,
+      "text": "动态SQL",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 47,
+      "end": 52,
+      "text": "数据库操作",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 94,
+  "created_at": "2025-09-21T13:59:01.081782Z",
+  "updated_at": "2025-09-22T00:51:39.429153Z",
+  "lead_time": 39.747
+},
+{
+  "text": "从零开始系统讲解Redis数据类型、持久化机制、事务、发布订阅、集群部署等核心知识点，并结合电商秒杀场景进行实战演练。",
+  "id": 3246,
+  "label": [
+    {
+      "start": 18,
+      "end": 23,
+      "text": "持久化机制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 24,
+      "end": 26,
+      "text": "事务",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 31,
+      "text": "发布订阅",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 32,
+      "end": 36,
+      "text": "集群部署",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 8,
+      "end": 13,
+      "text": "Redis",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 95,
+  "created_at": "2025-09-21T14:02:02.498207Z",
+  "updated_at": "2025-09-22T00:51:51.991877Z",
+  "lead_time": 32.626999999999995
+},
+{
+  "text": "全面讲解Spring框架核心功能，包括IoC容器、AOP编程、事务管理、整合其他组件等，奠定Java企业级开发基础。",
+  "id": 3247,
+  "label": [
+    {
+      "start": 25,
+      "end": 30,
+      "text": "AOP编程",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "事务管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 10,
+      "text": "Spring",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 19,
+      "end": 24,
+      "text": "IoC容器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 46,
+      "end": 55,
+      "text": "Java企业级开发",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 96,
+  "created_at": "2025-09-21T14:02:20.879451Z",
+  "updated_at": "2025-09-22T00:52:11.088897Z",
+  "lead_time": 35.067
+},
+{
+  "text": "深入解析SpringMVC框架，涵盖控制器、视图解析器、数据绑定、拦截器、文件上传等功能，构建Web应用的核心技术。",
+  "id": 3248,
+  "label": [
+    {
+      "start": 18,
+      "end": 21,
+      "text": "控制器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 27,
+      "text": "视图解析器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "数据绑定",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 33,
+      "end": 36,
+      "text": "拦截器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 37,
+      "end": 41,
+      "text": "文件上传",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 47,
+      "end": 52,
+      "text": "Web应用",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 15,
+      "text": "SpringMVC框架",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 97,
+  "created_at": "2025-09-21T14:02:42.016696Z",
+  "updated_at": "2025-09-22T00:52:22.781398Z",
+  "lead_time": 30.139000000000003
+},
+{
+  "text": "系统讲解Java8引入的新特性，如Lambda表达式、StreamAPI、新的日期时间API等，提升代码简洁性与可读性。",
+  "id": 3249,
+  "label": [
+    {
+      "start": 4,
+      "end": 9,
+      "text": "Java8",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 26,
+      "text": "Lambda表达式",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 36,
+      "text": "StreamAPI",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 98,
+  "created_at": "2025-09-22T00:29:10.182220Z",
+  "updated_at": "2025-09-22T00:52:42.349968Z",
+  "lead_time": 37604.725
+},
+{
+  "text": "讲解网页开发的基础知识，包括HTML标签结构、CSS样式布局，帮助学员快速上手前端页面设计。",
+  "id": 3250,
+  "label": [
+    {
+      "start": 2,
+      "end": 6,
+      "text": "网页开发",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 45,
+      "text": "前端页面设计",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 14,
+      "end": 22,
+      "text": "HTML标签结构",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 23,
+      "end": 30,
+      "text": "CSS样式布局",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 99,
+  "created_at": "2025-09-22T00:29:20.298420Z",
+  "updated_at": "2025-09-22T00:53:48.640139Z",
+  "lead_time": 71.579
+},
+{
+  "text": "从变量、函数、对象、DOM操作等基础知识入手，帮助学员掌握JavaScript编程基础。",
+  "id": 3251,
+  "label": [
+    {
+      "start": 1,
+      "end": 3,
+      "text": "变量",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 6,
+      "text": "函数",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 7,
+      "end": 9,
+      "text": "对象",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 10,
+      "end": 15,
+      "text": "DOM操作",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 29,
+      "end": 39,
+      "text": "JavaScript",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 100,
+  "created_at": "2025-09-22T00:29:30.865091Z",
+  "updated_at": "2025-09-22T00:54:24.335831Z",
+  "lead_time": 14.815
+},
+{
+  "text": "深入讲解JavaScript中DOM操作，包括节点增删改查、事件绑定、表单验证等实用技巧。",
+  "id": 3252,
+  "label": [
+    {
+      "start": 23,
+      "end": 29,
+      "text": "节点增删改查",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 30,
+      "end": 34,
+      "text": "事件绑定",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 35,
+      "end": 39,
+      "text": "表单验证",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 14,
+      "text": "JavaScript",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 15,
+      "end": 20,
+      "text": "DOM操作",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 101,
+  "created_at": "2025-09-22T00:29:51.078297Z",
+  "updated_at": "2025-09-22T00:54:33.554057Z",
+  "lead_time": 26.713
+},
+{
+  "text": "讲解jQuery库的使用，简化DOM操作、事件处理、动画效果和AJAX请求，提升前端开发效率。",
+  "id": 3253,
+  "label": [
+    {
+      "start": 21,
+      "end": 25,
+      "text": "事件处理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 2,
+      "end": 9,
+      "text": "jQuery库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 15,
+      "end": 20,
+      "text": "DOM操作",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 26,
+      "end": 30,
+      "text": "动画效果",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 37,
+      "text": "AJAX请求",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 40,
+      "end": 44,
+      "text": "前端开发",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 102,
+  "created_at": "2025-09-22T00:31:34.023183Z",
+  "updated_at": "2025-09-22T00:54:55.759330Z",
+  "lead_time": 122.755
+},
+{
+  "text": "讲解Java数据库连接（JDBC）的使用方法，包括数据库连接、CRUD操作、事务管理、连接池配置等。",
+  "id": 3254,
+  "label": [
+    {
+      "start": 25,
+      "end": 28,
+      "text": "数据库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 38,
+      "end": 42,
+      "text": "事务管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 43,
+      "end": 48,
+      "text": "连接池配置",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 12,
+      "end": 16,
+      "text": "JDBC",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 2,
+      "end": 9,
+      "text": "Java数据库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 37,
+      "text": "CRUD操作",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 103,
+  "created_at": "2025-09-22T00:32:36.339467Z",
+  "updated_at": "2025-09-22T00:55:25.203623Z",
+  "lead_time": 89.514
+},
+{
+  "text": "通过实际案例讲解CSS3动画、过渡、变形等特效制作，提升网页视觉表现力。",
+  "id": 3255,
+  "label": [
+    {
+      "start": 28,
+      "end": 32,
+      "text": "网页视觉",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 8,
+      "end": 14,
+      "text": "CSS3动画",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 104,
+  "created_at": "2025-09-22T00:34:41.691649Z",
+  "updated_at": "2025-09-22T00:56:08.818270Z",
+  "lead_time": 151.62099999999998
+},
+{
+  "text": "讲解Android原生App与H5页面之间的通信机制，包括WebView使用、JSBridge实现、权限配置等。",
+  "id": 3256,
+  "label": [
+    {
+      "start": 2,
+      "end": 9,
+      "text": "Android",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 29,
+      "end": 36,
+      "text": "WebView",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 47,
+      "text": "JSBridge",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 26,
+      "text": "通信机制",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 105,
+  "created_at": "2025-09-22T00:56:38.495787Z",
+  "updated_at": "2025-09-22T00:56:38.495787Z",
+  "lead_time": 28.11
+},
+{
+  "text": "系统讲解JavaWeb开发技术栈，涵盖Servlet、JSP、Filter、Listener、Tomcat服务器等核心技术。",
+  "id": 3257,
+  "label": [
+    {
+      "start": 4,
+      "end": 11,
+      "text": "JavaWeb",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 19,
+      "end": 26,
+      "text": "Servlet",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 30,
+      "text": "JSP",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 37,
+      "text": "Filter",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 38,
+      "end": 46,
+      "text": "Listener",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 47,
+      "end": 53,
+      "text": "Tomcat",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 106,
+  "created_at": "2025-09-22T00:57:10.490677Z",
+  "updated_at": "2025-09-22T00:57:10.490677Z",
+  "lead_time": 30.286
+},
+{
+  "text": "深入讲解闭包、原型链、继承、异步编程、ES6+特性等高级概念，提升JS编程深度。",
+  "id": 3258,
+  "label": [
+    {
+      "start": 4,
+      "end": 6,
+      "text": "闭包",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 7,
+      "end": 10,
+      "text": "原型链",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 11,
+      "end": 13,
+      "text": "继承",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 14,
+      "end": 18,
+      "text": "异步编程",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 107,
+  "created_at": "2025-09-22T00:57:53.682728Z",
+  "updated_at": "2025-09-22T00:57:53.682728Z",
+  "lead_time": 41.123
+},
+{
+  "text": "涵盖MySQL数据库安装、SQL语句编写、索引优化、事务机制、主从复制、性能调优等内容。",
+  "id": 3259,
+  "label": [
+    {
+      "start": 2,
+      "end": 7,
+      "text": "MySQL",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 21,
+      "end": 25,
+      "text": "索引优化",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 26,
+      "end": 30,
+      "text": "事务机制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "主从复制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 36,
+      "end": 40,
+      "text": "性能调优",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 108,
+  "created_at": "2025-09-22T00:58:14.362500Z",
+  "updated_at": "2025-09-22T00:58:14.362500Z",
+  "lead_time": 19.108
+},
+{
+  "text": "详细讲解CSS3新增选择器、盒模型、渐变、阴影、动画等样式技术，提升网页视觉表现。",
+  "id": 3260,
+  "label": [
+    {
+      "start": 4,
+      "end": 8,
+      "text": "CSS3",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 14,
+      "end": 17,
+      "text": "盒模型",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 109,
+  "created_at": "2025-09-22T00:58:28.539185Z",
+  "updated_at": "2025-09-22T00:58:28.539185Z",
+  "lead_time": 12.248
+},
+{
+  "text": "讲解HTML5新标签、语义化结构、本地存储、多媒体支持、离线应用等核心功能。",
+  "id": 3261,
+  "label": [
+    {
+      "start": 2,
+      "end": 7,
+      "text": "HTML5",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 11,
+      "end": 16,
+      "text": "语义化结构",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 21,
+      "text": "本地存储",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 27,
+      "text": "多媒体支持",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "离线应用",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 110,
+  "created_at": "2025-09-22T00:59:10.569075Z",
+  "updated_at": "2025-09-22T00:59:10.569075Z",
+  "lead_time": 40.175
+},
+{
+  "text": "介绍SpringBoot核心功能，包括自动装配、Starter原理、配置文件、日志管理、Actuator监控等。",
+  "id": 3262,
+  "label": [
+    {
+      "start": 2,
+      "end": 12,
+      "text": "SpringBoot",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 19,
+      "end": 23,
+      "text": "自动装配",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 24,
+      "end": 33,
+      "text": "Starter原理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 34,
+      "end": 38,
+      "text": "配置文件",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 39,
+      "end": 43,
+      "text": "日志管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 44,
+      "end": 54,
+      "text": "Actuator监控",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 111,
+  "created_at": "2025-09-22T00:59:39.130316Z",
+  "updated_at": "2025-09-22T00:59:39.130316Z",
+  "lead_time": 26.26
+},
+{
+  "text": "系统讲解Linux操作系统常用命令、用户权限管理、软件安装、Shell脚本编写等内容。",
+  "id": 3263,
+  "label": [
+    {
+      "start": 25,
+      "end": 29,
+      "text": "软件安装",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 30,
+      "end": 37,
+      "text": "Shell脚本",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 13,
+      "text": "Linux操作系统",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 18,
+      "end": 24,
+      "text": "用户权限管理",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 112,
+  "created_at": "2025-09-22T01:00:28.315395Z",
+  "updated_at": "2025-09-22T01:00:28.315395Z",
+  "lead_time": 47.262
+},
+{
+  "text": "深入整合SpringBoot与MyBatis、Redis、MQ、定时任务、安全认证等常见中间件和技术。",
+  "id": 3264,
+  "label": [
+    {
+      "start": 4,
+      "end": 14,
+      "text": "SpringBoot",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 15,
+      "end": 22,
+      "text": "MyBatis",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 23,
+      "end": 28,
+      "text": "Redis",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 32,
+      "end": 36,
+      "text": "定时任务",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 29,
+      "end": 31,
+      "text": "MQ",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 37,
+      "end": 41,
+      "text": "安全认证",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 113,
+  "created_at": "2025-09-22T01:01:22.566492Z",
+  "updated_at": "2025-09-22T01:01:22.566492Z",
+  "lead_time": 52.26
+},
+{
+  "text": "涵盖Vue.js核心语法、VueRouter、Vuex状态管理、Axios网络请求、ElementUI等实战内容。",
+  "id": 3265,
+  "label": [
+    {
+      "start": 13,
+      "end": 22,
+      "text": "VueRouter",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 23,
+      "end": 31,
+      "text": "Vuex状态管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 32,
+      "end": 41,
+      "text": "Axios网络请求",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 42,
+      "end": 51,
+      "text": "ElementUI",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 114,
+  "created_at": "2025-09-22T01:01:42.235955Z",
+  "updated_at": "2025-09-22T01:01:42.235955Z",
+  "lead_time": 17.063
+},
+{
+  "text": "讲解Git版本控制工具的使用，包括分支管理、冲突解决、远程仓库同步、GitHub协作流程等。",
+  "id": 3266,
+  "label": [
+    {
+      "start": 2,
+      "end": 11,
+      "text": "Git版本控制工具",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 21,
+      "text": "分支管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 26,
+      "text": "冲突解决",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 33,
+      "text": "远程仓库同步",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 34,
+      "end": 44,
+      "text": "GitHub协作流程",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 115,
+  "created_at": "2025-09-22T01:05:40.256395Z",
+  "updated_at": "2025-09-22T01:05:40.256395Z",
+  "lead_time": 36.04
+},
+{
+  "text": "系统讲解Docker容器技术，包括镜像管理、容器编排、Dockerfile编写、Compose编排、Swarm集群部署等。",
+  "id": 3267,
+  "label": [
+    {
+      "start": 4,
+      "end": 12,
+      "text": "Docker容器",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 21,
+      "text": "镜像管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 26,
+      "text": "容器编排",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 39,
+      "text": "Dockerfile编写",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 40,
+      "end": 49,
+      "text": "Compose编排",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 50,
+      "end": 59,
+      "text": "Swarm集群部署",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 116,
+  "created_at": "2025-09-22T01:06:01.289124Z",
+  "updated_at": "2025-09-22T01:06:01.289124Z",
+  "lead_time": 19.336
+},
+{
+  "text": "讲解Shell脚本编程基础与实战技巧，适用于自动化运维、日志分析、任务调度等场景。",
+  "id": 3268,
+  "label": [
+    {
+      "start": 2,
+      "end": 9,
+      "text": "Shell脚本",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 27,
+      "text": "自动化运维",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 32,
+      "text": "日志分析",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 33,
+      "end": 37,
+      "text": "任务调度",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 117,
+  "created_at": "2025-09-22T01:06:42.048352Z",
+  "updated_at": "2025-09-22T01:06:42.048352Z",
+  "lead_time": 38.914
+},
+{
+  "text": "讲解Hadoop高可用集群的搭建与配置，确保HDFS与YARN服务的稳定运行。",
+  "id": 3269,
+  "label": [
+    {
+      "start": 2,
+      "end": 13,
+      "text": "Hadoop高可用集群",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 26,
+      "text": "HDFS",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 31,
+      "text": "YARN",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 118,
+  "created_at": "2025-09-22T01:07:07.909538Z",
+  "updated_at": "2025-09-22T01:07:07.909538Z",
+  "lead_time": 16.604
+},
+{
+  "text": "深入讲解Kafka消息队列的原理、生产者消费者模型、分区策略、容错机制、监控与运维。",
+  "id": 3270,
+  "label": [
+    {
+      "start": 4,
+      "end": 13,
+      "text": "Kafka消息队列",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 25,
+      "text": "生产者消费者模型",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 36,
+      "end": 41,
+      "text": "监控与运维",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 31,
+      "end": 35,
+      "text": "容错机制",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 26,
+      "end": 30,
+      "text": "分区策略",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 119,
+  "created_at": "2025-09-22T01:07:36.104400Z",
+  "updated_at": "2025-09-22T01:07:36.104400Z",
+  "lead_time": 26.628
+},
+{
+  "text": "讲解HBase分布式数据库的架构、数据模型、读写流程、RowKey设计、二级索引等实战技巧。",
+  "id": 3271,
+  "label": [
+    {
+      "start": 2,
+      "end": 13,
+      "text": "HBase分布式数据库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 27,
+      "end": 35,
+      "text": "RowKey设计",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 36,
+      "end": 40,
+      "text": "二级索引",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 26,
+      "text": "读写流程",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 120,
+  "created_at": "2025-09-22T01:07:53.659060Z",
+  "updated_at": "2025-09-22T01:07:53.659060Z",
+  "lead_time": 15.5
+},
+{
+  "text": "讲解如何使用Sqoop在Hadoop与关系型数据库之间进行高效的数据迁移与同步。",
+  "id": 3272,
+  "label": [
+    {
+      "start": 6,
+      "end": 11,
+      "text": "Sqoop",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 12,
+      "end": 18,
+      "text": "Hadoop",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 19,
+      "end": 25,
+      "text": "关系型数据库",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 32,
+      "end": 36,
+      "text": "数据迁移",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 121,
+  "created_at": "2025-09-22T01:08:23.917744Z",
+  "updated_at": "2025-09-22T01:08:23.917744Z",
+  "lead_time": 23.252
+},
+{
+  "text": "涵盖Linux系统管理、网络配置、服务部署、防火墙设置、自动化脚本等运维核心内容。",
+  "id": 3273,
+  "label": [
+    {
+      "start": 2,
+      "end": 11,
+      "text": "Linux系统管理",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 12,
+      "end": 16,
+      "text": "网络配置",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 17,
+      "end": 21,
+      "text": "服务部署",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 22,
+      "end": 27,
+      "text": "防火墙设置",
+      "labels": [
+        "knowledge"
+      ]
+    },
+    {
+      "start": 28,
+      "end": 33,
+      "text": "自动化脚本",
+      "labels": [
+        "knowledge"
+      ]
+    }
+  ],
+  "annotator": 1,
+  "annotation_id": 122,
+  "created_at": "2025-09-22T01:08:44.820566Z",
+  "updated_at": "2025-09-22T01:08:44.820566Z",
+  "lead_time": 19.304
+}
+]
