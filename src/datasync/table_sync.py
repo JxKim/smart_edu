@@ -24,6 +24,7 @@ class TableSync:
         """
         subject = self.mysql_reader.read_data(sql)
 
+
         neo4j_writer = Neo4jWriter()
         neo4j_writer.write_nodes("subject", subject)
 #同步科目和分类关系
@@ -37,6 +38,7 @@ class TableSync:
 
         neo4j_writer = Neo4jWriter()
         neo4j_writer.write_relations("category", "subject", "belong", subject_to_category)
+
 
     #同步学科和课程的关系
     def sync_course_to_subject(self):
@@ -85,6 +87,7 @@ class TableSync:
 
         neo4j_writer = Neo4jWriter()
         neo4j_writer.write_relations("course", "chapter", "have", course_to_chapter)
+        neo4j_writer.write_relations("chapter", "course", "belong", course_to_chapter)
 
     #同步试卷节点
     def sync_test_paper_info(self):
@@ -107,6 +110,8 @@ class TableSync:
         test_paper_to_course = self.mysql_reader.read_data(sql)
         neo4j_writer = Neo4jWriter()
         neo4j_writer.write_relations("course", "test_paper", "belong", test_paper_to_course)
+        neo4j_writer.write_relations("test_paper", "course", "have", test_paper_to_course)
+
 
     #同步价格节点
     def sync_price_info(self):
@@ -124,7 +129,8 @@ class TableSync:
         cypher='''
         match (p:price),(c:course) 
         where p.id = c.id
-        merge(p)-[:belong]->(c) 
+        merge(p)-[:belong]->(c)
+        merge(c)-[:have]->(p)
         '''
         neo4j_writer = Neo4jWriter()
         neo4j_writer.driver.execute_query(cypher)
@@ -144,6 +150,8 @@ class TableSync:
                 match (t:teacher),(c:course) 
                 where t.id = c.id
                 merge(t)-[:belong]->(c) 
+                merge(c)-[:have]->(t) 
+                
                 '''
 
         neo4j_writer = Neo4jWriter()
@@ -169,6 +177,7 @@ class TableSync:
         chapter_to_video = self.mysql_reader.read_data(sql)
         neo4j_writer = Neo4jWriter()
         neo4j_writer.write_relations("video", "chapter", "have", chapter_to_video)
+        neo4j_writer.write_relations("chapter", "video", "belong", chapter_to_video)
 
     #同步试题节点
     def sync_question_info(self):
@@ -191,6 +200,7 @@ class TableSync:
         question_to_paper = self.mysql_reader.read_data(sql)
         neo4j_writer = Neo4jWriter()
         neo4j_writer.write_relations("question", "test_paper", "belong", question_to_paper)
+        neo4j_writer.write_relations("test_paper", "question", "have", question_to_paper)
 
     #同步学生节点
     def sync_student_info(self):
@@ -268,21 +278,21 @@ if __name__ == '__main__':
     table_sync = TableSync()
     # table_sync.sync_category_info()
     # table_sync.sync_subject_info()
-    # table_sync.subject_to_category()
+    table_sync.subject_to_category()
     table_sync.sync_course_to_subject()
     # table_sync.sync_course_info()
     # table_sync.sync_chapter_info()
-    # table_sync.sync_course_to_chapter()
+    table_sync.sync_course_to_chapter()
     # table_sync.sync_test_paper_info()
-    # table_sync.sync_test_paper_to_course()
+    table_sync.sync_test_paper_to_course()
     # table_sync.sync_price_info()
-    # table_sync.sync_course_to_price()
+    table_sync.sync_course_to_price()
     # table_sync.sync_teacher_info()
-    # table_sync.sync_course_to_teacher()
+    table_sync.sync_course_to_teacher()
     # table_sync.sync_video_info()
-    # table_sync.sync_chapter_to_video()
+    table_sync.sync_chapter_to_video()
     # table_sync.sync_question_info()
-    # table_sync.sync_question_to_paper()
+    table_sync.sync_question_to_paper()
     # table_sync.sync_student_info()
     # table_sync.sync_student_favor_to_course()
     # table_sync.sync_student_do_question()

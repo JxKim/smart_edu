@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoModelForTokenClassification, AutoTokenizer
 from conf import config
-
+from datasync.vocab_cleaner import  CharVocabCleaner
 
 class Predictor:
     def __init__(self,model,tokenizer,device):
@@ -15,9 +15,11 @@ class Predictor:
         is_str=isinstance(text,str)
         if is_str:
             text=[text]
+
         text_list=[list(item) for item in text]
         token_list=self.tokenizer(text_list,is_split_into_words=True,truncation=True,padding=True,return_tensors='pt')
-        token_list={key:value.to(device) for key,value in token_list.items()}
+        token_list={key:value.to(self.device) for key,value in token_list.items()}
+
         with torch.no_grad():
             output=self.model(**token_list)
             logits=output.logits
@@ -59,6 +61,10 @@ class Predictor:
         is_str = isinstance(inputs, str)
         if is_str:
             inputs = [inputs]
+
+        #在标签预测前去掉脏数据
+        cleaner=CharVocabCleaner(config.VOCAB_FILE)
+        inputs=cleaner.clean_batch(inputs)
         labels=self.predict(inputs)
         labels=[''.join(item) for item in labels ]
 
@@ -88,8 +94,16 @@ class Predictor:
 
 if __name__ == '__main__':
     model=AutoModelForTokenClassification.from_pretrained(config.CHECKPOINT_DIR/'ner/best_model')
-    tokenizer=AutoTokenizer.from_pretrained(config.MODEL_NAME)
+    tokenizer=AutoTokenizer.from_pretrained(config.MODEL_NAME,is_split_into_words=True)
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     predictor=Predictor(model,tokenizer,device)
-    print(predictor.extract('day09_14static关键字的练习'))
+    # with open('question_txt.txt','r',encoding='utf-8') as f:
+    #     texts=f.readlines()
+    # print(texts)
+    text = ['87-方法区概述_栈堆方法区间的交互关系', '91-OOM：PermGen和OOM：Metaspace举例',
+            '99 尚硅谷-云计算-Linux系统管理-shell基础-shell概述', '12_尚硅谷_Kafka_生产者API使用',
+            '09_尚硅谷_HadoopHA_YARNHA', '09_尚硅谷_Shell_$※$@案例', '32_尚硅谷_HBase_Hive&HBase集成（需求二）',
+            '33_尚硅谷_HBase_高可用', '10_尚硅谷_HadoopHA_HDFS联邦概述',
+            '本课程为Java语言入门级教学，涵盖Java语法基础、面向对象编程、集合框架、异常处理等内容。通过大量实例讲解帮助学员快速掌握Java开发的基本技能。']
+    print(predictor.extract(text))
 

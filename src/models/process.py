@@ -2,7 +2,7 @@ from os import truncate
 
 from datasets import load_dataset
 from transformers import AutoTokenizer
-
+from datasync.vocab_cleaner import CharVocabCleaner
 from conf import config
 def process():
     #读取数据/删除多余列/划分数据集
@@ -19,10 +19,11 @@ def process():
     label2id = {label: id for id,label in enumerate(id2label)}
 
     #对数据集分词并填充
-
+    cleaner=CharVocabCleaner(config.VOCAB_FILE)
     #map函数
     def map_fun(example):
         tokens = list(example['text'])
+        tokens=cleaner.clean_batch(tokens)
         tokens=[text.replace(' ','') for text in tokens]
         labels = [label2id['O']]*len(tokens)
         #对text按字分词并处理
