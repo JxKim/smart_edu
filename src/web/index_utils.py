@@ -18,7 +18,9 @@ from huggingface_hub import snapshot_download
 class IndexUtils:
     def __init__(self):
 
-        self.graph = Neo4jGraph(url="neo4j://127.0.0.1:7687", username="neo4j", password="neo4jneo4j",
+        self.graph = Neo4jGraph(url="neo4j://host.docker.internal:7687",
+                                username="neo4j",
+                                password="neo4jneo4j",
                                 database="testdatabase")
         #获取嵌入模型
         self.embedding_model = HuggingFaceEmbeddings(model_name=str(config.CHECKPOINT_DIR/'bge-base-zh-v1.5'),
@@ -83,8 +85,8 @@ class IndexUtils:
     def neo4j_vector(self,index_name,keyword_index_name):
         return Neo4jVector.from_existing_index(
                 self.embedding_model,
-                # url="neo4j://host.docker.internal:7687",
-                url="neo4j://127.0.0.1:7687",
+                url="neo4j://host.docker.internal:7687",
+                # url="neo4j://127.0.0.1:7687",
                 username="neo4j",
                 password="neo4jneo4j",
                 database="testdatabase",

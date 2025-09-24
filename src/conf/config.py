@@ -21,7 +21,7 @@ MYSQL_CONFIG={
 }
 
 NEO4J_CONFIG = {
-    # "uri": "neo4j://host.docker.internal:7687",
-    "uri": "neo4j://127.0.0.1:7687",
+    "uri": "neo4j://host.docker.internal:7687",
+    # "uri": "neo4j://127.0.0.1:7687",
     'auth':("neo4j","neo4jneo4j")
 }
