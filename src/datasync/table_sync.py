@@ -151,6 +151,7 @@ def sync_video():
                      label="video",
                      messages=["id","video_name"],
                      result=result)
+
 # course_info 课程
 def sync_course_info():
     # 在sql中读取数据
@@ -185,8 +186,8 @@ def batch_sync_relation():
         ["video_info", "course", "video", "HAS_VIDEO", "course_id", "id"],
         # 课程 - 有 - 章节
         ["chapter_info", "course", "chapter", "HAS_CHAPTER", "course_id", "id"],
-        # 章节 - 有 - 用户观看进度
-        ["user_chapter_progress", "chapter", "chapter_progress", "HAS_CHAPTER", "chapter_id", "user_id"],
+        # 章节 - 有 - 用户观看进度（这里修改了一下 但是还没执行）
+        ["user_chapter_progress", "chapter", "chapter_progress", "HAS_CHAPTER_PROCESS", "chapter_id", "user_id"],
         # 章节 - 有 - 评论
         ["comment_info", "chapter", "comment", "HAS_COMMENT", "chapter_id", "id"],
         # 课程 - 有 - 题目
