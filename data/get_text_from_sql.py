@@ -22,9 +22,9 @@ if __name__=='__main__':
         df.to_csv(path, index=False)
 
 
-    sql_course_introduce = "SELECT course_introduce FROM course_info"
-    sql_chapter_name = "SELECT chapter_name FROM chapter_info"
-    sql_video_name = "SELECT video_name FROM video_info"
+    sql_course_introduce = "SELECT course_introduce as text FROM course_info"
+    sql_chapter_name = "SELECT text FROM chapter_info"
+    sql_video_name = "SELECT video_name as text FROM video_info"
     export_to_csv(config.COURSE_INTRODUCE_FROM_SQL / 'course_introduce.csv',sql_course_introduce)
     export_to_csv(config.COURSE_INTRODUCE_FROM_SQL / 'chapter_name.csv',sql_chapter_name)
     export_to_csv(config.COURSE_INTRODUCE_FROM_SQL / 'video_name.csv',sql_video_name)

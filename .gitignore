@@ -3,3 +3,6 @@
 /checkpoint
 /pretrained
 /logs
+/uie_pytorch/check_point
+/uie_pytorch/check_point_course
+/uie_pytorch/uie_base_pytorch
