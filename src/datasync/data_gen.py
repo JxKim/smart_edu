@@ -14,8 +14,8 @@ neo4j_writer = Neo4jWriter()
 
 sql="""
     select
-             chapter_name
-    from chapter_info
+             question_txt
+    from test_question_info
 """
 
 #将chapter——name写入文件中，后续做label_studio标注
@@ -26,14 +26,14 @@ print(chapter_name)
 vocab_cleaner=CharVocabCleaner(vocab_file=config.VOCAB_FILE)
 
 
-with open("chapter_name.txt", "w", encoding="utf-8") as f:
+with open("../models/question_name.txt", "w", encoding="utf-8") as f:
     for item in chapter_name:
-        lower_text = item['chapter_name'].lower()
+        lower_text = item['question_txt'].lower()
         cleaned_name=vocab_cleaner.clean_text(lower_text)
         f.write(cleaned_name + "\n")
 
 # 读取所有章节名
-with open("chapter_name.txt", "r", encoding="utf-8") as f:
+with open("../models/question_name.txt", "r", encoding="utf-8") as f:
     chapter_names = f.readlines()
 
 
@@ -42,6 +42,9 @@ sample_size = min(1000, len(chapter_names))
 random_sample = random.sample(chapter_names, sample_size)
 
 # 写入新文件
-with open("random_chapter_names.txt", "w", encoding="utf-8") as f:
+with open("../models/random_question_text.txt", "w", encoding="utf-8") as f:
     f.writelines(random_sample)
+
+
+
 

@@ -52,7 +52,6 @@ class Neo4jWriter:
         '''
         self.driver.execute_query(cypher,batch=properties)
 
-
 if __name__ == '__main__':
     mysql_reader=MySqlReader()
     sql="""

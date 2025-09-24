@@ -4,9 +4,10 @@ class CharVocabCleaner:
     适用于字符级模型（如 Char-RNN、部分中文模型等）。
     """
 
-    def __init__(self, vocab_file: str):
+    def __init__(self, vocab_file: str, to_lower: bool = True):
         """
         :param vocab_file: 词表文件路径，每行一个字符（或你允许保留的单元）
+        :param to_lower: 是否转换为小写
         """
         with open(vocab_file, "r", encoding="utf-8") as f:
             # 读取所有行，去掉换行，构建字符集合
@@ -15,6 +16,7 @@ class CharVocabCleaner:
                 char = line.strip()
                 if char:  # 忽略空行
                     self.vocab.add(char)
+        self.to_lower = to_lower
 
     def clean_text(self, text: str) -> str:
         """
@@ -25,6 +27,11 @@ class CharVocabCleaner:
         """
         if not isinstance(text, str):
             return ""
+
+        # 如果需要转换为小写，则先转换
+        if self.to_lower:
+            text = text.lower()
+
         return ''.join(char for char in text if char in self.vocab)
 
     def clean_batch(self, texts: list) -> list:
